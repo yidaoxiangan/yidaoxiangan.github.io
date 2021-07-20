@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/favicon.ico" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yidaoxiangan.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":true,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="Week6 Note Lecture 7: Synchronization(同步化) Synchronization of threads&#x2F;processes  Shared memory between processes  Race Condition: Understanding the problem  Race Condition Normal execution and Abnorma">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CS302 Operating System Week6 Note">
+<meta property="og:url" content="https://yidaoxiangan.com/blog/2021/03/28/CS302-Operating-System-Week6-Note/index.html">
+<meta property="og:site_name" content="异道相安的博客">
+<meta property="og:description" content="Week6 Note Lecture 7: Synchronization(同步化) Synchronization of threads&#x2F;processes  Shared memory between processes  Race Condition: Understanding the problem  Race Condition Normal execution and Abnorma">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://i.loli.net/2021/03/24/xcEWwND9iXTt3vI.png">
+<meta property="og:image" content="https://i.loli.net/2021/03/24/1glRmSyY3vZa8c9.png">
+<meta property="og:image" content="https://i.loli.net/2021/03/24/DknpK75zUjmO2qs.png">
+<meta property="og:image" content="https://i.loli.net/2021/03/24/8jwVHvCBN7cLOgz.png">
+<meta property="og:image" content="https://i.loli.net/2021/03/24/rLbBhEJoO9XFcA4.png">
+<meta property="og:image" content="https://i.loli.net/2021/03/24/8mCKLxFEWu1rjDe.png">
+<meta property="og:image" content="https://i.loli.net/2021/03/24/JQgnprTM2iUfHjW.png">
+<meta property="og:image" content="https://i.loli.net/2021/03/24/owDMSrLq2b7d1xR.png">
+<meta property="og:image" content="https://i.loli.net/2021/03/24/owDMSrLq2b7d1xR.png">
+<meta property="og:image" content="https://i.loli.net/2021/03/24/owDMSrLq2b7d1xR.png">
+<meta property="og:image" content="https://i.loli.net/2021/03/28/eaIoJ6hZdb1y3s7.png">
+<meta property="og:image" content="https://i.loli.net/2021/03/28/To7ZWs8tPN5wE1D.png">
+<meta property="og:image" content="https://i.loli.net/2021/03/28/9tAqI4ncQhRFZws.png">
+<meta property="og:image" content="https://i.loli.net/2021/03/28/qZatAYcrXoLPsku.png">
+<meta property="og:image" content="https://i.loli.net/2021/03/28/HAfyd2OZsBYUPXz.png">
+<meta property="og:image" content="https://i.loli.net/2021/03/28/e3UKz5mrBbPskNh.png">
+<meta property="og:image" content="https://i.loli.net/2021/03/28/1OaBtAv2zWcsypj.png">
+<meta property="og:image" content="https://i.loli.net/2021/03/28/9Iw3RXEQMTd25Bv.png">
+<meta property="og:image" content="https://i.loli.net/2021/03/28/mjQkK8JXYhfVN4W.png">
+<meta property="og:image" content="https://i.loli.net/2021/03/28/3NZxWLhpy6wR9vu.png">
+<meta property="og:image" content="https://i.loli.net/2021/03/28/fOb73mvoXn5lRyD.png">
+<meta property="og:image" content="https://i.loli.net/2021/03/28/X9xEkgviClG1jAR.png">
+<meta property="og:image" content="https://i.loli.net/2021/03/28/Zp4z2lWD6PixmnV.png">
+<meta property="og:image" content="https://i.loli.net/2021/03/28/olPw9tHSEF7efVj.png">
+<meta property="og:image" content="https://i.loli.net/2021/03/28/kAfUN9Q3rDmthC7.png">
+<meta property="og:image" content="https://i.loli.net/2021/03/28/KgXVexjTW6MNbp3.png">
+<meta property="og:image" content="https://i.loli.net/2021/03/28/qN73VYXQvMDIycg.png">
+<meta property="og:image" content="https://i.loli.net/2021/03/28/ylYsXotxbz3eUTm.png">
+<meta property="og:image" content="https://i.loli.net/2021/03/28/l9dPoXV7bC3gkIj.png">
+<meta property="og:image" content="https://i.loli.net/2021/03/28/T2LSgMi3jdu1mQI.png">
+<meta property="og:image" content="https://i.loli.net/2021/03/28/TwPMaklHRb172x8.png">
+<meta property="og:image" content="https://i.loli.net/2021/03/28/KbRpEYgs8DmxN4h.png">
+<meta property="og:image" content="https://i.loli.net/2021/03/28/VsaBJtQOTHoCpFk.png">
+<meta property="og:image" content="https://i.loli.net/2021/03/28/zgIHNJyjnD9LV3v.png">
+<meta property="og:image" content="https://i.loli.net/2021/03/28/9wURXOj5EA3Sm2y.png">
+<meta property="og:image" content="https://i.loli.net/2021/03/28/5VdJecotKTB92L7.png">
+<meta property="og:image" content="https://i.loli.net/2021/03/28/prULTuWw4boNB9Q.png">
+<meta property="og:image" content="https://i.loli.net/2021/03/28/mODMgBls7XdKeaY.png">
+<meta property="og:image" content="https://i.loli.net/2021/03/28/HN5EAoOLdexK7vl.png">
+<meta property="og:image" content="https://i.loli.net/2021/03/28/nBmdjZDJOev36bA.png">
+<meta property="og:image" content="https://i.loli.net/2021/03/28/MOpr4FjnVfBl6kC.png">
+<meta property="og:image" content="https://i.loli.net/2021/03/28/2HgierqPQCFj6XM.png">
+<meta property="article:published_time" content="2021-03-28T03:06:14.000Z">
+<meta property="article:modified_time" content="2021-07-16T16:19:29.094Z">
+<meta property="article:author" content="异道相安">
+<meta property="article:tag" content="Operating System">
+<meta property="article:tag" content="CS302">
+<meta property="article:tag" content="Race conditon">
+<meta property="article:tag" content="Mutual Exclusion">
+<meta property="article:tag" content="Dining philosopher">
+<meta property="article:tag" content="Producer-consumer problem">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2021/03/24/xcEWwND9iXTt3vI.png">
+
+<link rel="canonical" href="https://yidaoxiangan.com/blog/2021/03/28/CS302-Operating-System-Week6-Note/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>CS302 Operating System Week6 Note | 异道相安的博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">异道相安的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://yidaoxiangan.com/blog/2021/03/28/CS302-Operating-System-Week6-Note/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="异道相安">
+      <meta itemprop="description" content="不觉茫茫道路长">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="异道相安的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          CS302 Operating System Week6 Note
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-03-28 11:06:14" itemprop="dateCreated datePublished" datetime="2021-03-28T11:06:14+08:00">2021-03-28</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-07-17 00:19:29" itemprop="dateModified" datetime="2021-07-17T00:19:29+08:00">2021-07-17</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="week6-note">Week6 Note</h1>
+<h2 id="lecture-7-synchronization同步化">Lecture 7: Synchronization(同步化)</h2>
+<h2 id="synchronization-of-threadsprocesses">Synchronization of threads/processes</h2>
+<p><img src="https://i.loli.net/2021/03/24/xcEWwND9iXTt3vI.png" /></p>
+<h2 id="shared-memory-between-processes">Shared memory between processes</h2>
+<p><img src="https://i.loli.net/2021/03/24/1glRmSyY3vZa8c9.png" /></p>
+<h2 id="race-condition-understanding-the-problem">Race Condition: Understanding the problem</h2>
+<p><img src="https://i.loli.net/2021/03/24/DknpK75zUjmO2qs.png" /></p>
+<h2 id="race-condition">Race Condition</h2>
+<h3 id="normal-execution-and-abnormal-execution">Normal execution and Abnormal execution</h3>
+<p>Normal execution</p>
+<p><img src="https://i.loli.net/2021/03/24/8jwVHvCBN7cLOgz.png" /></p>
+<p>Abnormal execution</p>
+<p><img src="https://i.loli.net/2021/03/24/rLbBhEJoO9XFcA4.png" /></p>
+<ul>
+<li>The above scenario is called the race condition. May happen whenever <strong>shared object</strong> + <strong>multiple processes/threads</strong> + <strong>concurrently</strong></li>
+<li>A <strong>race condition</strong> means +the outcome of an execution depends on a particular order in which the shared resource is accessed.</li>
+<li>Remember: race condition is always a bad thing and debugging race condition is a nightmare!
+<ul>
+<li>It may end up …
+<ul>
+<li>99% of the executions are fine.</li>
+<li>1% of the executions are problematic.</li>
+</ul></li>
+</ul></li>
+</ul>
+<h2 id="mutual-exclusion-the-cure">Mutual Exclusion – the cure</h2>
+<p><img src="https://i.loli.net/2021/03/24/8mCKLxFEWu1rjDe.png" /></p>
+<h2 id="solution---mutual-exclusion">Solution - Mutual exclusion</h2>
+<ul>
+<li>Shared object is still sharable, but
+<ul>
+<li>Do not access the “shared object” <strong>at the same time</strong></li>
+<li>Access the “shared object” one by one</li>
+</ul></li>
+</ul>
+<h2 id="critical-section---the-realization">Critical Section - the realization</h2>
+<p><img src="https://i.loli.net/2021/03/24/JQgnprTM2iUfHjW.png" /></p>
+<ul>
+<li>Critical section is the code segment that is accessing the shared object</li>
+</ul>
+<h2 id="critical-section-cs-the-realization">Critical Section (CS) – the realization</h2>
+<p><img src="https://i.loli.net/2021/03/24/owDMSrLq2b7d1xR.png" /></p>
+<h2 id="a-typical-mutual-exclusion-scenario">A typical mutual exclusion scenario</h2>
+<p><img src="https://i.loli.net/2021/03/24/owDMSrLq2b7d1xR.png" /></p>
+<h2 id="a-typical-mutual-exclusion-scenario-1">A typical mutual exclusion scenario</h2>
+<p><img src="https://i.loli.net/2021/03/24/owDMSrLq2b7d1xR.png" /></p>
+<h2 id="summary">Summary</h2>
+<ul>
+<li>Race condition
+<ul>
+<li>Happens when programs accessing a shared object</li>
+<li>The outcome of the computation <strong>totally depends on the execution sequences</strong> of the processes involved</li>
+</ul></li>
+<li><strong>Mutual exclusion</strong> is a requirement
+<ul>
+<li>If it could be achieved, then the problem of the race condition would be gone.</li>
+</ul></li>
+<li><strong>A critical section</strong> is the code segment that access shared objects.
+<ul>
+<li>Critical section should be <strong>as tight as possible</strong>&gt;
+<ul>
+<li>Well, you can <strong>set the entire code of a program to be a big critical section</strong></li>
+<li>But, the program will have a very high chance to <strong>block other processes</strong> or to <strong>be blocked by other processes</strong></li>
+</ul></li>
+</ul></li>
+<li>Note that *one critical section<strong> can be designed for </strong>accessing more than one shared objects**.</li>
+<li><strong>Implementing section entry and exit</strong> is a challenge.
+<ul>
+<li>The entry and the exit are <strong>the core parts that guarantee mutual exclusion</strong></li>
+<li>Unless they are correctly implemented, race condition would appear.</li>
+</ul></li>
+<li>Mutual exclusion hinders(阻碍) the performance of parallel computations.</li>
+</ul>
+<h2 id="entry-and-exit-implementation---requirements">Entry and exit implementation - requirements</h2>
+<ul>
+<li>Requirement #1. Mutual Exclusion
+<ul>
+<li>No two processes could be simultaneously go inside their own critical sections.</li>
+</ul></li>
+<li>Requirement #2. Bounded Waiting
+<ul>
+<li>Once a process starts trying to enter her CS, there is a bound on the number of times other processes can enter theirs.</li>
+</ul></li>
+<li>Requirement #3. Progress
+<ul>
+<li>Say no process currently in C.S.</li>
+<li>One of the processes trying to enter will eventually get in.</li>
+</ul></li>
+</ul>
+<h2 id="disabling-interrupt-for-the-whole-cs">#0 – disabling interrupt for the whole CS</h2>
+<ul>
+<li>Aim
+<ul>
+<li>To <strong>disable context switching</strong> when the process is inside the critical section.</li>
+</ul></li>
+<li>Effect
+<ul>
+<li>When a process is in its critical section, no other processes could be able to run</li>
+</ul></li>
+<li>Correctness?
+<ul>
+<li>Uni-core: Correct but not permissible
+<ul>
+<li>at userspace: what if one writes a CS that loops infinitely and the other process(e.g., the shell) never gets the context switch back to kill it.</li>
+</ul></li>
+<li>Multi-core:Incorrect
+<ul>
+<li>If there is another core modifying the shared object in the memory(unless you disable interrupts on all cores)</li>
+</ul></li>
+</ul></li>
+</ul>
+<h2 id="achieving-mutual-exclusion">Achieving Mutual Exclusion</h2>
+<ul>
+<li>Lock-based
+<ul>
+<li>Use yet another shared objects: <strong>locks</strong>
+<ul>
+<li><strong>What about race condition on lock?</strong></li>
+<li>Atomic instructions: instructions that cannot be "interrupted"</li>
+</ul></li>
+<li>Spin-based lock
+<ul>
+<li>Process synchronization
+<ul>
+<li>Basic spinning using 1 shared variable</li>
+<li>Peterson's solution: Spin using 2 shared variables</li>
+</ul></li>
+<li>Thread synchronization
+<ul>
+<li><code>pthread_spin_lock</code></li>
+</ul></li>
+</ul></li>
+<li>Sleep-based lock
+<ul>
+<li>Process synchronization
+<ul>
+<li>POSIX semaphore(信号标，旗语)</li>
+</ul></li>
+<li>Thread synchronization
+<ul>
+<li><code>pthread_mutex_lock</code></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+<h2 id="basic-spin-lockbusy-waiting">#1: Basic Spin lock(busy waiting)</h2>
+<ul>
+<li>Idea.
+<ul>
+<li>Loop on <strong>another shared object</strong>, turn, to detect the status of other process</li>
+</ul></li>
+</ul>
+<p><img src="https://i.loli.net/2021/03/28/eaIoJ6hZdb1y3s7.png" /></p>
+<ul>
+<li>Correct
+<ul>
+<li>but it wastes CPU resources</li>
+<li>OK for short waiting
+<ul>
+<li>Especially these days we have multi-core
+<ul>
+<li>Will not block other irrelevant processes a lot</li>
+</ul></li>
+<li>OK when spin-time &lt; context-switch-overhead</li>
+</ul></li>
+</ul></li>
+<li>Impose a <strong>strict alternation(交替)</strong> other
+<ul>
+<li>SOmetimes you give me my turn but I'm not ready to enter CS yet
+<ul>
+<li>Then you have to wait long</li>
+</ul></li>
+</ul></li>
+</ul>
+<h2 id="basic-spin-lock-violates-progress">#1: Basic Spin lock violates progress</h2>
+<p><img src="https://i.loli.net/2021/03/28/To7ZWs8tPN5wE1D.png" /></p>
+<ul>
+<li>Consider the following sequence:
+<ul>
+<li>Process0 leaves cs(), set turn=1</li>
+<li>Process enter cs(), leaves cs()
+<ul>
+<li>set turn=0, work on <code>remainder_section_slow()</code></li>
+</ul></li>
+<li>Process 0 loops back and enter cs() again, leaves cs(), set turn=1</li>
+<li>Process 0 finishes its <code>remainder_section()</code>, go back to top of the loop
+<ul>
+<li>It can't enter its cs(), as turn=1</li>
+<li>That is process0 gets blocked, but Process 1 is outside its cs(), it is at its <code>remainder_section_slow()</code></li>
+</ul></li>
+</ul></li>
+</ul>
+<h2 id="spin-smarterby-petersons-solution">#2: Spin Smarter(by Peterson's solution)</h2>
+<ul>
+<li>Highlight:
+<ul>
+<li>Use one more extra shared object: <strong>interested</strong>
+<ul>
+<li>If I am not <strong>interested</strong>
+<ul>
+<li>I let you go</li>
+</ul></li>
+<li>If we are both <strong>interested</strong>
+<ul>
+<li>Takes turns</li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+<p><img src="https://i.loli.net/2021/03/28/9tAqI4ncQhRFZws.png" /></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> turn; <span class="comment">/* who is last enter cs */</span></span><br><span class="line"><span class="keyword">int</span> interested[<span class="number">2</span>] = &#123;FALSE,FALSE&#125;; <span class="comment">/* express interest to enter cs*/</span></span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">lock</span><span class="params">( <span class="keyword">int</span> process )</span> </span>&#123; <span class="comment">/* process is 0 or 1 */</span></span><br><span class="line">    <span class="keyword">int</span> other; <span class="comment">/* number of the other process */</span> </span><br><span class="line">    other = <span class="number">1</span>-process; <span class="comment">/* other is 1 or 0 */</span></span><br><span class="line">    interested[process] = TRUE; <span class="comment">/* express interest */</span></span><br><span class="line">    turn = other;</span><br><span class="line">    <span class="keyword">while</span> ( turn == other &amp;&amp; interested[other] == TRUE ) ; <span class="comment">/* busy waiting */</span></span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> <span class="function"><span class="keyword">void</span> <span class="title">unlock</span><span class="params">( <span class="keyword">int</span> process )</span> </span>&#123; <span class="comment">/* process: who is leaving */</span></span><br><span class="line"> interested[process] = FALSE; <span class="comment">/* I just left critical region */</span></span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.loli.net/2021/03/28/qZatAYcrXoLPsku.png" /></p>
+<h3 id="case-1">Case 1</h3>
+<p><img src="https://i.loli.net/2021/03/28/HAfyd2OZsBYUPXz.png" /></p>
+<h3 id="case-2">Case 2</h3>
+<p><img src="https://i.loli.net/2021/03/28/e3UKz5mrBbPskNh.png" /></p>
+<h2 id="spin-smarter-by-petersons-solution">Spin Smarter (by Peterson’s solution)</h2>
+<ul>
+<li>Busy waiting
+<ul>
+<li>shared variable <strong>turn</strong> for mutual exclusion</li>
+<li>shared variables <strong>interest</strong> to resolve strict alternation</li>
+</ul></li>
+<li>Peterson’s solution satisfies all three criteria! (Why?) &gt; “It satisfies the three essential criteria to solve the critical section problem, provided that changes to the variables turn, interest[0], and interest[1] propagate immediately and atomically.”---wikipedia</li>
+<li>Suffer from priority inversion problem
+<ul>
+<li><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Peterson&#39;s_algorithm">Does it work for &gt;2 processes?</a></li>
+</ul></li>
+</ul>
+<h2 id="petersons-solution-satisfies-three-criteria">Peterson’s solution satisfies three criteria</h2>
+<ul>
+<li>Mutual exclusion
+<ul>
+<li>interested[0] == interested[1] == true</li>
+<li>turn == 0 or turn == 1, not both</li>
+</ul></li>
+<li>Progress
+<ul>
+<li>If only P0 to enter critical section
+<ul>
+<li>interested[1] == false, thus P0 enters critical section</li>
+</ul></li>
+<li>If both P0 and P1 to enter critical section
+<ul>
+<li>interested[0] == interested[1] == true and (turn == 0 or turn == 1)</li>
+</ul></li>
+<li>One of P0 and P1 will be selected</li>
+</ul></li>
+<li>Bounded-waiting
+<ul>
+<li>If both P0 and P1 to enter critical section, and P1 selected first</li>
+<li>When P1 exit, interested[1] = false
+<ul>
+<li>If P0 runs fast: interested[1] == false, P0 enters critical section</li>
+<li>If P1 runs fast: interested[1] = true, but turn = 0, P0 enters critical section</li>
+</ul></li>
+</ul></li>
+</ul>
+<h2 id="peterson-spinlock-suffers-from-priority-inversion">Peterson spinlock suffers from Priority Inversion</h2>
+<ul>
+<li>Priority/Preemptive Scheduling (Linux, Windows… all OS..)
+<ul>
+<li>A low priority process L is inside the critical region, but …</li>
+<li>A high priority process H gets the CPU and wants to enter the critical region.
+<ul>
+<li>But H can not lock (because L has not unlock)</li>
+<li>So, H gets the CPU to do nothing but spinning</li>
+</ul></li>
+</ul></li>
+</ul>
+<p><img src="https://i.loli.net/2021/03/28/1OaBtAv2zWcsypj.png" /></p>
+<h2 id="sleep-based-lock-semaphore">#3: Sleep-based lock: Semaphore</h2>
+<ul>
+<li>Semaphore is just a struct, which includes
+<ul>
+<li>an integer that counts the # of resources available
+<ul>
+<li>Can do more than solving mutual exclusion</li>
+</ul></li>
+<li>a wait-list</li>
+</ul></li>
+<li>The trick is still the section entry/exit function implementation
+<ul>
+<li>Need to interact with scheduler (must involve kernel, e.g., syscall)</li>
+<li>Implement uninterruptable section entry/exit
+<ul>
+<li>Section entry/exit function are short
+<ul>
+<li>Compared with Implementation #0 (uninterruptable throughout the whole CS)</li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+<h2 id="semaphore-logical-view">Semaphore logical view</h2>
+<p><img src="https://i.loli.net/2021/03/28/9Iw3RXEQMTd25Bv.png" /></p>
+<p><img src="https://i.loli.net/2021/03/28/mjQkK8JXYhfVN4W.png" /></p>
+<p><img src="https://i.loli.net/2021/03/28/3NZxWLhpy6wR9vu.png" /></p>
+<p><img src="https://i.loli.net/2021/03/28/fOb73mvoXn5lRyD.png" /></p>
+<h2 id="using-semaphoreuser-level">Using Semaphore(User-level)</h2>
+<figure>
+<img src="https://i.loli.net/2021/03/28/X9xEkgviClG1jAR.png" alt="image.png" /><figcaption>image.png</figcaption>
+</figure>
+<h2 id="using-semaphore-beyond-mutual-exclusion">Using Semaphore beyond mutual exclusion</h2>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Problem</th>
+<th style="text-align: left;">Properties</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Producer-Consumer Problem</td>
+<td style="text-align: left;">Two classes of processes: producer and consumer;At least one producer and one consumer.[Single-Object Synchronization]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Dining Philosopher Problem</td>
+<td style="text-align: left;">They are all running the same program;At least two processes.[Multi-Object Synchronization]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Reader Writer Problem</td>
+<td style="text-align: left;">Multiple reads, 1 write</td>
+</tr>
+</tbody>
+</table>
+<h2 id="producer-consumer-problem-introduction">Producer-consumer problem – introduction</h2>
+<ul>
+<li>Also known as the <strong>bounded-buffer problem</strong>.</li>
+<li>Single-object synchronization</li>
+</ul>
+<p><img src="https://i.loli.net/2021/03/28/Zp4z2lWD6PixmnV.png" /></p>
+<p><img src="https://i.loli.net/2021/03/28/olPw9tHSEF7efVj.png" /></p>
+<h2 id="producer-consumer-problem-semaphore">Producer-consumer problem: semaphore</h2>
+<ul>
+<li>The problem can be divided into two sub-problems.
+<ul>
+<li>Mutual exclusion
+<ul>
+<li>The buffer is a shared object. <strong>MUtual exclusion</strong> is needed. Done by one <strong>binary semaphore</strong></li>
+</ul></li>
+<li>Synchronization.
+<ul>
+<li>Because the buffer’s size is bounded, coordination is needed. Done by two semaphores
+<ul>
+<li>Notify the producer to stop producing when the buffer is full
+<ul>
+<li>In other words, notify the producer to produce when the buffer is NOT full</li>
+</ul></li>
+<li>Notify the consumer to stop eating when the buffer is empty
+<ul>
+<li>In other words, notify the consumer to consume when the buffer is NOT empty</li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+<p><img src="https://i.loli.net/2021/03/28/kAfUN9Q3rDmthC7.png" /></p>
+<p><img src="https://i.loli.net/2021/03/28/KgXVexjTW6MNbp3.png" /></p>
+<h2 id="producer-consumer-problem-question-1">Producer-consumer problem – question #1</h2>
+<p><img src="https://i.loli.net/2021/03/28/qN73VYXQvMDIycg.png" /></p>
+<p><img src="https://i.loli.net/2021/03/28/ylYsXotxbz3eUTm.png" /></p>
+<h2 id="producer-consumer-problem-question-2">Producer-consumer problem – question #2</h2>
+<p><img src="https://i.loli.net/2021/03/28/l9dPoXV7bC3gkIj.png" /></p>
+<p><img src="https://i.loli.net/2021/03/28/T2LSgMi3jdu1mQI.png" /></p>
+<p><img src="https://i.loli.net/2021/03/28/TwPMaklHRb172x8.png" /></p>
+<ul>
+<li>This scenario is called a <strong>deadlock</strong>
+<ul>
+<li>Consumer waits for Producer’s mutex at line 6
+<ul>
+<li>i.e., it waits for Producer (line 9) to unlock the mutex</li>
+</ul></li>
+<li>Producer waits for Consumer’s avail at line 7
+<ul>
+<li>i.e., it waits for Consumer (line 9) to release avail</li>
+</ul></li>
+</ul></li>
+<li>Implication: careless implementation of the producer-consumer solution can be disastrous(灾难性的).</li>
+</ul>
+<h2 id="deadlock">Deadlock</h2>
+<h2 id="summary-on-producer-consumer-problem">Summary on producer-consumer problem</h2>
+<ul>
+<li>How to avoid race condition on the shared buffer?
+<ul>
+<li>E.g., Use a <strong>binary semaphore</strong></li>
+</ul></li>
+<li>How to achieve synchronization?
+<ul>
+<li>E.g., Use two semaphores: fill and avail</li>
+</ul></li>
+</ul>
+<h2 id="dining-philosopher-introduction">Dining philosopher – introduction</h2>
+<ul>
+<li>5 philosophers, 5 plates of spaghetti, and 5 chopsticks.</li>
+<li>The jobs of each philosopher are to <strong>think</strong> and to <strong>eat</strong> +They <strong>need exactly two chopsticks</strong> in order to eat the spaghetti.</li>
+<li>Question: how to construct a synchronization protocol such that they:
+<ul>
+<li>will not <strong>starve to death</strong>, and</li>
+<li>will not result in any <strong>deadlock scenarios</strong>?
+<ul>
+<li>A waits for B’s chopstick</li>
+<li>B waits for C’s chopstick</li>
+<li>C waits for A’s chopstick …</li>
+</ul></li>
+</ul></li>
+<li>It’s a multi-object synchronization problem</li>
+</ul>
+<h2 id="dining-philosopher---introduction">Dining philosopher - introduction</h2>
+<p><img src="https://i.loli.net/2021/03/28/KbRpEYgs8DmxN4h.png" /></p>
+<p><img src="https://i.loli.net/2021/03/28/VsaBJtQOTHoCpFk.png" /></p>
+<p><img src="https://i.loli.net/2021/03/28/zgIHNJyjnD9LV3v.png" /></p>
+<h2 id="dining-philosopher-requirement-1">Dining philosopher – requirement #1</h2>
+<ul>
+<li>Mutual exclusion
+<ul>
+<li>While you are eating, people cannot steal your chopstick</li>
+<li>Two persons cannot hold the same chopstick</li>
+</ul></li>
+<li>Let’s propose the following solution
+<ul>
+<li>When you are hungry, you have to check if anyone is using the chopsticks that you need.</li>
+<li>If yes, you wait</li>
+<li>If no, seize <strong>both chopsticks</strong></li>
+<li>After eating, put down both your chopsticks.</li>
+</ul></li>
+</ul>
+<h2 id="dining-philosopher-meeting-requirement-1">Dining philosopher – meeting requirement #1?</h2>
+<p><img src="https://i.loli.net/2021/03/28/9wURXOj5EA3Sm2y.png" /></p>
+<h2 id="dining-philosopher---deadlock">Dining philosopher - deadlock</h2>
+<p><img src="https://i.loli.net/2021/03/28/5VdJecotKTB92L7.png" /></p>
+<h2 id="dining-philosopher-requirement-2">Dining philosopher – requirement #2</h2>
+<ul>
+<li>Synchronization
+<ul>
+<li>Should avoid deadlock.</li>
+</ul></li>
+<li>How about the following suggestions:
+<ul>
+<li>First, a philosopher takes a chopstick.</li>
+<li>If a philosopher finds that she cannot take the second chopstick, then she should put it down.</li>
+<li>Then, the philosopher goes to sleep for a while.</li>
+<li>When wake up, she retries</li>
+<li>Loop until both chopsticks are seized.</li>
+</ul></li>
+</ul>
+<h2 id="dining-philosopher-meeting-requirement-2">Dining philosopher – meeting requirement #2?</h2>
+<p><img src="https://i.loli.net/2021/03/28/prULTuWw4boNB9Q.png" /></p>
+<h2 id="dining-philosopher-before-the-final-solution">Dining philosopher – before the final solution</h2>
+<ul>
+<li><p>Before we present the final solution, let us see what problems we have.</p></li>
+<li>Problems
+<ul>
+<li>Model each chopstick as a semaphore is intuitive, but may cause deadlock</li>
+<li>Using sleep() to avoid deadlock is effective, yet creating starvation.</li>
+</ul></li>
+</ul>
+<p><img src="https://i.loli.net/2021/03/28/mODMgBls7XdKeaY.png" /></p>
+<h2 id="dining-philosopher-the-final-solution">Dining philosopher – the final solution</h2>
+<p><img src="https://i.loli.net/2021/03/28/HN5EAoOLdexK7vl.png" /></p>
+<h2 id="dining-philosopher-hungry">Dining philosopher – Hungry</h2>
+<p><img src="https://i.loli.net/2021/03/28/nBmdjZDJOev36bA.png" /></p>
+<h2 id="dining-philosopher-finish-eating">Dining philosopher – Finish eating</h2>
+<p><img src="https://i.loli.net/2021/03/28/MOpr4FjnVfBl6kC.png" /></p>
+<h2 id="dining-philosopher-the-core">Dining philosopher – the core</h2>
+<ul>
+<li>5 philosophers -&gt; ideally how many chopsticks?</li>
+<li>how many chopsticks do we have now?</li>
+<li>Very common in today’s cloud computing multi-tenancy model</li>
+</ul>
+<h2 id="summary-on-ipc-problems">Summary on IPC problems</h2>
+<ul>
+<li>The problems have the following properties in common:
+<ul>
+<li>Multiple number of processes;</li>
+<li>Processes have to be synchronized in order to generate useful output;</li>
+<li>Each resource may be shared as well as limited, and there may be more than one shared processes.</li>
+</ul></li>
+<li>The synchronization algorithms have the following requirements in common:
+<ul>
+<li>Guarantee mutual exclusion;</li>
+<li>Uphold(维护) the correct synchronization among processes; and</li>
+<li>(must be) Deadlock-free.</li>
+</ul></li>
+</ul>
+<h2 id="heisenbugs">Heisenbugs</h2>
+<ul>
+<li>Jim Gray, 1998 ACM Turing Award winner, coined that term</li>
+<li>You find your program P has a concurrency bug</li>
+<li>You insert ‘printf’ statements or GDB to debug P</li>
+<li>Then because of those debugging things added, P behaves normally when you are in debug mode</li>
+</ul>
+<p><img src="https://i.loli.net/2021/03/28/2HgierqPQCFj6XM.png" /></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Operating-System/" rel="tag"># Operating System</a>
+              <a href="/tags/CS302/" rel="tag"># CS302</a>
+              <a href="/tags/Race-conditon/" rel="tag"># Race conditon</a>
+              <a href="/tags/Mutual-Exclusion/" rel="tag"># Mutual Exclusion</a>
+              <a href="/tags/Dining-philosopher/" rel="tag"># Dining philosopher</a>
+              <a href="/tags/Producer-consumer-problem/" rel="tag"># Producer-consumer problem</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/blog/2021/03/23/%E8%85%BE%E8%AE%AF%E5%90%8E%E5%8F%B0%E5%BC%80%E5%8F%91%E6%9A%91%E6%9C%9F%E5%AE%9E%E4%B9%A0%E9%9D%A2%E7%BB%8F-3%E6%9C%8822%E6%97%A5-hr%E9%9D%A2/" rel="prev" title="2021-03-23-腾讯后台开发暑期实习面经-3月22日-hr面">
+      <i class="fa fa-chevron-left"></i> 2021-03-23-腾讯后台开发暑期实习面经-3月22日-hr面
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/blog/2021/04/19/CS302-Operating-System-Week8-Note/" rel="next" title="CS302 Operating System Week8 Note">
+      CS302 Operating System Week8 Note <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#week6-note"><span class="nav-number">1.</span> <span class="nav-text">Week6 Note</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#lecture-7-synchronization%E5%90%8C%E6%AD%A5%E5%8C%96"><span class="nav-number">1.1.</span> <span class="nav-text">Lecture 7: Synchronization(同步化)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#synchronization-of-threadsprocesses"><span class="nav-number">1.2.</span> <span class="nav-text">Synchronization of threads&#x2F;processes</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#shared-memory-between-processes"><span class="nav-number">1.3.</span> <span class="nav-text">Shared memory between processes</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#race-condition-understanding-the-problem"><span class="nav-number">1.4.</span> <span class="nav-text">Race Condition: Understanding the problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#race-condition"><span class="nav-number">1.5.</span> <span class="nav-text">Race Condition</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#normal-execution-and-abnormal-execution"><span class="nav-number">1.5.1.</span> <span class="nav-text">Normal execution and Abnormal execution</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mutual-exclusion-the-cure"><span class="nav-number">1.6.</span> <span class="nav-text">Mutual Exclusion – the cure</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#solution---mutual-exclusion"><span class="nav-number">1.7.</span> <span class="nav-text">Solution - Mutual exclusion</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#critical-section---the-realization"><span class="nav-number">1.8.</span> <span class="nav-text">Critical Section - the realization</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#critical-section-cs-the-realization"><span class="nav-number">1.9.</span> <span class="nav-text">Critical Section (CS) – the realization</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#a-typical-mutual-exclusion-scenario"><span class="nav-number">1.10.</span> <span class="nav-text">A typical mutual exclusion scenario</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#a-typical-mutual-exclusion-scenario-1"><span class="nav-number">1.11.</span> <span class="nav-text">A typical mutual exclusion scenario</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#summary"><span class="nav-number">1.12.</span> <span class="nav-text">Summary</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#entry-and-exit-implementation---requirements"><span class="nav-number">1.13.</span> <span class="nav-text">Entry and exit implementation - requirements</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#disabling-interrupt-for-the-whole-cs"><span class="nav-number">1.14.</span> <span class="nav-text">#0 – disabling interrupt for the whole CS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#achieving-mutual-exclusion"><span class="nav-number">1.15.</span> <span class="nav-text">Achieving Mutual Exclusion</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#basic-spin-lockbusy-waiting"><span class="nav-number">1.16.</span> <span class="nav-text">#1: Basic Spin lock(busy waiting)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#basic-spin-lock-violates-progress"><span class="nav-number">1.17.</span> <span class="nav-text">#1: Basic Spin lock violates progress</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#spin-smarterby-petersons-solution"><span class="nav-number">1.18.</span> <span class="nav-text">#2: Spin Smarter(by Peterson&#39;s solution)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#case-1"><span class="nav-number">1.18.1.</span> <span class="nav-text">Case 1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#case-2"><span class="nav-number">1.18.2.</span> <span class="nav-text">Case 2</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#spin-smarter-by-petersons-solution"><span class="nav-number">1.19.</span> <span class="nav-text">Spin Smarter (by Peterson’s solution)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#petersons-solution-satisfies-three-criteria"><span class="nav-number">1.20.</span> <span class="nav-text">Peterson’s solution satisfies three criteria</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#peterson-spinlock-suffers-from-priority-inversion"><span class="nav-number">1.21.</span> <span class="nav-text">Peterson spinlock suffers from Priority Inversion</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sleep-based-lock-semaphore"><span class="nav-number">1.22.</span> <span class="nav-text">#3: Sleep-based lock: Semaphore</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#semaphore-logical-view"><span class="nav-number">1.23.</span> <span class="nav-text">Semaphore logical view</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#using-semaphoreuser-level"><span class="nav-number">1.24.</span> <span class="nav-text">Using Semaphore(User-level)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#using-semaphore-beyond-mutual-exclusion"><span class="nav-number">1.25.</span> <span class="nav-text">Using Semaphore beyond mutual exclusion</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#producer-consumer-problem-introduction"><span class="nav-number">1.26.</span> <span class="nav-text">Producer-consumer problem – introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#producer-consumer-problem-semaphore"><span class="nav-number">1.27.</span> <span class="nav-text">Producer-consumer problem: semaphore</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#producer-consumer-problem-question-1"><span class="nav-number">1.28.</span> <span class="nav-text">Producer-consumer problem – question #1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#producer-consumer-problem-question-2"><span class="nav-number">1.29.</span> <span class="nav-text">Producer-consumer problem – question #2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#deadlock"><span class="nav-number">1.30.</span> <span class="nav-text">Deadlock</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#summary-on-producer-consumer-problem"><span class="nav-number">1.31.</span> <span class="nav-text">Summary on producer-consumer problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dining-philosopher-introduction"><span class="nav-number">1.32.</span> <span class="nav-text">Dining philosopher – introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dining-philosopher---introduction"><span class="nav-number">1.33.</span> <span class="nav-text">Dining philosopher - introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dining-philosopher-requirement-1"><span class="nav-number">1.34.</span> <span class="nav-text">Dining philosopher – requirement #1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dining-philosopher-meeting-requirement-1"><span class="nav-number">1.35.</span> <span class="nav-text">Dining philosopher – meeting requirement #1?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dining-philosopher---deadlock"><span class="nav-number">1.36.</span> <span class="nav-text">Dining philosopher - deadlock</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dining-philosopher-requirement-2"><span class="nav-number">1.37.</span> <span class="nav-text">Dining philosopher – requirement #2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dining-philosopher-meeting-requirement-2"><span class="nav-number">1.38.</span> <span class="nav-text">Dining philosopher – meeting requirement #2?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dining-philosopher-before-the-final-solution"><span class="nav-number">1.39.</span> <span class="nav-text">Dining philosopher – before the final solution</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dining-philosopher-the-final-solution"><span class="nav-number">1.40.</span> <span class="nav-text">Dining philosopher – the final solution</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dining-philosopher-hungry"><span class="nav-number">1.41.</span> <span class="nav-text">Dining philosopher – Hungry</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dining-philosopher-finish-eating"><span class="nav-number">1.42.</span> <span class="nav-text">Dining philosopher – Finish eating</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dining-philosopher-the-core"><span class="nav-number">1.43.</span> <span class="nav-text">Dining philosopher – the core</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#summary-on-ipc-problems"><span class="nav-number">1.44.</span> <span class="nav-text">Summary on IPC problems</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#heisenbugs"><span class="nav-number">1.45.</span> <span class="nav-text">Heisenbugs</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">异道相安</p>
+  <div class="site-description" itemprop="description">不觉茫茫道路长</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">20</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  
+  
+  
+  
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

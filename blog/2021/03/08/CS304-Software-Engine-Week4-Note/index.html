@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/favicon.ico" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yidaoxiangan.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":true,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="Week4_note XP is an Iterative Process  Iteration &#x3D; two week cycle (1 - 3 weeks) Plan each iteration in an iteration meeting that is held at the start of the iteration Iteration is going to implement s">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CS304 Software Engineering Week4 Note">
+<meta property="og:url" content="https://yidaoxiangan.com/blog/2021/03/08/CS304-Software-Engine-Week4-Note/index.html">
+<meta property="og:site_name" content="异道相安的博客">
+<meta property="og:description" content="Week4_note XP is an Iterative Process  Iteration &#x3D; two week cycle (1 - 3 weeks) Plan each iteration in an iteration meeting that is held at the start of the iteration Iteration is going to implement s">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-03-08T08:16:23.000Z">
+<meta property="article:modified_time" content="2021-07-16T16:19:29.094Z">
+<meta property="article:author" content="异道相安">
+<meta property="article:tag" content="CS304">
+<meta property="article:tag" content="Software Engineering">
+<meta property="article:tag" content="Junit">
+<meta property="article:tag" content="Extreme Development (XP)">
+<meta property="article:tag" content="Test Driven Development(TDD)">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://yidaoxiangan.com/blog/2021/03/08/CS304-Software-Engine-Week4-Note/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>CS304 Software Engineering Week4 Note | 异道相安的博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">异道相安的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://yidaoxiangan.com/blog/2021/03/08/CS304-Software-Engine-Week4-Note/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="异道相安">
+      <meta itemprop="description" content="不觉茫茫道路长">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="异道相安的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          CS304 Software Engineering Week4 Note
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-03-08 16:16:23" itemprop="dateCreated datePublished" datetime="2021-03-08T16:16:23+08:00">2021-03-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-07-17 00:19:29" itemprop="dateModified" datetime="2021-07-17T00:19:29+08:00">2021-07-17</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="week4_note">Week4_note</h1>
+<h2 id="xp-is-an-iterative-process">XP is an Iterative Process</h2>
+<ul>
+<li>Iteration = two week cycle (1 - 3 weeks)</li>
+<li><strong>Plan</strong> each iteration in an iteration meeting that is held at the start of the iteration</li>
+<li>Iteration is going to implement set of <strong>user stories</strong></li>
+<li>Divide work into tasks small enough to finish in a day</li>
+<li>Each day, programmers work in pairs to finish task</li>
+</ul>
+<h2 id="what-are-user-stories">What are user stories</h2>
+<ul>
+<li>A user story represents
+<ul>
+<li>A <strong>feature customers</strong> want in the software</li>
+</ul></li>
+<li>A user story is the smallest amount of information (a step) necessary to allow the customer to define (and steer) a path through the system</li>
+<li>Written by customers(through communication with developers), and not by developers</li>
+<li>Typically written on index cards</li>
+</ul>
+<h2 id="writing-user-stories">Writing user stories</h2>
+<ul>
+<li>Material
+<ul>
+<li>A stack of blank index cards</li>
+<li>Pens or pencils</li>
+<li>Rubber bands</li>
+</ul></li>
+<li>Start with a goal of the system
+<ul>
+<li>e.g. "Applicant submits a loan application"</li>
+<li>Think about the step that the user takes as he/she does the activity</li>
+<li>Write no more than one step on each card</li>
+</ul></li>
+</ul>
+<h2 id="format-of-a-user-story">Format of a user story</h2>
+<ul>
+<li>Title: 2-3 words</li>
+<li>Acceptance test(unique identifier)</li>
+<li>Priority 1-2-3(1 most important)</li>
+<li>Story points(can mean #days of ideal development, i.e., no distractions or working on other things)</li>
+</ul>
+<h2 id="concepts">Concepts</h2>
+<ul>
+<li>Story point: unit of measure for expressing the overall size of a user story, feature, or other piece of work. The raw value of a story point is unimportant. What matters are the relative values.
+<ul>
+<li>Related to how hard it is and how much of it there is</li>
+<li><strong>Not</strong> related to amount of time or the number of people</li>
+<li>Unitless, but numerically-meaningful</li>
+</ul></li>
+<li>Ideal time: the amount of time "something" takes when stripped of all peripheral activities</li>
+<li>Elapsed time: the amount of time that passes on the clock to do "something"</li>
+<li>Velocity: measure of a team's rate of progress</li>
+</ul>
+<h2 id="priority">Priority</h2>
+<ul>
+<li>High</li>
+<li>Medium</li>
+<li>Low</li>
+</ul>
+<h2 id="estimating-story-points">Estimating story points</h2>
+<ul>
+<li>Choose a medium-size story and assign it a "5"</li>
+<li>Estimate other stories relative to that
+<ul>
+<li>Twice as big</li>
+<li>Half as big</li>
+<li>Almost but not quite as big</li>
+<li>A little bit bigger</li>
+</ul></li>
+<li>Only values:
+<ul>
+<li>0,1,2,3,5,8,13,20,40,100</li>
+</ul></li>
+</ul>
+<h2 id="estimating-ideal-days">Estimating ideal days</h2>
+<ul>
+<li>Ideal days vs. elapsed time in software development
+<ul>
+<li>Supporting current release</li>
+<li>sick time</li>
+<li>meetings</li>
+<li>demonstrations</li>
+<li>personal issue</li>
+<li>Phone call</li>
+</ul></li>
+<li>When estimating ideal days, assume:
+<ul>
+<li>The story being estimated is the only thing you'll work on</li>
+<li>Everything you need will be on hand when you start</li>
+<li>There will be no interruptions</li>
+</ul></li>
+</ul>
+<h2 id="ideal-days-vs.-story-points">Ideal Days vs. Story Points</h2>
+<ul>
+<li>Favoring story points:
+<ul>
+<li>Help drive cross-functional behavior</li>
+<li>Do not decay(change based on experience)</li>
+<li>Are a pure measure of size(focus on feature, not person)</li>
+<li>Estimation is typically faster in the long run</li>
+<li>My ideal days are not your ideal days(focus on person and their speed)</li>
+</ul></li>
+<li>Favoring ideal days;
+<ul>
+<li>Easier to explain outside of team</li>
+<li>Estimation is typically faster at first</li>
+</ul></li>
+</ul>
+<h2 id="deriving-an-estimate-for-a-user-story">Deriving an estimate for a user story</h2>
+<ul>
+<li>Expert opinion
+<ul>
+<li>Rely on gut feel based on (extensive) experience</li>
+<li>disadvantage for agile: need to consider all aspects of developing the user story, so one expert will likely not be enough</li>
+</ul></li>
+<li>Analogy
+<ul>
+<li>Relative to (several) other user stories</li>
+<li>Triangulation: little bigger than that "3" and a little smaller than that"8"</li>
+</ul></li>
+<li>Disaggregation
+<ul>
+<li>Break up into smaller, easier-to-estimate pieces/tasks.</li>
+<li>Need to make sure you don't miss any tasks</li>
+<li>Sanity check: does the sum of all the parts make sense?</li>
+<li>Planning poker
+<ul>
+<li>Combines expert opinion, analogy, disaggregation</li>
+</ul></li>
+</ul></li>
+</ul>
+<h2 id="velocity">Velocity</h2>
+<ul>
+<li>Velocity is a measure of a team's rate of progress</li>
+<li>Velocity is calculated by summing the number of story points assigned to each user story that the tea completed during the operation</li>
+<li>We assume that the team will produce in future iterations at the rate of their past average velocity
+<ul>
+<li>"Yesterdays weather"</li>
+</ul></li>
+</ul>
+<h2 id="prioritization">Prioritization</h2>
+<ul>
+<li>Driven by customer, in conjunction with developer</li>
+<li>Choose features to fill up velocity of iteration, based on:
+<ul>
+<li>Desirability of feature to a broad base of customers/users</li>
+<li>Desirability f feature to a small number of important customers/users</li>
+<li>The cohesiveness of the story in relation to other stories
+<ul>
+<li>Example:
+<ul>
+<li>"Zoom in" a high priority feature</li>
+<li>"Zoom out" not a high priority feature
+<ul>
+<li>But it becomes one relative to "Zoom in"</li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+<h2 id="planning-game">Planning game</h2>
+<ul>
+<li>Customer writes user stories</li>
+<li>Programmers estimate time to do each story</li>
+<li>If story is too big, customer splits it</li>
+<li>Customer chooses stories to match project velocity</li>
+<li>Project velocity is amount of work done in the previous iteration(s)</li>
+</ul>
+<h2 id="planning">Planning</h2>
+<ul>
+<li>Programmers only worry about one iteration at a time</li>
+<li>Customer can plan as many iterations as desired, but can change future iterations</li>
+</ul>
+<h2 id="simplicity">Simplicity</h2>
+<ul>
+<li>Add one feature(user story) at a time</li>
+<li>Don't worry about future stories</li>
+<li>Make program as simple as possible</li>
+<li>The simplest thing that could possibly work</li>
+</ul>
+<h2 id="need-educated-customer">Need Educated customer</h2>
+<h2 id="xp-works-best-when">XP works best when</h2>
+<ul>
+<li>Educated customer on site</li>
+<li>Small team</li>
+<li>People who like to talk</li>
+<li>All in one room(including customer)
+<ul>
+<li>These days the room can also be virtual</li>
+</ul></li>
+<li>Changing requirements</li>
+</ul>
+<h2 id="unit-tests-and-refactoring">Unit tests and refactoring</h2>
+<ul>
+<li>Because code is as simple as it can be, adding a enw feature tends to make it less simple</li>
+<li>To recover simplicity, you must refactor the code</li>
+<li>To refactor safely, yous should have a rigorous set of unit test</li>
+</ul>
+<h2 id="working-software">Working software</h2>
+<ul>
+<li>All software has automated(unit) test</li>
+<li>All test pass, all the time
+<ul>
+<li>Never check in broken code</li>
+</ul></li>
+<li>How to work on a task
+<ul>
+<li>Get latest version of the code. All tests pass</li>
+<li>Write test first. If fails</li>
+<li>Write code to make test pass. Now all tests pass</li>
+<li>Refactor(clean up)</li>
+<li>Check in your code</li>
+</ul></li>
+</ul>
+<h2 id="one-key-practice">One key practice</h2>
+<ul>
+<li>Write tests first, then write code</li>
+<li>various name
+<ul>
+<li>Test-first programming</li>
+<li>Test-driven development</li>
+</ul></li>
+<li>Is it testing or designing?</li>
+<li>Degree to which yous tick to if for MP?</li>
+</ul>
+<h2 id="why-test">Why test?</h2>
+<ul>
+<li>Improve quality - find bugs</li>
+<li>Measure quality
+<ul>
+<li>Prove there are no bugs?</li>
+<li>Determine if software is ready to be released</li>
+<li>Determine what to work on</li>
+<li>See if you made a mistake</li>
+</ul></li>
+<li>Learn the software</li>
+<li>Grade MPs</li>
+</ul>
+<h2 id="what-is-a-test">What is a Test?</h2>
+<ul>
+<li>Run program with known input(test inputs/data), check results (with test oracles)
+<ul>
+<li>Test pass (green) or fail(red)</li>
+</ul></li>
+<li>Tests can document faults</li>
+<li>Tests can document code</li>
+<li>Important terminology to remember:
+<ul>
+<li>Mistake, fault(or defect, or bug), failure, error</li>
+<li>Oracle</li>
+</ul></li>
+</ul>
+<h2 id="terminology-mistake-faultbug-failure-error">Terminology: Mistake, Fault/Bug, Failure, Error</h2>
+<ul>
+<li>Programmer makes a mistake</li>
+<li>Fault(defect, bug) appears in the program</li>
+<li>Program failure occurs during execution(program behaves unexpectedly)</li>
+<li>Error: difference between computed, observed, or measured value or condition and true, specified, or theoretically correct value or condition.</li>
+</ul>
+<h2 id="test-input-vs.-test-oracle">Test input vs. test oracle</h2>
+<h2 id="advanced-topics-in-junit">Advanced topics in junit</h2>
+<ul>
+<li>Assertion patterns</li>
+<li>Parameterized JUnit tests</li>
+<li>Junit theories</li>
+</ul>
+<h2 id="test-driven-developmenttdd">Test Driven Development(TDD)</h2>
+<ul>
+<li>One of the practices in XP</li>
+</ul>
+<h2 id="kent-becks-rules">Kent Beck's rules</h2>
+<ul>
+<li>Becks concept of test-driven development centers on two basic rules:
+<ul>
+<li>Never write a single line of code unless you have a failing automated test</li>
+<li>Eliminate duplication.</li>
+</ul></li>
+</ul>
+<h3 id="informal-requirements">Informal Requirements</h3>
+<p>If the maintenance contract number provided by the customer is not valid, the item follows the procedure for items not covered by warranty.</p>
+<h2 id="steps-in-test-driven-developmenttdd">Steps in Test Driven Development(TDD)</h2>
+<p>The iterative process</p>
+<ul>
+<li>Quickly add a test</li>
+<li>Run all tests and see the new one fail.</li>
+<li>Make a little change to code.</li>
+<li>Run all tests and see them all succeed.</li>
+<li>Refactor to remove duplication.</li>
+</ul>
+<h2 id="test-first-scenario">Test First Scenario</h2>
+<ul>
+<li>Write test for the newly
+<ul>
+<li>These test cases will serve as a specification for your implementation</li>
+<li>These test cases should fail now because the corresponding methods are not implement</li>
+<li>Write minimal code to make the test pas</li>
+<li>Add more tests</li>
+</ul></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/CS304/" rel="tag"># CS304</a>
+              <a href="/tags/Software-Engineering/" rel="tag"># Software Engineering</a>
+              <a href="/tags/Junit/" rel="tag"># Junit</a>
+              <a href="/tags/Extreme-Development-XP/" rel="tag"># Extreme Development (XP)</a>
+              <a href="/tags/Test-Driven-Development-TDD/" rel="tag"># Test Driven Development(TDD)</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/blog/2021/03/05/%E8%A5%BF%E6%96%B9%E5%93%B2%E5%AD%A6%E5%AF%BC%E8%AE%BA-week3-note/" rel="prev" title="西方哲学导论 Week3 Note">
+      <i class="fa fa-chevron-left"></i> 西方哲学导论 Week3 Note
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/blog/2021/03/11/2021%E8%85%BE%E8%AE%AF%E5%90%8E%E5%8F%B0%E5%BC%80%E5%8F%91%E6%9A%91%E6%9C%9F%E5%AE%9E%E4%B9%A0%E9%9D%A2%E7%BB%8F-3%E6%9C%8810%E6%97%A5/" rel="next" title="2021腾讯后台开发暑期实习面经 3月10日">
+      2021腾讯后台开发暑期实习面经 3月10日 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#week4_note"><span class="nav-number">1.</span> <span class="nav-text">Week4_note</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#xp-is-an-iterative-process"><span class="nav-number">1.1.</span> <span class="nav-text">XP is an Iterative Process</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#what-are-user-stories"><span class="nav-number">1.2.</span> <span class="nav-text">What are user stories</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#writing-user-stories"><span class="nav-number">1.3.</span> <span class="nav-text">Writing user stories</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#format-of-a-user-story"><span class="nav-number">1.4.</span> <span class="nav-text">Format of a user story</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#concepts"><span class="nav-number">1.5.</span> <span class="nav-text">Concepts</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#priority"><span class="nav-number">1.6.</span> <span class="nav-text">Priority</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#estimating-story-points"><span class="nav-number">1.7.</span> <span class="nav-text">Estimating story points</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#estimating-ideal-days"><span class="nav-number">1.8.</span> <span class="nav-text">Estimating ideal days</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ideal-days-vs.-story-points"><span class="nav-number">1.9.</span> <span class="nav-text">Ideal Days vs. Story Points</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#deriving-an-estimate-for-a-user-story"><span class="nav-number">1.10.</span> <span class="nav-text">Deriving an estimate for a user story</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#velocity"><span class="nav-number">1.11.</span> <span class="nav-text">Velocity</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#prioritization"><span class="nav-number">1.12.</span> <span class="nav-text">Prioritization</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#planning-game"><span class="nav-number">1.13.</span> <span class="nav-text">Planning game</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#planning"><span class="nav-number">1.14.</span> <span class="nav-text">Planning</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#simplicity"><span class="nav-number">1.15.</span> <span class="nav-text">Simplicity</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#need-educated-customer"><span class="nav-number">1.16.</span> <span class="nav-text">Need Educated customer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#xp-works-best-when"><span class="nav-number">1.17.</span> <span class="nav-text">XP works best when</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#unit-tests-and-refactoring"><span class="nav-number">1.18.</span> <span class="nav-text">Unit tests and refactoring</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#working-software"><span class="nav-number">1.19.</span> <span class="nav-text">Working software</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#one-key-practice"><span class="nav-number">1.20.</span> <span class="nav-text">One key practice</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#why-test"><span class="nav-number">1.21.</span> <span class="nav-text">Why test?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#what-is-a-test"><span class="nav-number">1.22.</span> <span class="nav-text">What is a Test?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#terminology-mistake-faultbug-failure-error"><span class="nav-number">1.23.</span> <span class="nav-text">Terminology: Mistake, Fault&#x2F;Bug, Failure, Error</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#test-input-vs.-test-oracle"><span class="nav-number">1.24.</span> <span class="nav-text">Test input vs. test oracle</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#advanced-topics-in-junit"><span class="nav-number">1.25.</span> <span class="nav-text">Advanced topics in junit</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#test-driven-developmenttdd"><span class="nav-number">1.26.</span> <span class="nav-text">Test Driven Development(TDD)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#kent-becks-rules"><span class="nav-number">1.27.</span> <span class="nav-text">Kent Beck&#39;s rules</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#informal-requirements"><span class="nav-number">1.27.1.</span> <span class="nav-text">Informal Requirements</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#steps-in-test-driven-developmenttdd"><span class="nav-number">1.28.</span> <span class="nav-text">Steps in Test Driven Development(TDD)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#test-first-scenario"><span class="nav-number">1.29.</span> <span class="nav-text">Test First Scenario</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">异道相安</p>
+  <div class="site-description" itemprop="description">不觉茫茫道路长</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">20</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  
+  
+  
+  
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

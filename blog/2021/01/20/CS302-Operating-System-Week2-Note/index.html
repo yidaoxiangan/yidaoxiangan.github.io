@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/favicon.ico" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yidaoxiangan.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":true,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="Process  A Process is an execution instance of a program  More than one process can execute the same program code   Process vs. program  A process has states concerning the execution.  Which line of c">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CS302 Operating System Week2 Note">
+<meta property="og:url" content="https://yidaoxiangan.com/blog/2021/01/20/CS302-Operating-System-Week2-Note/index.html">
+<meta property="og:site_name" content="异道相安的博客">
+<meta property="og:description" content="Process  A Process is an execution instance of a program  More than one process can execute the same program code   Process vs. program  A process has states concerning the execution.  Which line of c">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-01-20T04:28:09.000Z">
+<meta property="article:modified_time" content="2021-07-16T16:19:29.094Z">
+<meta property="article:author" content="异道相安">
+<meta property="article:tag" content="Operating System">
+<meta property="article:tag" content="CS302">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://yidaoxiangan.com/blog/2021/01/20/CS302-Operating-System-Week2-Note/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>CS302 Operating System Week2 Note | 异道相安的博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">异道相安的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://yidaoxiangan.com/blog/2021/01/20/CS302-Operating-System-Week2-Note/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="异道相安">
+      <meta itemprop="description" content="不觉茫茫道路长">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="异道相安的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          CS302 Operating System Week2 Note
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-01-20 12:28:09" itemprop="dateCreated datePublished" datetime="2021-01-20T12:28:09+08:00">2021-01-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-07-17 00:19:29" itemprop="dateModified" datetime="2021-07-17T00:19:29+08:00">2021-07-17</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="process">Process</h2>
+<ul>
+<li>A Process is an <strong>execution instance</strong> of a program
+<ul>
+<li>More than one process can execute the same program code</li>
+</ul></li>
+</ul>
+<h2 id="process-vs.-program">Process vs. program</h2>
+<ul>
+<li>A process has <em>states</em> concerning the execution.
+<ul>
+<li>Which line of codes it is running</li>
+<li>How much time left before returning the CPU to others</li>
+</ul></li>
+<li>Linux commands about processes
+<ul>
+<li>ps: "process status", it can report a vast amount of information about every process in the system.</li>
+<li>top: allows users to monitor processes and system resource usage on Linux</li>
+</ul></li>
+</ul>
+<h2 id="what-is-a-shell">What is a Shell?</h2>
+<ul>
+<li>A shell is a program, open a "terminal", actually launches a "shell" process
+<ul>
+<li>Bash in linux</li>
+</ul></li>
+<li>Written in C
+<ul>
+<li>use getchar() to get your command "ps"</li>
+<li>syntax checking</li>
+<li>invoke a function <code>fork()</code> (a system call) to create a new process
+<ul>
+<li>i.e., becoming a child process of the shell</li>
+</ul></li>
+<li>Ask the child process to <code>exec()</code> the program "ps"</li>
+</ul></li>
+</ul>
+<h2 id="process-hierarchy">Process hierarchy</h2>
+<ul>
+<li>Process relationship
+<ul>
+<li>A parent process will have its child processes</li>
+<li>Also, a child process will have its child processes</li>
+<li>This forms a <em>tree hierarchy</em></li>
+</ul></li>
+</ul>
+<h2 id="system-call">System call</h2>
+<ul>
+<li>a function call</li>
+<li>exposed by the <strong>kernel</strong></li>
+<li>abstract away most low-level details</li>
+<li>Categorizing system calls
+<ul>
+<li>Process, File system, Memory, Security, Device</li>
+</ul></li>
+<li>How can we know if a "function' is a system under linux
+<ul>
+<li>Read the man page "syscalls" under linux</li>
+</ul></li>
+</ul>
+<h2 id="system-calls-vs-library-function-call">System calls VS Library function call</h2>
+<ul>
+<li>Library functions are usually compiled and packed inside an object called the <strong>library file</strong>
+<ul>
+<li>In Windows: .DLL - dynamically linked library</li>
+<li>In Linux: .So - shared objects</li>
+</ul></li>
+</ul>
+<h2 id="what-will-we-learn-about-process">What will we learn about Process</h2>
+<ul>
+<li>System calls
+<ul>
+<li>Hoa to program a simple, bare-bone shell?</li>
+</ul></li>
+<li>Lifecycle and Scheduling
+<ul>
+<li>How to create processes?</li>
+<li>How to handle the death of the processes</li>
+<li>Which process shall get the core next?</li>
+</ul></li>
+<li>Signals
+<ul>
+<li>How to suspend a process</li>
+</ul></li>
+<li>Synchronization</li>
+</ul>
+<h2 id="the-memory-of-a-process">The Memory of a Process</h2>
+<h2 id="memory">Memory</h2>
+<ul>
+<li>Virtual memory
+<ul>
+<li>Your process virtually owns all your machine's RAM</li>
+</ul></li>
+<li>Memory-related functions
+<ul>
+<li>E.g., how to write "malloc()"</li>
+</ul></li>
+</ul>
+<h2 id="file-system">File System</h2>
+<ul>
+<li>Each disk can have multiple FSs</li>
+<li>An OS may understand different FSs</li>
+</ul>
+<h1 id="os_l02_fundamental">OS_L02_fundamental</h1>
+<h2 id="four-components-of-a-computer-system">Four Components of a Computer System</h2>
+<ul>
+<li>computer hardware</li>
+<li>operating system</li>
+<li>system and application programs</li>
+<li>user(human being or program)</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Operating-System/" rel="tag"># Operating System</a>
+              <a href="/tags/CS302/" rel="tag"># CS302</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/blog/2021/01/13/CS302-Operating-System-Week1-Note/" rel="prev" title="CS302 Operating System Week1 Note">
+      <i class="fa fa-chevron-left"></i> CS302 Operating System Week1 Note
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/blog/2021/03/05/%E8%A5%BF%E6%96%B9%E5%93%B2%E5%AD%A6%E5%AF%BC%E8%AE%BA-week3-note/" rel="next" title="西方哲学导论 Week3 Note">
+      西方哲学导论 Week3 Note <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#process"><span class="nav-number">1.</span> <span class="nav-text">Process</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#process-vs.-program"><span class="nav-number">2.</span> <span class="nav-text">Process vs. program</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#what-is-a-shell"><span class="nav-number">3.</span> <span class="nav-text">What is a Shell?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#process-hierarchy"><span class="nav-number">4.</span> <span class="nav-text">Process hierarchy</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#system-call"><span class="nav-number">5.</span> <span class="nav-text">System call</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#system-calls-vs-library-function-call"><span class="nav-number">6.</span> <span class="nav-text">System calls VS Library function call</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#what-will-we-learn-about-process"><span class="nav-number">7.</span> <span class="nav-text">What will we learn about Process</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#the-memory-of-a-process"><span class="nav-number">8.</span> <span class="nav-text">The Memory of a Process</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#memory"><span class="nav-number">9.</span> <span class="nav-text">Memory</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#file-system"><span class="nav-number">10.</span> <span class="nav-text">File System</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#os_l02_fundamental"><span class="nav-number"></span> <span class="nav-text">OS_L02_fundamental</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#four-components-of-a-computer-system"><span class="nav-number">1.</span> <span class="nav-text">Four Components of a Computer System</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">异道相安</p>
+  <div class="site-description" itemprop="description">不觉茫茫道路长</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">20</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  
+  
+  
+  
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

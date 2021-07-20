@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/favicon.ico" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yidaoxiangan.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":true,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="Lecture 2 Fundamental OS Concepts Our roadmap  Computer organization revision Kernel data structures in OS OS history Four fundamental OS concepts  Thread Address space(with translation) Process Dual">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CS302 Operating System Week3 Note">
+<meta property="og:url" content="https://yidaoxiangan.com/blog/2021/03/12/CS302-Operating-System-Week3-Note/index.html">
+<meta property="og:site_name" content="异道相安的博客">
+<meta property="og:description" content="Lecture 2 Fundamental OS Concepts Our roadmap  Computer organization revision Kernel data structures in OS OS history Four fundamental OS concepts  Thread Address space(with translation) Process Dual">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-03-12T10:16:40.000Z">
+<meta property="article:modified_time" content="2021-07-16T16:19:29.094Z">
+<meta property="article:author" content="异道相安">
+<meta property="article:tag" content="Operating System">
+<meta property="article:tag" content="CS302">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://yidaoxiangan.com/blog/2021/03/12/CS302-Operating-System-Week3-Note/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>CS302 Operating System Week3 Note | 异道相安的博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">异道相安的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://yidaoxiangan.com/blog/2021/03/12/CS302-Operating-System-Week3-Note/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="异道相安">
+      <meta itemprop="description" content="不觉茫茫道路长">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="异道相安的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          CS302 Operating System Week3 Note
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-03-12 18:16:40" itemprop="dateCreated datePublished" datetime="2021-03-12T18:16:40+08:00">2021-03-12</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-07-17 00:19:29" itemprop="dateModified" datetime="2021-07-17T00:19:29+08:00">2021-07-17</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="lecture-2-fundamental-os-concepts">Lecture 2 Fundamental OS Concepts</h1>
+<h2 id="our-roadmap">Our roadmap</h2>
+<ul>
+<li>Computer organization revision</li>
+<li>Kernel data structures in OS</li>
+<li>OS history</li>
+<li>Four fundamental OS concepts
+<ul>
+<li>Thread</li>
+<li>Address space(with translation)</li>
+<li>Process</li>
+<li>Dual mode operation/ protection</li>
+</ul></li>
+</ul>
+<h2 id="four-components-of-a-computer-system">Four Components of a computer system</h2>
+<ul>
+<li>Computer hardware</li>
+<li>Operating system</li>
+<li>system and application programs</li>
+<li>user</li>
+</ul>
+<h2 id="computer-system-organization">Computer System Organization</h2>
+<ul>
+<li>Computer-system operation
+<ul>
+<li>One or more CPUs, device controllers connect through common bus providing access to shared memory</li>
+<li>Concurrent execution of CPUs and devices competing for memory cycles</li>
+</ul></li>
+</ul>
+<h2 id="kernel-data-structures">Kernel Data Structures</h2>
+<ul>
+<li>Many similar to standard programming data structures
+<ul>
+<li>Singly linked list</li>
+<li>Doubly linked list</li>
+<li>Circular linked list</li>
+</ul></li>
+<li>Binary search tree left &lt;= right
+<ul>
+<li>Search performance is O(n)</li>
+<li>Balanced binary search tree is O(lgn)</li>
+</ul></li>
+<li>Hash function can create a hash map</li>
+<li>Bitmap - string of n binary digits representing the status of n items</li>
+<li>Linux data structures defined in include files &lt;linux/list.h&gt;,&lt;linux/kfifo.h&gt;,&lt;linux/rbtree.h&gt;</li>
+</ul>
+<h2 id="four-fundamental-os-concepts">Four Fundamental OS Concepts</h2>
+<ul>
+<li>Thread
+<ul>
+<li>Single unique execution context: fully describes program state</li>
+<li>Program Counter, Register, Execution Flags, Stack</li>
+</ul></li>
+<li>Address space(with translation)
+<ul>
+<li>Programs execute in an <strong>address space</strong> that is distinct from the memory space of the physical machine</li>
+</ul></li>
+<li>Process
+<ul>
+<li>An instance of an executing program is "a progress consisting of an address and one or more threads of control"</li>
+</ul></li>
+<li>Dual mode operation / Protection
+<ul>
+<li>Only the "system" has the ability to access certain resources</li>
+<li>The OS and the hardware are protected from user programs and user programs are isolated from one another by "controlling the translation" from program virtual addresses to machine physical addresses.</li>
+</ul></li>
+</ul>
+<h2 id="os-bottom-line-run-programs">OS Bottom Line: Run Programs</h2>
+<ul>
+<li>Load instruction and data segments of executable file into memory</li>
+<li>Create stack andd heap</li>
+<li>Transfer control to program</li>
+<li>Provide services to program</li>
+<li>While protecting OS and program</li>
+</ul>
+<h2 id="first-os-concept-thread-of-control">First OS Concept: Thread of Control</h2>
+<ul>
+<li>Certain registers hold the <strong>context</strong> of thread
+<ul>
+<li>Stack pointer holds the address of the top of stack
+<ul>
+<li>Other conventions: Frame pointer, Heap pointer, Data</li>
+</ul></li>
+<li>May be defined by the instruction set architecture or by compiler conventions</li>
+</ul></li>
+<li>Thread; Single unique execution context
+<ul>
+<li>Program Counter, Register, Execution Flag, Stack</li>
+</ul></li>
+<li>A thread is executing on a processor when it is resident in the processor registers</li>
+<li>PC register holds the address of executing instruction in the thread</li>
+<li>Registers hold the root state fo the tread
+<ul>
+<li>The rest is "in memory"</li>
+</ul></li>
+</ul>
+<h2 id="second-os-concept-programs-address-space">Second OS Concept: Program's address space</h2>
+<ul>
+<li>Address space: the set of accessible addresses + state associated with them</li>
+<li>For a 32-bit processor there are 2^32 = 4 billion address</li>
+<li>What happens when you read or write to an address?
+<ul>
+<li>Perhaps nothing</li>
+<li>Perhaps acs like regular memory</li>
+<li>Perhaps ignore writes</li>
+<li>Perhaps causes I/O operation</li>
+<li>Perhaps causes exception(fault)</li>
+</ul></li>
+</ul>
+<h2 id="multiprogramming---multiple-threads-of-control">Multiprogramming - Multiple Threads of Control</h2>
+<h2 id="how-can-we-give-the-illusion-of-multiple-processors">How can we give the illusion of multiple processors?</h2>
+<ul>
+<li>Assume a single processor: How do we provide the illusion of multiple processors?
+<ul>
+<li>Multiplex in time!</li>
+</ul></li>
+<li>Each virtual "CPU" needs a structure to hold:
+<ul>
+<li>Program Counter(PC), Stack Pointer(SP)</li>
+<li>Registers(Integer, Floating point, others)</li>
+</ul></li>
+<li>How switch from one virtual CPU to the next
+<ul>
+<li>Save PC, SP, and registers in current state block</li>
+<li>Load PC, SP, and registers from new state block</li>
+</ul></li>
+<li>what triggers switch?
+<ul>
+<li>Timer, voluntary yield, I/O, other things</li>
+</ul></li>
+</ul>
+<h2 id="the-basic-problem-of-concurrency">The Basic Problem of Concurrency</h2>
+<ul>
+<li>The basic problem of concurrency involves resources:
+<ul>
+<li>Hardware: single CPU, single DRAM, single I/O devices</li>
+<li>Multiprogramming API: processes think they have exclusive(独属的 ) access to shared resources</li>
+</ul></li>
+<li>OS has to coordinate all activities
+<ul>
+<li>Multiple processes, I/O interrupts, ...</li>
+<li>How can it keep all these things straight?</li>
+</ul></li>
+<li>Basic Idea: Use Virtual Machine abstraction
+<ul>
+<li>Simple machine abstraction for processes</li>
+<li>Multiplex these abstract machine</li>
+</ul></li>
+<li>Dra did this for "THE system"
+<ul>
+<li>Few thousand lines vs 1 million lines in OS 360(1K bugs)</li>
+</ul></li>
+</ul>
+<h2 id="properties-of-this-simple-multiprogramming-technique">Properties of this simple multiprogramming technique</h2>
+<ul>
+<li>All virtual CPUs share same non-CPU resources
+<ul>
+<li>I/O devices the same</li>
+<li>Memory the same</li>
+</ul></li>
+<li>Consequence of sharing:
+<ul>
+<li>Each thread can access the data of every other thread(good for sharing, bad for protection)</li>
+<li>Threads can share instructions(good for sharing, bad for protection)</li>
+<li>Can threads overwrite OS functions?</li>
+</ul></li>
+<li>This (unprotected) model is common in:
+<ul>
+<li>Embedded application</li>
+<li>Windows 3.1 / Early Macintosh(switch only with yield)</li>
+<li>windows 95 - ME(switch with both yield and timer)</li>
+</ul></li>
+</ul>
+<h2 id="protection">Protection</h2>
+<ul>
+<li>Operating System must protect itself from user programs
+<ul>
+<li>Reliability: compromising the operating system generally causes it to crash</li>
+<li>Security: limit the scope of what processes can do</li>
+<li>Privacy: limit each process to the data it is permitted to access</li>
+<li>Fairness: each should be limited to its appropriate share of system resources(CPU time, memory, I/O, etc)</li>
+</ul></li>
+<li>It must protect User programs from one another</li>
+<li>Primary Mechanism: limit the translation from program address space to physical memory space
+<ul>
+<li>Can only touch what is mapped into process "address space"</li>
+</ul></li>
+<li>Additional Mechanisms:
+<ul>
+<li>Privileged instructions, in/out instructions, special register</li>
+<li>syscall processing, subsystem implementation
+<ul>
+<li>e.g., file access rights, etc</li>
+</ul></li>
+</ul></li>
+</ul>
+<h2 id="third-os-concept-process">Third OS Concept: Process</h2>
+<ul>
+<li>Process: execution environment with Restricted Rights
+<ul>
+<li>Address Space with One or More Threads</li>
+<li>Owns memory(address space)</li>
+<li>Owns file descriptors, file system context, ...</li>
+<li>Encapsulate one or more threads sharing process resources</li>
+</ul></li>
+<li>Why processes?
+<ul>
+<li>Protected from each other!</li>
+<li>OS Protected from them</li>
+<li>Processes provides memory protection</li>
+<li>Threads more efficient than processes(later)</li>
+</ul></li>
+<li>Fundamental tradeoff between protection andd efficiency
+<ul>
+<li>Communication easier within a process</li>
+<li>Communication harder between processes</li>
+</ul></li>
+<li>Application instance consists of one or more processes</li>
+</ul>
+<h2 id="single-and-multithreaded-processes">Single and Multithreaded Processes</h2>
+<ul>
+<li>Threads encapsulate concurrency:"Active" component</li>
+<li>Address spaces encapsulate protection: "Passive" part
+<ul>
+<li>Keeps buggy program from trashing the system</li>
+</ul></li>
+<li>Why have multiple threads per address space?</li>
+</ul>
+<h2 id="fourth-os-concept-dual-mode-operation">FOurth OS Concept: Dual Mode Operation</h2>
+<ul>
+<li>Hardware provides at least two modes:
+<ul>
+<li>"Kernel" mode(or "supervisor" or "protected")</li>
+<li>"User" mode: Normal programs executed</li>
+</ul></li>
+<li>What is needed in the hardware to support "dual mode" operation?
+<ul>
+<li>A bit of state (user/system mode bit)</li>
+<li>Certain operations/ actions only permitted in system/kernel mode</li>
+<li>Certain operations / actions only permitted in system/kernel mode
+<ul>
+<li>In user mode they fail or trap</li>
+</ul></li>
+</ul></li>
+<li>User -&gt; Kernel transition sets system mode AND saves the user PC
+<ul>
+<li>Operating system code carefully puts aside user state then performs the necessary operations</li>
+</ul></li>
+<li>Kernel -&gt; User transition clears system mode AND restores appropriate user PC
+<ul>
+<li>return-from-interrupt</li>
+</ul></li>
+</ul>
+<h2 id="unix-system-structure">Unix System Structure</h2>
+<ul>
+<li>User Mode
+<ul>
+<li>Applications</li>
+<li>Standard Libs :
+<ul>
+<li>shells and commands</li>
+<li>compilers and interpreters</li>
+<li>system libraries</li>
+</ul></li>
+</ul></li>
+<li>Kernel Mode
+<ul>
+<li>system-call interface to the kernel</li>
+<li>signals terminal handling</li>
+<li>character I/O system</li>
+<li>terminal drivers</li>
+<li>file system</li>
+<li>swapping block I/O system</li>
+<li>disk adn tape drivers</li>
+<li>CPU scheduling</li>
+<li>page replacement</li>
+<li>demand paging</li>
+<li>virtual memory</li>
+<li>kernel interface to the hardware</li>
+</ul></li>
+<li>Hardware
+<ul>
+<li>terminal controllers</li>
+<li>terminals</li>
+<li>device controllers</li>
+<li>disks and tapes</li>
+<li>memory controllers</li>
+<li>physical memory</li>
+</ul></li>
+</ul>
+<h2 id="simple-protection-base-and-boundbb">Simple Protection: Base and bound(B&amp;B)</h2>
+<ul>
+<li>Requires relocating loader</li>
+<li>Still protects OS and isolates program</li>
+<li>No addition on address path</li>
+</ul>
+<h2 id="another-idea-address-space-translation">Another idea: Address Space Translation</h2>
+<ul>
+<li>Program operates in an address space that isn distinct from the physical memory space of the machine</li>
+</ul>
+<h2 id="a-simple-address-translation-with-base-and-bound">A simple address translation with Base and Bound</h2>
+<ul>
+<li>Can the program touch OS?</li>
+<li>Can it touch other programs?</li>
+</ul>
+<h2 id="tying-it-together-simple-bb-os-loads-process">Tying it together: Simple B&amp;B: OS loads process</h2>
+<h2 id="simple-bb-os-gets-ready-to-execute-process">Simple B&amp;B: OS gets ready to execute process</h2>
+<ul>
+<li>Privileged Inst: set special registers</li>
+<li>RTU</li>
+</ul>
+<h2 id="simple-bb-user-code-running">Simple B&amp;B: User Code Running</h2>
+<h2 id="types-of-mode-transfer">3 types of Mode Transfer</h2>
+<ul>
+<li>Syscall
+<ul>
+<li>Process requests a system service, e.g., exit</li>
+<li>Like a function call, but "outside" the process</li>
+<li>Does not have the address of the system function to call</li>
+<li>Like a Remote Procedure Call(RPC) - for later</li>
+<li>Marshall the syscall id and args in registers and exec syscall</li>
+</ul></li>
+<li>Interrupt
+<ul>
+<li>External asynchronous event triggers context switch</li>
+<li>e.g., Timer, I/O device</li>
+<li>Independent of user process</li>
+</ul></li>
+<li>Trap or Exception
+<ul>
+<li>Internal synchronous event in process triggers context switch</li>
+<li>el.g., Protection violation(segmentation fault), Divide by zero,...</li>
+</ul></li>
+<li>All 3 are UNPROGRAMMED CONTROL TRANSFER
+<ul>
+<li>Where does it go?</li>
+</ul></li>
+</ul>
+<h2 id="how-do-we-get-the-system-target-address-of-the-unprogrammed-control-transfer">How do we get the system target address of the "unprogrammed control transfer?"</h2>
+<h2 id="interrupt-vector">Interrupt Vector</h2>
+<ul>
+<li>Address and properties of each interrupt handler</li>
+</ul>
+<h2 id="simple-bb-user-kernel">Simple B&amp;B: User =&gt; Kernel</h2>
+<ul>
+<li>How to return to system?j</li>
+</ul>
+<h2 id="simple-bb-interrupt">Simple B&amp;B: Interrupt</h2>
+<ul>
+<li>How to save registers and set up system stack?</li>
+</ul>
+<h2 id="simple-bb-switch-user-process">Simple B&amp;B: Switch User Process</h2>
+<h2 id="simple-bb-resume">Simple B&amp;B: "resume"</h2>
+<h2 id="dual-mode-operation">Dual Mode Operation</h2>
+<h2 id="conclusion-four-fundamental-os-concepts">Conclusion: Four fundamental OS concepts</h2>
+<ul>
+<li>Thread</li>
+<li>Address Space with Translation</li>
+<li>Process</li>
+<li>Dual Mode operation/Protection</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Operating-System/" rel="tag"># Operating System</a>
+              <a href="/tags/CS302/" rel="tag"># CS302</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/blog/2021/03/12/%E8%A5%BF%E6%96%B9%E5%93%B2%E5%AD%A6%E5%AF%BC%E8%AE%BA-Week4-Note/" rel="prev" title="西方哲学导论 Week4 Note">
+      <i class="fa fa-chevron-left"></i> 西方哲学导论 Week4 Note
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/blog/2021/03/13/CS302-Operating-System-Week4-Note/" rel="next" title="CS302 Operating System Week4 Note">
+      CS302 Operating System Week4 Note <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#lecture-2-fundamental-os-concepts"><span class="nav-number">1.</span> <span class="nav-text">Lecture 2 Fundamental OS Concepts</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#our-roadmap"><span class="nav-number">1.1.</span> <span class="nav-text">Our roadmap</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#four-components-of-a-computer-system"><span class="nav-number">1.2.</span> <span class="nav-text">Four Components of a computer system</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#computer-system-organization"><span class="nav-number">1.3.</span> <span class="nav-text">Computer System Organization</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#kernel-data-structures"><span class="nav-number">1.4.</span> <span class="nav-text">Kernel Data Structures</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#four-fundamental-os-concepts"><span class="nav-number">1.5.</span> <span class="nav-text">Four Fundamental OS Concepts</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#os-bottom-line-run-programs"><span class="nav-number">1.6.</span> <span class="nav-text">OS Bottom Line: Run Programs</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#first-os-concept-thread-of-control"><span class="nav-number">1.7.</span> <span class="nav-text">First OS Concept: Thread of Control</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#second-os-concept-programs-address-space"><span class="nav-number">1.8.</span> <span class="nav-text">Second OS Concept: Program&#39;s address space</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#multiprogramming---multiple-threads-of-control"><span class="nav-number">1.9.</span> <span class="nav-text">Multiprogramming - Multiple Threads of Control</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#how-can-we-give-the-illusion-of-multiple-processors"><span class="nav-number">1.10.</span> <span class="nav-text">How can we give the illusion of multiple processors?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#the-basic-problem-of-concurrency"><span class="nav-number">1.11.</span> <span class="nav-text">The Basic Problem of Concurrency</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#properties-of-this-simple-multiprogramming-technique"><span class="nav-number">1.12.</span> <span class="nav-text">Properties of this simple multiprogramming technique</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#protection"><span class="nav-number">1.13.</span> <span class="nav-text">Protection</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#third-os-concept-process"><span class="nav-number">1.14.</span> <span class="nav-text">Third OS Concept: Process</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#single-and-multithreaded-processes"><span class="nav-number">1.15.</span> <span class="nav-text">Single and Multithreaded Processes</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#fourth-os-concept-dual-mode-operation"><span class="nav-number">1.16.</span> <span class="nav-text">FOurth OS Concept: Dual Mode Operation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#unix-system-structure"><span class="nav-number">1.17.</span> <span class="nav-text">Unix System Structure</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#simple-protection-base-and-boundbb"><span class="nav-number">1.18.</span> <span class="nav-text">Simple Protection: Base and bound(B&amp;B)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#another-idea-address-space-translation"><span class="nav-number">1.19.</span> <span class="nav-text">Another idea: Address Space Translation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#a-simple-address-translation-with-base-and-bound"><span class="nav-number">1.20.</span> <span class="nav-text">A simple address translation with Base and Bound</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#tying-it-together-simple-bb-os-loads-process"><span class="nav-number">1.21.</span> <span class="nav-text">Tying it together: Simple B&amp;B: OS loads process</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#simple-bb-os-gets-ready-to-execute-process"><span class="nav-number">1.22.</span> <span class="nav-text">Simple B&amp;B: OS gets ready to execute process</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#simple-bb-user-code-running"><span class="nav-number">1.23.</span> <span class="nav-text">Simple B&amp;B: User Code Running</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#types-of-mode-transfer"><span class="nav-number">1.24.</span> <span class="nav-text">3 types of Mode Transfer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#how-do-we-get-the-system-target-address-of-the-unprogrammed-control-transfer"><span class="nav-number">1.25.</span> <span class="nav-text">How do we get the system target address of the &quot;unprogrammed control transfer?&quot;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#interrupt-vector"><span class="nav-number">1.26.</span> <span class="nav-text">Interrupt Vector</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#simple-bb-user-kernel"><span class="nav-number">1.27.</span> <span class="nav-text">Simple B&amp;B: User &#x3D;&gt; Kernel</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#simple-bb-interrupt"><span class="nav-number">1.28.</span> <span class="nav-text">Simple B&amp;B: Interrupt</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#simple-bb-switch-user-process"><span class="nav-number">1.29.</span> <span class="nav-text">Simple B&amp;B: Switch User Process</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#simple-bb-resume"><span class="nav-number">1.30.</span> <span class="nav-text">Simple B&amp;B: &quot;resume&quot;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dual-mode-operation"><span class="nav-number">1.31.</span> <span class="nav-text">Dual Mode Operation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#conclusion-four-fundamental-os-concepts"><span class="nav-number">1.32.</span> <span class="nav-text">Conclusion: Four fundamental OS concepts</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">异道相安</p>
+  <div class="site-description" itemprop="description">不觉茫茫道路长</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">20</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  
+  
+  
+  
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

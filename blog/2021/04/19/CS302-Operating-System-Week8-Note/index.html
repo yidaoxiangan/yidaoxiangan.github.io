@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/favicon.ico" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yidaoxiangan.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":true,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="Lecture 7: Deadlock starvation vs Deadlock  Starvation vs. Deadlock  Starvation: thread waits indefinitely(无限期的)  Low-priority thread waiting for resources constantly in use by high-priority thread  D">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CS302 Operating System Week8 Note">
+<meta property="og:url" content="https://yidaoxiangan.com/blog/2021/04/19/CS302-Operating-System-Week8-Note/index.html">
+<meta property="og:site_name" content="异道相安的博客">
+<meta property="og:description" content="Lecture 7: Deadlock starvation vs Deadlock  Starvation vs. Deadlock  Starvation: thread waits indefinitely(无限期的)  Low-priority thread waiting for resources constantly in use by high-priority thread  D">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://i.loli.net/2021/04/18/R478lWcrza9OYPE.png">
+<meta property="og:image" content="https://i.loli.net/2021/04/18/YGR9jOWEDreTM5J.png">
+<meta property="og:image" content="https://i.loli.net/2021/04/19/Hw4ceUOAytXTCxQ.png">
+<meta property="og:image" content="https://i.loli.net/2021/04/19/lNTfRIovi2Jurp6.png">
+<meta property="og:image" content="https://i.loli.net/2021/04/19/NoS8zDVsimU1ECy.png">
+<meta property="og:image" content="https://i.loli.net/2021/04/19/wb8DSxMQ2ngGO65.png">
+<meta property="article:published_time" content="2021-04-19T01:35:51.000Z">
+<meta property="article:modified_time" content="2021-07-16T16:19:29.094Z">
+<meta property="article:author" content="异道相安">
+<meta property="article:tag" content="Operating System">
+<meta property="article:tag" content="CS302">
+<meta property="article:tag" content="Banker&#39;s Algorithm">
+<meta property="article:tag" content="Deadlock">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2021/04/18/R478lWcrza9OYPE.png">
+
+<link rel="canonical" href="https://yidaoxiangan.com/blog/2021/04/19/CS302-Operating-System-Week8-Note/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>CS302 Operating System Week8 Note | 异道相安的博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">异道相安的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://yidaoxiangan.com/blog/2021/04/19/CS302-Operating-System-Week8-Note/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="异道相安">
+      <meta itemprop="description" content="不觉茫茫道路长">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="异道相安的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          CS302 Operating System Week8 Note
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-04-19 09:35:51" itemprop="dateCreated datePublished" datetime="2021-04-19T09:35:51+08:00">2021-04-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-07-17 00:19:29" itemprop="dateModified" datetime="2021-07-17T00:19:29+08:00">2021-07-17</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="lecture-7-deadlock">Lecture 7: Deadlock</h1>
+<h2 id="starvation-vs-deadlock">starvation vs Deadlock</h2>
+<ul>
+<li>Starvation vs. Deadlock
+<ul>
+<li>Starvation: thread waits indefinitely(无限期的)
+<ul>
+<li>Low-priority thread waiting for resources constantly in use by high-priority thread</li>
+</ul></li>
+<li>Deadlock: circular waiting for resources
+<ul>
+<li>Thread A owns Res 1 and is waiting for Res 2</li>
+<li>Thread B owns Res 2 and is waiting for Res 1</li>
+</ul></li>
+</ul></li>
+</ul>
+<h2 id="conditions-for-deadlock">Conditions for Deadlock</h2>
+<ul>
+<li>Deadlock not always deterministic</li>
+<li>Deadlocks occur with multiple resources
+<ul>
+<li>Means you cannot decompose the problem</li>
+<li>Cannot solve deadlock for each resource independently</li>
+<li>System with 2 disk drives and two threads
+<ul>
+<li>Each thread needs 2 disk drives to function</li>
+<li>Each gets one disk and waits for another one</li>
+</ul></li>
+</ul></li>
+</ul>
+<h2 id="four-requirements-for-deadlock">Four requirements for Deadlock</h2>
+<ul>
+<li>Mutual exclusion
+<ul>
+<li>Only one thread at a time can use a resource</li>
+</ul></li>
+<li>Hold and wait
+<ul>
+<li>Thread holding at least one resource is waiting to acquire additional resource held by other threads</li>
+</ul></li>
+<li>No preemption
+<ul>
+<li>Resources are released only voluntarily by the thread holding the resource, after thread is finished with it</li>
+</ul></li>
+<li>Circular wait
+<ul>
+<li>There exists a set {T_1, ..., T_n} of waiting threads
+<ul>
+<li>T1 is waiting for a resource that is held by T2</li>
+<li>T2 is waiting for a resource that is held by T3</li>
+<li>...</li>
+<li>Tn is waiting for a resource that is held by T1</li>
+</ul></li>
+</ul></li>
+</ul>
+<h2 id="resource-allocation-graph">Resource-Allocation Graph</h2>
+<ul>
+<li>System Model
+<ul>
+<li>A set of Threads T1, T2, ... Tn</li>
+<li>Resource types R1,R2,...,Rm
+<ul>
+<li>CPU cycles, memory space, I/O devices</li>
+</ul></li>
+<li>Each resource type R1 has W1 instances</li>
+<li>Each thread utilizes a resources as follows:
+<ul>
+<li><code>Request()</code>,<code>Use()</code>,<code>Release()</code></li>
+</ul></li>
+</ul></li>
+<li>Resource-Allocation Graph:
+<ul>
+<li>V is partitioned into two types:
+<ul>
+<li>T = {T1,T2,...,Tn}, the set threads in the system</li>
+<li>R = {R1,R2,...,Rm}, the set of resource types in system</li>
+</ul></li>
+<li>Request edge - directed edge - T1 -&gt; Rj</li>
+<li>assignment edge - directed edge Rj -&gt; Ti</li>
+</ul>
+<img src="https://i.loli.net/2021/04/18/R478lWcrza9OYPE.png" title="fig:" alt="image.png" /></li>
+</ul>
+<h2 id="resource-allocation-graph-examples">Resource Allocation Graph Examples</h2>
+<ul>
+<li>Recall:
+<ul>
+<li>request edge - directed edge T1 -&gt; Rj</li>
+<li>assignment edge - directed edge Rj -&gt; Ti</li>
+</ul></li>
+</ul>
+<figure>
+<img src="https://i.loli.net/2021/04/18/YGR9jOWEDreTM5J.png" alt="image.png" /><figcaption>image.png</figcaption>
+</figure>
+<h2 id="methods-for-handling-deadlocks">Methods for Handling Deadlocks</h2>
+<ul>
+<li>Allow system to enter deadlock and then recover
+<ul>
+<li>Requires deadlock detection algorithm</li>
+<li>Some technique for forcibly preempting resources and/or terminating tasks</li>
+</ul></li>
+<li>Ensure that system will <strong>never</strong> enter a deadlock
+<ul>
+<li>Need to monitor all resource acquisitions</li>
+<li>Selectively deny those that <strong>might</strong> lead to deadlock</li>
+</ul></li>
+<li>Ignore the problem and pretend that deadlocks never occur in the system
+<ul>
+<li>Used by most operating system, including UNIX</li>
+</ul></li>
+</ul>
+<h2 id="deadlock-detection-algorithm">Deadlock Detection Algorithm</h2>
+<ul>
+<li>Only one of each type of resource -&gt; look for cycles</li>
+<li>More than one resource of each type
+<ul>
+<li>More deadlock detection algorithm</li>
+</ul></li>
+</ul>
+<h2 id="several-instances-of-a-resource-type">Several Instances of a Resource Type</h2>
+<ul>
+<li><code>Available</code>: A vector of length <strong>m</strong> indicates the number of available resources of each type</li>
+<li><code>Allocation</code>: A <strong>n * m</strong> matrix defines the number of resources of each type currently allocated to each process.</li>
+<li><code>Request</code>: An <strong>n * m</strong> matrix indicates the current request of each process. If Request[i_j]=k, then process P_i is requesting k more instances of resource type. R_j.</li>
+</ul>
+<h2 id="detection-algorithm">Detection Algorithm</h2>
+<ol type="1">
+<li>Let <code>Work</code> and <code>Finish</code> be vectors of length m and n, respectly initialize:
+<ol type="1">
+<li>Work = Available</li>
+<li>For i = 1,2,...n, if Allocation_i not 0, then Finish[i] = false; otherwise, Finish[i] = true.</li>
+</ol></li>
+<li>Find an index i such that both:
+<ol type="1">
+<li>Finish[i] == false</li>
+<li>Request_i &lt;= Work</li>
+</ol>
+<ul>
+<li>If no such i exists, go to step 4</li>
+</ul></li>
+<li>As follow.
+<ul>
+<li>Work = Work + Allocation_i</li>
+<li>Finish[i] = true</li>
+<li>go to step 2</li>
+</ul></li>
+<li>If Finish[i] == false, for some i, 1 &lt;= i &lt;= n, then the system is in deadlock state. Moreover, if Finish[i] == false, then P_i is deadlocked</li>
+</ol>
+<h2 id="example-of-detection-algorithm">Example of Detection Algorithm</h2>
+<ul>
+<li>Five processes P_0 through P_4; three resource type A(7 instances), B(2 instances), and C(6 instances)</li>
+<li>Snapshot at time T_0:</li>
+</ul>
+<p>Allocation</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: left;">A</th>
+<th style="text-align: left;">B</th>
+<th style="text-align: left;">C</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">P0</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">P1</td>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">P2</td>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">3</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">P3</td>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">P4</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">2</td>
+</tr>
+</tbody>
+</table>
+<p>Request</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: left;">A</th>
+<th style="text-align: left;">B</th>
+<th style="text-align: left;">C</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">P0</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">P1</td>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">P2</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">P3</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">P4</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">2</td>
+</tr>
+</tbody>
+</table>
+<p>Available</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">A</th>
+<th style="text-align: left;">B</th>
+<th style="text-align: left;">C</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+</tr>
+</tbody>
+</table>
+<p>Sequence &lt;P_0,P_2,P_3,P_1,P_4&gt; will result in Finish[i] = true for all i.</p>
+<p>If P_2 request an additional instance of type C, that is</p>
+<p>Request</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: left;">A</th>
+<th style="text-align: left;">B</th>
+<th style="text-align: left;">C</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">P0</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">P1</td>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">P2</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">P3</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">P4</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">2</td>
+</tr>
+</tbody>
+</table>
+<p>The state of system:</p>
+<ul>
+<li>Can reclaim resources held by process P_0(not deadlocked), but insufficient resources to fulfill other process; request</li>
+<li>Deadlock exist, consisting of processes P_1, P_2, P_3, and P_4</li>
+</ul>
+<h2 id="what-to-do-when-detect-deadlock">What to do when detect deadlock?</h2>
+<ul>
+<li>Terminate thread, force it to give up resources
+<ul>
+<li>In Bridge example, Godzilla picks up a car, hurls it into the river. Deadlock solved!</li>
+<li>Shoot a dining philosopher</li>
+<li>But, ont always possible</li>
+</ul></li>
+<li>Preempt resources without killing off thread
+<ul>
+<li>Take away resources from thread temporarily</li>
+<li>Does not always fit with semantics of computation</li>
+</ul></li>
+<li>Roll back actions of deadlocked threads
+<ul>
+<li>For bridge example, make one car roll backwards(may require others behind him)</li>
+<li>Common technique in databases(transactions)</li>
+<li>Of courses, if you restart in exactly the same way, may reenter deadlock once again</li>
+</ul></li>
+<li>Many operating systems use other options</li>
+</ul>
+<h2 id="techniques-for-preventing-deadlock">Techniques for Preventing Deadlock</h2>
+<ul>
+<li>Infinite resources
+<ul>
+<li>Include enough resources so that no one ever runs out of resources. Examples:
+<ul>
+<li>Bay bridge with 12,000 lanes. Never wait!</li>
+<li>Infinite disk space (not realistic yet?)</li>
+</ul></li>
+</ul></li>
+<li>No sharing of resources(totally independent threads)
+<ul>
+<li>Not very realistic</li>
+</ul></li>
+<li>Do not allow waiting
+<ul>
+<li>Technique used in Ethernet/some multiprocessor nets
+<ul>
+<li>Every speaks at once. On collision, back off and retry</li>
+</ul></li>
+<li>Inefficient, since have to keep retrying
+<ul>
+<li>Consider: driving to SUSTech; when hit traffic jam, suddenly you are transported back home and told to retry!</li>
+</ul></li>
+</ul></li>
+<li>Make all threads request everything they will need at the beginning
+<ul>
+<li>Problem: Predicting future is hard, tend to over-estimate resources. Example:
+<ul>
+<li>If need 2 chopsticks, request both at same time</li>
+<li>Don not leave home until we know no one is using any intersection between home and SUSTech; only one car on the Bay Bridge at a time</li>
+</ul></li>
+</ul></li>
+<li>Force all threads to request resources in a particular order preventing any cyclic use of resources
+<ul>
+<li>Thus, preventing deadlock</li>
+<li>Example (x.P, y.P, z.P,…)
+<ul>
+<li>Make tasks request disk, then memory, then…</li>
+<li>Keep from deadlock on freeways around SF by requiring everyone to go clockwise</li>
+</ul></li>
+</ul></li>
+</ul>
+<h2 id="bankers-algorithm">Banker's Algorithm</h2>
+<ul>
+<li>Multiple instances of each resource type</li>
+<li>Each process must a priori claim maximum use</li>
+<li>When a process requests a resource it may have to wait</li>
+<li>When a process gets all its resources it must return them in a finite amount of time</li>
+</ul>
+<h2 id="data-structures-for-the-bankers-algorithm">Data Structures for the Banker's Algorithm</h2>
+<p>Let n = number of processes, and m = number of resources type</p>
+<ul>
+<li>Available: Vector of length m. If available [j] = k, there are k instances of resource type Rj available</li>
+<li>Max: n x m matrix. If Max [i,j] = k, then process Pi may request at most k instances of resource type Rj</li>
+<li>Allocation: n x m matrix. If Allocation[i,j] = k then Pi is currently allocated k instances of Rj</li>
+<li>Need: n x m matrix. If Need[i,j] = k, then Pi may need k more instances of Rj to complete its task</li>
+</ul>
+<p>Need [i,j] = Max[i,j] – Allocation [i,j]</p>
+<h2 id="safety-algorithm">Safety Algorithm</h2>
+<p>1.Let Work and Finish be vectors of length m and n ,respectively. Initialize:</p>
+<ul>
+<li>Work = Available</li>
+<li>Finish [i] = false for i = 0, 1, …, n- 1</li>
+</ul>
+<p>2.Find an index i such that both:</p>
+<ul>
+<li>Finish [i] = false</li>
+<li>Need[i] &lt;= Work (i.e., for all k, Need[i,k] &lt;= Work[k])</li>
+</ul>
+<p>3.Work = Work + Allocation[i]</p>
+<ul>
+<li>Finish[i] = true</li>
+<li>go to step 2</li>
+</ul>
+<p>4.If Finish [i] == true for all i, then the system is in a safe state</p>
+<h2 id="resource-request-algorithm-for-process-pi">Resource-Request Algorithm for Process Pi</h2>
+<p>Request = request vector for process P_i. If Request [i,j] = k then process P_i wants k instances of resource type R_j</p>
+<p>1.If Request[i] &lt;= Need[i] go to step 2. Otherwise, raise error condition, since process has exceeded its maximum claim.</p>
+<p>2.If Request[i] &lt;= Available, go to step 3. Otherwise P_i must wait, since resources are not available</p>
+<p>3.Pretend to allocate requested resources to P_i by modifying the state as follows:</p>
+<ul>
+<li>Available = Available – Request;</li>
+<li>Allocation[i] = Allocation[i] + Request[i];</li>
+<li>Need[i] = Need[i] – Request[i];</li>
+</ul>
+<p>If safe -&gt; the resources are allocated to P_i</p>
+<p>If unsafe -&gt; P_i must wait, and the old resource-allocation state is restored</p>
+<h2 id="example-of-bankers-algorithm">Example of Banker’s Algorithm</h2>
+<figure>
+<img src="https://i.loli.net/2021/04/19/Hw4ceUOAytXTCxQ.png" alt="image.png" /><figcaption>image.png</figcaption>
+</figure>
+<figure>
+<img src="https://i.loli.net/2021/04/19/lNTfRIovi2Jurp6.png" alt="image.png" /><figcaption>image.png</figcaption>
+</figure>
+<figure>
+<img src="https://i.loli.net/2021/04/19/NoS8zDVsimU1ECy.png" alt="image.png" /><figcaption>image.png</figcaption>
+</figure>
+<figure>
+<img src="https://i.loli.net/2021/04/19/wb8DSxMQ2ngGO65.png" alt="image.png" /><figcaption>image.png</figcaption>
+</figure>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Operating-System/" rel="tag"># Operating System</a>
+              <a href="/tags/CS302/" rel="tag"># CS302</a>
+              <a href="/tags/Banker-s-Algorithm/" rel="tag"># Banker's Algorithm</a>
+              <a href="/tags/Deadlock/" rel="tag"># Deadlock</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/blog/2021/03/28/CS302-Operating-System-Week6-Note/" rel="prev" title="CS302 Operating System Week6 Note">
+      <i class="fa fa-chevron-left"></i> CS302 Operating System Week6 Note
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/blog/2021/04/20/CS302-Operating-System-Week9-Note/" rel="next" title="CS302 Operating System Week9 Note">
+      CS302 Operating System Week9 Note <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#lecture-7-deadlock"><span class="nav-number">1.</span> <span class="nav-text">Lecture 7: Deadlock</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#starvation-vs-deadlock"><span class="nav-number">1.1.</span> <span class="nav-text">starvation vs Deadlock</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#conditions-for-deadlock"><span class="nav-number">1.2.</span> <span class="nav-text">Conditions for Deadlock</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#four-requirements-for-deadlock"><span class="nav-number">1.3.</span> <span class="nav-text">Four requirements for Deadlock</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#resource-allocation-graph"><span class="nav-number">1.4.</span> <span class="nav-text">Resource-Allocation Graph</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#resource-allocation-graph-examples"><span class="nav-number">1.5.</span> <span class="nav-text">Resource Allocation Graph Examples</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#methods-for-handling-deadlocks"><span class="nav-number">1.6.</span> <span class="nav-text">Methods for Handling Deadlocks</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#deadlock-detection-algorithm"><span class="nav-number">1.7.</span> <span class="nav-text">Deadlock Detection Algorithm</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#several-instances-of-a-resource-type"><span class="nav-number">1.8.</span> <span class="nav-text">Several Instances of a Resource Type</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#detection-algorithm"><span class="nav-number">1.9.</span> <span class="nav-text">Detection Algorithm</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#example-of-detection-algorithm"><span class="nav-number">1.10.</span> <span class="nav-text">Example of Detection Algorithm</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#what-to-do-when-detect-deadlock"><span class="nav-number">1.11.</span> <span class="nav-text">What to do when detect deadlock?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#techniques-for-preventing-deadlock"><span class="nav-number">1.12.</span> <span class="nav-text">Techniques for Preventing Deadlock</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#bankers-algorithm"><span class="nav-number">1.13.</span> <span class="nav-text">Banker&#39;s Algorithm</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#data-structures-for-the-bankers-algorithm"><span class="nav-number">1.14.</span> <span class="nav-text">Data Structures for the Banker&#39;s Algorithm</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#safety-algorithm"><span class="nav-number">1.15.</span> <span class="nav-text">Safety Algorithm</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#resource-request-algorithm-for-process-pi"><span class="nav-number">1.16.</span> <span class="nav-text">Resource-Request Algorithm for Process Pi</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#example-of-bankers-algorithm"><span class="nav-number">1.17.</span> <span class="nav-text">Example of Banker’s Algorithm</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">异道相安</p>
+  <div class="site-description" itemprop="description">不觉茫茫道路长</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">20</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  
+  
+  
+  
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
