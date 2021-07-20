@@ -74,7 +74,9 @@
   </style>
 </noscript>
 
-</head>
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+<!-- hexo injector head_end end --></head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
   <div class="container use-motion">
@@ -211,7 +213,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2021-07-21 01:52:34 / Modified: 02:55:18" itemprop="dateCreated datePublished" datetime="2021-07-21T01:52:34+08:00">2021-07-21</time>
+              <time title="Created: 2021-07-21 01:52:34 / Modified: 03:04:47" itemprop="dateCreated datePublished" datetime="2021-07-21T01:52:34+08:00">2021-07-21</time>
             </span>
 
           
@@ -238,7 +240,7 @@
 <p>每次循环时计算当前指针指向位置所能容纳的最大水量，并保存该最大水量值。</p>
 <p>移动<code>i</code>或者移动<code>j</code>由arr<code>[i]</code>和<code>arr[j]</code>的大小决定。若<code>arr[i] &lt; arr[j]，</code>则将<code>i</code>向右移动，反之，则将<code>j</code>向左移动。<code>i</code>只会由左向右移动，<code>j</code>只会由右向左移动。表现上即<code>i</code>和<code>j</code>都在互相靠近，直到相遇。每次循环移动的指针为指向的值较小的指针。</p>
 <h3 id="correctness">Correctness</h3>
-<p>该解法的正确性的定性论证如下。假设指针i对应的数组值为<span class="math inline">\(f(i)\)</span></p>
+<p>该解法的正确性的定性论证如下。假设指针i对应的数组值为<span class="math display">\[f(i)\]</span></p>
 <p>设对<span class="math inline">\(i,j\)</span>有<span class="math inline">\(S(i,j)\)</span>表示此时存储的水量。根据短板效应，此时的水量为<span class="math inline">\(S(i,j)=min(f(i),f(j)) * (j - i)\)</span></p>
 <p>假设 <span class="math inline">\(f(i) &lt; f(j)\)</span>。</p>
 <ol type="1">
@@ -321,6 +323,166 @@
 <li><p>解压安装包，找到原快捷方式指向位置，进行替换。</p></li>
 <li><p>修改快捷方式指向位置为新解压的软件包的<code>code.exe</code>的位置。</p></li>
 </ol>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://yidaoxiangan.com/blog/2021/07/16/Vim%E5%B8%B8%E7%94%A8%E5%A4%87%E5%BF%98%E5%BD%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="异道相安">
+      <meta itemprop="description" content="不觉茫茫道路长">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="异道相安的博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/blog/2021/07/16/Vim%E5%B8%B8%E7%94%A8%E5%A4%87%E5%BF%98%E5%BD%95/" class="post-title-link" itemprop="url">Vim常用备忘录</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-07-16 16:58:46" itemprop="dateCreated datePublished" datetime="2021-07-16T16:58:46+08:00">2021-07-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-07-21 02:56:44" itemprop="dateModified" datetime="2021-07-21T02:56:44+08:00">2021-07-21</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="macro">Macro</h2>
+<h3 id="recording-a-macro">Recording a macro</h3>
+<p>Each register of macro is identified by a letter from <code>z</code> to <code>a</code>.</p>
+<p>To enter a macro, type: <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">q&lt;letter&gt;&lt;commands&gt;q</span><br></pre></td></tr></table></figure></p>
+<p>To execute the macro <strong>&lt;number&gt;</strong> times (once by default), type:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;number&gt;@&lt;letter&gt;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://yidaoxiangan.com/blog/2021/07/16/Git%E5%B8%B8%E7%94%A8%E5%A4%87%E5%BF%98%E5%BD%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="异道相安">
+      <meta itemprop="description" content="不觉茫茫道路长">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="异道相安的博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/blog/2021/07/16/Git%E5%B8%B8%E7%94%A8%E5%A4%87%E5%BF%98%E5%BD%95/" class="post-title-link" itemprop="url">Git常用备忘录</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-07-16 16:36:42" itemprop="dateCreated datePublished" datetime="2021-07-16T16:36:42+08:00">2021-07-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-07-21 02:56:44" itemprop="dateModified" datetime="2021-07-21T02:56:44+08:00">2021-07-21</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="使用ssh-key-连接到github仓库">使用ssh key 连接到GitHub仓库</h2>
+<ol type="1">
+<li><p>创建密钥</p>
+<p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa # 可以将ssh密钥对文件取名为GitHub</span><br></pre></td></tr></table></figure></p></li>
+<li><p>在<code>~/.ssh/config</code>中配置</p>
+<p><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim ~/.ssh/config</span><br></pre></td></tr></table></figure></p>
+<p>配置如下：</p>
+<p><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">host github.com</span><br><span class="line">    HostName github.com</span><br><span class="line">    IdentifyFile /root/.ssh/github</span><br><span class="line">    User git</span><br><span class="line">    IdentitiesOnly yes <span class="comment"># 启用此条，ssh不会尝试所有的key。只会尝试指定 IdentifyFile所指定的key。</span></span><br><span class="line">    port 22</span><br></pre></td></tr></table></figure></p></li>
+<li><p>在Github账户中添加账号</p>
+<p><a target="_blank" rel="noopener" href="https://docs.github.com/cn/github/authenticating-to-github/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account">新增 SSH 密钥到 GitHub 帐户</a></p></li>
+<li><p>测试链接</p>
+<p><a target="_blank" rel="noopener" href="https://docs.github.com/cn/github/authenticating-to-github/connecting-to-github-with-ssh/testing-your-ssh-connection">测试 SSH 连接</a></p>
+<p>如果测试有问题，可以添加<code>-v</code>选项来对<strong>ssh</strong>进行<strong>debug</strong>。</p></li>
+</ol>
+<h2 id="git-author相关">Git Author相关</h2>
+<h3 id="切换-git-author">切换 Git Author</h3>
+<p>Git共有三个级别的config文件，分别是<strong>system</strong>、<strong>global</strong>和<strong>local</strong>。其中，<strong>local</strong>对应某个具体的仓库。默认执行使用顺序为 <strong>local</strong> &gt; <strong>global</strong> &gt; <strong>system</strong></p>
+<h4 id="设置repo级别local的author">设置repo级别（local）的Author</h4>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --local user.name yidaoxiangan</span><br><span class="line">git config --local user.email xxxxxxxx@mymail.com </span><br></pre></td></tr></table></figure>
+<h4 id="设置global级别的author">设置global级别的Author</h4>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name yidaoxiangan</span><br><span class="line">git config --global user.email xxxxxxxx@mymail.com </span><br></pre></td></tr></table></figure>
+<h3 id="查看当前仓库的author">查看当前仓库的Author</h3>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config user.name</span><br><span class="line">git config user.email</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>在zsh的git插件中，使用 gcf 代替 （git config --list) 来查看当前配置。</p>
+</blockquote>
 
       
     </div>
@@ -2614,481 +2776,10 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://yidaoxiangan.com/blog/2021/03/20/CS302-Operating-System-Week5-Note-0x00/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="异道相安">
-      <meta itemprop="description" content="不觉茫茫道路长">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="异道相安的博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/blog/2021/03/20/CS302-Operating-System-Week5-Note-0x00/" class="post-title-link" itemprop="url">CS302 Operating System Week5 Note 0x00</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-03-20 07:28:01" itemprop="dateCreated datePublished" datetime="2021-03-20T07:28:01+08:00">2021-03-20</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-07-17 00:19:29" itemprop="dateModified" datetime="2021-07-17T00:19:29+08:00">2021-07-17</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="user-space-invoke-system-calls">User space invoke system calls</h2>
-<p>E.g.</p>
-<ul>
-<li>fork()</li>
-<li>exec*()</li>
-<li>wait()</li>
-</ul>
-<p>Kernel space keep PCB.</p>
-<h2 id="when-invoking-a-system-callmemory-view">When invoking a system call(memory view)</h2>
-<ul>
-<li>When running a program code of a user process.</li>
-<li>As the code is in use-space memory, so the program counter is pointing to that region.</li>
-<li>When the process is calling the system call "getpid()".</li>
-<li>Then, the CPU switches <strong>from the user-space to the kernel-space</strong>, and reads the PID of the process from the kernel.</li>
-<li>When the CPU has finished executing the "getpid()" system call
-<ul>
-<li>It <strong>switches back to the user-space memory</strong>, and continues running that program code.</li>
-</ul></li>
-</ul>
-<h2 id="when-invoking-a-system-call-cpu-view">When invoking a system call (CPU view)</h2>
-<ul>
-<li>user process
-<ul>
-<li>user process executing</li>
-<li>call system call</li>
-</ul></li>
-<li>kernel
-<ul>
-<li>trap mode bit = 0</li>
-<li>execute system call</li>
-<li>return mode bit = 1</li>
-</ul></li>
-<li>return from system call</li>
-</ul>
-<h2 id="process-real-time-costwall-clock-time">Process real time cost(wall-clock time)</h2>
-<h2 id="user-time-vs-system-time">User time VS System time</h2>
-<ul>
-<li>With the tool <strong>"time"</strong>
-<ul>
-<li>Real-time</li>
-<li>user time</li>
-<li>sys time</li>
-</ul></li>
-</ul>
-<p>Accessing hardware costs the process more time.</p>
-<ul>
-<li><p>The user time and the sys time together <strong>define the performance of an application</strong></p></li>
-<li>Function calls cause overhead
-<ul>
-<li>Stack pushing</li>
-</ul></li>
-<li>Sys calls may cause even more
-<ul>
-<li>Sys call is from another "process" (the kernel)</li>
-<li>Switching to another "process" -&gt; context switch(will see later)</li>
-</ul></li>
-</ul>
-<h2 id="fork-inside-the-kernel">fork() inside the kernel</h2>
-<ul>
-<li>Inside kernel, processes are arranged as a doubly linked list, called the <strong>task list</strong>.</li>
-</ul>
-<h2 id="fork-in-action---array-of-opened-files">fork() in action - array of opened files?</h2>
-<p>Array of opened files contains:</p>
-<table>
-<thead>
-<tr class="header">
-<th style="text-align: left;">Array Index</th>
-<th style="text-align: left;">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">0</td>
-<td style="text-align: left;">Standard Input Stream; FILE *stdin;</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">1</td>
-<td style="text-align: left;">Standard Output stream; FILE *stdout;</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">2</td>
-<td style="text-align: left;">Standard Error Stream; FILE *stderr;</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">3 or beyond</td>
-<td style="text-align: left;">Storing the files you opened. e.g., fopen(), open(), etc.</td>
-</tr>
-</tbody>
-</table>
-<ul>
-<li><p>That's why a parent process <strong>shares the same terminal output stream</strong> as the child process.</p></li>
-<li><p>Stream is just a <strong>logical</strong> object for you to read as a <strong>sequence of bytes</strong></p></li>
-</ul>
-<h2 id="working-of-system-calls-exec">Working of system calls exec*()</h2>
-<ul>
-<li>exec*()l is called</li>
-<li>The process returns to user-space <strong>but is executing another program</strong></li>
-</ul>
-<h2 id="exec-in-action">exec*() in action</h2>
-<ul>
-<li>Process 1234 invoked exec*()</li>
-<li>get in kernel space
-<ul>
-<li>kernel space will operate the memory of current process:
-<ul>
-<li>local variable is cleared</li>
-<li>Dynamically-allocated memory is cleared</li>
-<li>Global variable is reset based on the new code</li>
-<li>Code and constants are changed to the new program code.</li>
-</ul></li>
-<li>The kernel will also
-<ul>
-<li>reset the register values(e.g., program counter)</li>
-</ul></li>
-</ul></li>
-</ul>
-<h2 id="working-of-system-calls-wait-and-exit">working of system calls wait() and exit()</h2>
-<h2 id="exit-kernel-view">exit() kernel-view</h2>
-<ul>
-<li>The kernel frees all the allocated memory(I guess in kernel space).</li>
-<li>The list of opened files are all closed.(So it's okay to skip fclosed()); though not recommended</li>
-<li>Then, the kernel <strong>frees everything on the user-space memory</strong> about the concerned process, including program code and allocated memory.</li>
-<li>Process ID stills in the kernel's process table
-<ul>
-<li>Why?
-<ul>
-<li>[Wiki] This entry is still needed to allow the process that started the (now zombie) process to read its exit status.</li>
-</ul></li>
-<li>The status of the child is now called <strong>zombie ("terminated")</strong>.</li>
-</ul></li>
-<li>Last but no least, the <strong>kernel</strong> notifies the <strong>parent</strong> of the child process about the termination of its child.</li>
-<li>The kernel sends a SIGCHLD <strong>signal</strong> to the parent.</li>
-</ul>
-<h2 id="summary----what-the-kernel-does-for-exit">Summary -- what the kernel does for exit()</h2>
-<ul>
-<li>Step(1) Clean up most of the allocated kernel-space memory (e.g., process's running time info)</li>
-<li>step(2) Clean up the exit process's user-space memory</li>
-<li>Step(3) Notify the parent with SIGCHLD.</li>
-</ul>
-<h2 id="wait-kernel-views-registering-signal-handling-routine">wait() kernel view's registering signal handling routine</h2>
-<ul>
-<li>By default, every process does not respond to the SIGCHLD
-<ul>
-<li>i.g., the parent ignores his child unless he is waiting for the child</li>
-</ul></li>
-<li>But if a process has called <strong>wait()</strong>
-<ul>
-<li>The kernel will register a <strong>signal handling routine</strong> for that process.(in kernel space)</li>
-</ul></li>
-<li>When <strong>SIGCHLD</strong> comes, the corresponding <strong>signal handling routine is invoked</strong>!</li>
-<li><p>Note: the parent is still inside the <strong>wait()</strong> system call</p></li>
-<li>Default Handler of SIGCHLD registered by the kernel
-<ul>
-<li>Accept and remove the SIGCHLD signal</li>
-<li>Destroy the child process in the <strong>kernel-space(remove it from process table, task-list, etc.)</strong></li>
-</ul></li>
-<li>The kernel
-<ul>
-<li>Deregisters the signal handling routine for the parent</li>
-<li>returns the PID of the terminated child as the return value of <strong>wait()</strong></li>
-</ul></li>
-<li><p>The parent is ignoring <strong>SIGCHLD</strong> again</p></li>
-</ul>
-<h2 id="overall---normal-case">Overall - normal case</h2>
-<p><img src="https://i.loli.net/2021/03/20/kYmM4vbSTXDjguI.png" /> <img src="https://i.loli.net/2021/03/20/JIPhXcKWqeum67s.png" /></p>
-<h2 id="parents-wait-after-childs-exit">Parent's wait() after child's exit()</h2>
-<p><img src="https://i.loli.net/2021/03/20/aAFH3YhZqIXnUmW.png" /> <img src="https://i.loli.net/2021/03/20/He8WFQhvETbtIsm.png" /></p>
-<h2 id="wait-and-exit-short-summary">wait() and exit() short summary</h2>
-<ul>
-<li>exit() system call turns a process into a zombie when
-<ul>
-<li>The process call <strong>exit()</strong></li>
-<li>The process returns from <strong>main()</strong></li>
-<li>The process terminates abnormally
-<ul>
-<li>The kernel knows that the process is terminated abnormally. Hence, the kernel invokes <strong>exit()</strong> for it.</li>
-</ul></li>
-</ul></li>
-<li><strong>wait()</strong> and <strong>waitpid()</strong> are to reap zombie child processes
-<ul>
-<li>It is a must that you should never leave any zombies in the system</li>
-<li><strong>wait()</strong> and <strong>waitpid()</strong> pause the caller until
-<ul>
-<li>A child terminates/stops, OR</li>
-<li>The caller receives a signal (i.e., the signal interrupted the <strong>wait()</strong>)</li>
-</ul></li>
-</ul></li>
-<li>Linux will label zombie process as "<strong>&lt;defunct&gt;</strong>"</li>
-<li>To look for them</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">ps aux | grep defunct</span><br></pre></td></tr></table></figure>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> pid;</span><br><span class="line">    <span class="keyword">if</span>( (pid = fork()) !=<span class="number">0</span> ) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;Look at the status of the child process %d\n&quot;</span>, pid);  </span><br><span class="line">        <span class="keyword">while</span>( <span class="built_in">getchar</span>() != <span class="string">&#x27;\n&#x27;</span> ); <span class="comment">// &quot;enter&quot; here. Child process is defunct/zombie</span></span><br><span class="line">        <span class="built_in">wait</span>(<span class="literal">NULL</span>);</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;Look again!\n&quot;</span>); <span class="comment">// &quot;enter&quot; here. Child process vanish.</span></span><br><span class="line">    <span class="keyword">while</span>( <span class="built_in">getchar</span>() != <span class="string">&#x27;\n&#x27;</span> );</span><br><span class="line">&#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>This program requires you to type “enter” twice before the process terminates.</p>
-<p>You are expected to see the status of the child process changes (ps aux [PID]) between the 1st and the 2nd “enter"</p>
-<h2 id="calling-wait-is-important">Calling wait() is important</h2>
-<ul>
-<li>It is not only about process execution suspension…</li>
-<li>It is about <strong>system resource management</strong>.
-<ul>
-<li>A zombie takes up a PID;</li>
-<li>The total number of PIDs are limited;</li>
-<li>Read the limit: <code>cat /proc/sys/kernel/pid_max</code></li>
-<li>It is 32768.</li>
-</ul></li>
-<li>What will happen if we don’t clean up the zombies?</li>
-</ul>
-<h2 id="the-fork-bomb">The fork bomb</h2>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span> </span>&#123;</span><br><span class="line"><span class="keyword">while</span>( fork() );</span><br><span class="line"><span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>Deliberately missing wait()</li>
-<li>Do not try this on department’s machines…</li>
-</ul>
-<h2 id="the-first-process">The first process</h2>
-<ul>
-<li>We now focus on the process-related events
-<ul>
-<li>The kernel, while it is booting up, creates the first process – <strong>init</strong>.</li>
-</ul></li>
-<li>The <strong>init</strong> process:
-<ul>
-<li>has <strong>PID = 1</strong>, and</li>
-<li>is running the program code <code>/sbin/init</code>.</li>
-</ul></li>
-<li>Its first task is to create more processes…
-<ul>
-<li>Using <strong>fork()</strong> and **exec*()**.</li>
-</ul></li>
-</ul>
-<h2 id="process-blossoming">PRocess blossoming</h2>
-<ul>
-<li>You can view the tree with the command:
-<ul>
-<li><code>pstree</code> or</li>
-<li><code>pstree -A</code> for the ASCII-character-only display. <img src="https://i.loli.net/2021/03/20/MepN8ycu5l9R2xK.png" /></li>
-</ul></li>
-</ul>
-<h2 id="process-blossoming...-with-orphans">Process blossoming... with orphans?</h2>
-<ul>
-<li>However, termination can happen, at any time and in any place…
-<ul>
-<li>This is no good because an orphan turns the hierarchy from a <strong>tree</strong> into a <strong>forest</strong>!</li>
-<li>Plus, no one would know the termination of the orphan. <img src="https://i.loli.net/2021/03/20/8C2vnly7B4OI9S6.png" /></li>
-</ul></li>
-</ul>
-<h2 id="process-blossomingwith-re-parent">Process blossoming…with re-parent</h2>
-<ul>
-<li>In Linux
-<ul>
-<li>The <strong>init</strong> process will become the step-mother of all orphans</li>
-<li>It's called <strong>re-parenting</strong></li>
-</ul></li>
-<li>In Windows
-<ul>
-<li>It maintains a forest-like process hierarchy...... <img src="https://i.loli.net/2021/03/20/gtrRVB4wQEjcJ9x.png" /></li>
-</ul></li>
-</ul>
-<h2 id="re-parenting-example">Re-parenting example</h2>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line">    <span class="keyword">if</span>(fork() == <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++) &#123;</span><br><span class="line">       <span class="built_in">printf</span>(<span class="string">&quot;(%d) parent&#x27;s PID = %d\n&quot;</span>,</span><br><span class="line">       <span class="built_in">getpid</span>(), <span class="built_in">getppid</span>() );</span><br><span class="line">       <span class="built_in">sleep</span>(<span class="number">1</span>);</span><br><span class="line">       &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">       <span class="built_in">sleep</span>(<span class="number">1</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;(%d) bye.\n&quot;</span>, <span class="built_in">getpid</span>());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>Output:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ ./reparent</span><br><span class="line">(1235) parent<span class="string">&#x27;s PID = 1234</span></span><br><span class="line"><span class="string">(1235) parent&#x27;</span>s PID = 1234</span><br><span class="line">(1234) <span class="built_in">bye</span>.</span><br><span class="line">$ (1235) parent’s PID = 1</span><br><span class="line">(1235) parent’s PID = 1</span><br><span class="line">(1235) parent’s PID = 1</span><br><span class="line">(1235) <span class="built_in">bye</span>.</span><br></pre></td></tr></table></figure>
-<h2 id="what-had-happened-during-re-parenting">What had happened during re-parenting?</h2>
-<p><img src="https://i.loli.net/2021/03/20/HaXNdsfRWzAu3xM.png" /> <img src="https://i.loli.net/2021/03/20/rKSyb39t6cUqdOF.png" /></p>
-<h2 id="background-jobs">Background jobs</h2>
-<ul>
-<li>The re-parenting operation enables something called <strong>background jobs</strong> in Linux
-<ul>
-<li>It allows a process runs without a parent terminal/shell</li>
-</ul></li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ ./infinite_loop &amp;</span><br><span class="line">$ <span class="built_in">exit</span></span><br><span class="line">[ The shell is gone ]</span><br></pre></td></tr></table></figure>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ ps –C infinite_loop</span><br><span class="line"></span><br><span class="line">PID TTY</span><br><span class="line">1234 ... ./infinite_loop</span><br><span class="line"></span><br><span class="line">$ _ </span><br></pre></td></tr></table></figure>
-<h2 id="process-lifecycle">Process lifecycle</h2>
-<p><img src="https://i.loli.net/2021/03/20/Rvua5wCxG8TN4h9.png" /></p>
-<h2 id="process-lifecycle---ready">Process lifecycle - Ready</h2>
-<p><img src="https://i.loli.net/2021/03/20/uSARTdtOzioGFg4.png" /></p>
-<h2 id="process-lifecycle---running">Process lifecycle - Running</h2>
-<p><img src="https://i.loli.net/2021/03/20/OqcYJzE9DfIQFmb.png" /></p>
-<h2 id="process-lifecycle---blocking">Process lifecycle - Blocking</h2>
-<p><img src="https://i.loli.net/2021/03/20/eRZ1UKxXsPwj37u.png" /></p>
-<h2 id="process-lifecycle---interruptible-wait">Process lifecycle - Interruptible wait</h2>
-<ul>
-<li>Example. <strong>Reading a file.</strong>
-<ul>
-<li>Sometimes, the process has to wait for the response from the device and, therefore, it is blocked
-<ul>
-<li>this blocking state is <strong>interruptible</strong></li>
-<li>E.g., “Ctrl + C” can get the process out of the waiting state (but goes to termination state instead).</li>
-</ul></li>
-</ul></li>
-</ul>
-<h2 id="process-lifecycle---un-interruptible-wait">Process lifecycle - Un-Interruptible wait</h2>
-<p>Sometimes, a process needs to wait for a resource until it really gets what it wants</p>
-<ul>
-<li>Doesn’t want to be “Ctrl-C” interruptible</li>
-<li><strong>Un-interruptible status</strong>
-<ul>
-<li>No way to signal it to wake up unless it returns itself</li>
-<li>Check online! The only solution is … Who set this?</li>
-<li>E.g., <a target="_blank" rel="noopener" href="http://man7.org/linux/man-pages/man2/delete_module.2.html">syscall call</a></li>
-</ul></li>
-<li>Why set this?
-<ul>
-<li>Easier programming for lazy programmer (e.g., a driver program for a DVD drive)</li>
-<li>The programmer “thinks” the wait is very short and robust .
-<ul>
-<li>This is one the top reasons that hang your machine / process today!</li>
-</ul></li>
-<li>…</li>
-</ul></li>
-<li><a target="_blank" rel="noopener" href="http://unix.stackexchange.com/questions/96797/what-does-the-interruptible-sleep-state-indicate">http://unix.stackexchange.com/questions/96797/what-does-the-interruptible-sleep-state-indicate</a></li>
-<li><a target="_blank" rel="noopener" href="http://stackoverflow.com/questions/767551/how-to-stop-uninterruptible-process-on-linux">http://stackoverflow.com/questions/767551/how-to-stop-uninterruptible-process-on-linux</a></li>
-</ul>
-<h2 id="process-lifecycle---return-back-to-ready">Process lifecycle - return back to ready</h2>
-<p><img src="https://i.loli.net/2021/03/20/lxZ2SmhivuwteIk.png" /></p>
-<h2 id="process-lifecycle---going-to-die">Process lifecycle - going to die</h2>
-<p><img src="https://i.loli.net/2021/03/20/VBXdG42kHjFn9MC.png" /></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://yidaoxiangan.com/blog/2021/03/18/2021%E8%85%BE%E8%AE%AF%E5%90%8E%E5%8F%B0%E5%BC%80%E5%8F%91%E6%9A%91%E6%9C%9F%E5%AE%9E%E4%B9%A0%E9%9D%A2%E7%BB%8F-3%E6%9C%8818%E6%97%A5-%E4%BA%8C%E9%9D%A2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="异道相安">
-      <meta itemprop="description" content="不觉茫茫道路长">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="异道相安的博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/blog/2021/03/18/2021%E8%85%BE%E8%AE%AF%E5%90%8E%E5%8F%B0%E5%BC%80%E5%8F%91%E6%9A%91%E6%9C%9F%E5%AE%9E%E4%B9%A0%E9%9D%A2%E7%BB%8F-3%E6%9C%8818%E6%97%A5-%E4%BA%8C%E9%9D%A2/" class="post-title-link" itemprop="url">2021-03-18-2021腾讯后台开发暑期实习面经-3月18日-二面</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-03-18 11:33:26" itemprop="dateCreated datePublished" datetime="2021-03-18T11:33:26+08:00">2021-03-18</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-07-17 00:19:29" itemprop="dateModified" datetime="2021-07-17T00:19:29+08:00">2021-07-17</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="x00-准备">0x00 准备</h2>
-<p>今天一整天没课，为面试准备了一整天。前前后后做了几千字的笔记。</p>
-<h2 id="x01-面试">0x01 面试</h2>
-<p>晚上7点开始。先自我介绍。</p>
-<p>面试官问：选出一个能介绍你自己的项目。</p>
-<p>我选了游戏项目。</p>
-<p>面试官：我们部门主要是做基础架构的，你要是想做游戏我可以帮你推给其他部门。</p>
-<p>我：立刻改口。</p>
-<p>面试官问其他项目，提到C/C++。</p>
-<p>面试官要求设计一个接口。基于C/C++，输入两个int型的变量，输出它们的乘积。</p>
-<p>面试官问网络相关项目。</p>
-<p>面试官问：tcp和udp能同时用一个端口吗。</p>
-<p>面试官问：什么时候能来上班。</p>
-<p>面试官问：老家什么地方的。</p>
-<p>面试官问：打算考研吗？</p>
-<p>面试官问：将来有什么打算？</p>
-<h2 id="x02-反问环节">0x02 反问环节</h2>
-<p>我：主要业务是什么？</p>
-<p>我：技术水平如何？</p>
-<p>我：希望什么时候能入职？</p>
-<p>我：听说腾讯工作比其他大厂轻松，真的吗？</p>
-<p>我：如果过了，还有几轮面试？</p>
-<p>我：有什么需要学习的地方？</p>
-<p>我：面试中有哪些不足？</p>
-<h2 id="x03-后记">0x03 后记</h2>
-<p>满打满算只问了二十分钟，没怎么问技术问题。面试总时长三十分钟。</p>
-<p>10分钟出结果，官网显示复试过了，到hr面。大概teg真缺人。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -3154,14 +2845,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">20</span>
+          <span class="site-state-item-count">22</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-count">34</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -3247,6 +2938,61 @@
   
 
   
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+          load: ['[tex]/mhchem'],
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+          packages: {'[+]': ['mhchem']},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
 
   
 
