@@ -1,205 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>CS302 Operating System Week1 Note</title>
-    <url>//blog/2021/01/13/CS302-Operating-System-Week1-Note/</url>
-    <content><![CDATA[<h2 id="what-is-an-operating-system">What is an operating system?</h2>
-<ul>
-<li>It is not an "operation" system
-<ul>
-<li>It is operating system</li>
-</ul></li>
-<li>Abstraction of hardware</li>
-<li><strong>Software</strong> that supports applications
-<ul>
-<li>Managing resources</li>
-<li>resolving conflicts</li>
-<li>handling faults</li>
-<li>preventing attacks, etc.</li>
-</ul></li>
-</ul>
-<h2 id="welcome-to-cs302">Welcome to CS302</h2>
-<ul>
-<li>We will study Operating System
-<ul>
-<li>Concepts &amp; practice</li>
-<li>Overview, Process, Memory, Storage</li>
-</ul></li>
-</ul>
-<h2 id="what-is-an-os">What is an OS</h2>
-<ul>
-<li><strong>Special layer</strong> of <strong>software</strong> that provides <strong>application software</strong> access to hardware resources
-<ul>
-<li>Convenient abstraction of complex hardware device</li>
-<li>Protected access to shared sources</li>
-<li>Security and authentication</li>
-<li>Communication amongst logical entities</li>
-</ul></li>
-</ul>
-<h2 id="an-os">An OS</h2>
-<ul>
-<li>Includes a <strong>program</strong>
-<ul>
-<li>called <strong>"kernel"</strong>, which manages all the physical devices(e.g., CPU, RAM, and hard disk)</li>
-<li>exposes some functions as system calls for others to configure the kernel or building things (e.g., C library) on top</li>
-</ul></li>
-<li>Includes some more programs
-<ul>
-<li>called "drivers", which handles the interaction between the kernel and the external devices(e.g., keyboard)<br />
-</li>
-<li>called a "shell", which renders a siple command-line user interface with a full set of commands</li>
-</ul></li>
-<li>Includes some "optional" programs
-<ul>
-<li>GUI, Browser, Paintbrush paint</li>
-</ul></li>
-</ul>
-<h2 id="what-does-an-os-do">What does an OS do?</h2>
-<ul>
-<li>Provide abstractions to apps
-<ul>
-<li>File systems(not a real things)</li>
-<li>Processes, threads</li>
-<li>Virtual memory</li>
-</ul></li>
-<li>Manage resources:
-<ul>
-<li>Memory, CPU, Storage,</li>
-<li>...</li>
-</ul></li>
-<li>Achieves the above by implementing specific algorithms and techniques
-<ul>
-<li>Scheduling</li>
-<li>Concurrency</li>
-</ul></li>
-</ul>
-]]></content>
-      <tags>
-        <tag>Operating System</tag>
-        <tag>CS302</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>CS302 Operating System Week2 Note</title>
-    <url>//blog/2021/01/20/CS302-Operating-System-Week2-Note/</url>
-    <content><![CDATA[<h2 id="process">Process</h2>
-<ul>
-<li>A Process is an <strong>execution instance</strong> of a program
-<ul>
-<li>More than one process can execute the same program code</li>
-</ul></li>
-</ul>
-<h2 id="process-vs.-program">Process vs. program</h2>
-<ul>
-<li>A process has <em>states</em> concerning the execution.
-<ul>
-<li>Which line of codes it is running</li>
-<li>How much time left before returning the CPU to others</li>
-</ul></li>
-<li>Linux commands about processes
-<ul>
-<li>ps: "process status", it can report a vast amount of information about every process in the system.</li>
-<li>top: allows users to monitor processes and system resource usage on Linux</li>
-</ul></li>
-</ul>
-<h2 id="what-is-a-shell">What is a Shell?</h2>
-<ul>
-<li>A shell is a program, open a "terminal", actually launches a "shell" process
-<ul>
-<li>Bash in linux</li>
-</ul></li>
-<li>Written in C
-<ul>
-<li>use getchar() to get your command "ps"</li>
-<li>syntax checking</li>
-<li>invoke a function <code>fork()</code> (a system call) to create a new process
-<ul>
-<li>i.e., becoming a child process of the shell</li>
-</ul></li>
-<li>Ask the child process to <code>exec()</code> the program "ps"</li>
-</ul></li>
-</ul>
-<h2 id="process-hierarchy">Process hierarchy</h2>
-<ul>
-<li>Process relationship
-<ul>
-<li>A parent process will have its child processes</li>
-<li>Also, a child process will have its child processes</li>
-<li>This forms a <em>tree hierarchy</em></li>
-</ul></li>
-</ul>
-<h2 id="system-call">System call</h2>
-<ul>
-<li>a function call</li>
-<li>exposed by the <strong>kernel</strong></li>
-<li>abstract away most low-level details</li>
-<li>Categorizing system calls
-<ul>
-<li>Process, File system, Memory, Security, Device</li>
-</ul></li>
-<li>How can we know if a "function' is a system under linux
-<ul>
-<li>Read the man page "syscalls" under linux</li>
-</ul></li>
-</ul>
-<h2 id="system-calls-vs-library-function-call">System calls VS Library function call</h2>
-<ul>
-<li>Library functions are usually compiled and packed inside an object called the <strong>library file</strong>
-<ul>
-<li>In Windows: .DLL - dynamically linked library</li>
-<li>In Linux: .So - shared objects</li>
-</ul></li>
-</ul>
-<h2 id="what-will-we-learn-about-process">What will we learn about Process</h2>
-<ul>
-<li>System calls
-<ul>
-<li>Hoa to program a simple, bare-bone shell?</li>
-</ul></li>
-<li>Lifecycle and Scheduling
-<ul>
-<li>How to create processes?</li>
-<li>How to handle the death of the processes</li>
-<li>Which process shall get the core next?</li>
-</ul></li>
-<li>Signals
-<ul>
-<li>How to suspend a process</li>
-</ul></li>
-<li>Synchronization</li>
-</ul>
-<h2 id="the-memory-of-a-process">The Memory of a Process</h2>
-<h2 id="memory">Memory</h2>
-<ul>
-<li>Virtual memory
-<ul>
-<li>Your process virtually owns all your machine's RAM</li>
-</ul></li>
-<li>Memory-related functions
-<ul>
-<li>E.g., how to write "malloc()"</li>
-</ul></li>
-</ul>
-<h2 id="file-system">File System</h2>
-<ul>
-<li>Each disk can have multiple FSs</li>
-<li>An OS may understand different FSs</li>
-</ul>
-<h1 id="os_l02_fundamental">OS_L02_fundamental</h1>
-<h2 id="four-components-of-a-computer-system">Four Components of a Computer System</h2>
-<ul>
-<li>computer hardware</li>
-<li>operating system</li>
-<li>system and application programs</li>
-<li>user(human being or program)</li>
-</ul>
-]]></content>
-      <tags>
-        <tag>Operating System</tag>
-        <tag>CS302</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>西方哲学导论 Week3 Note</title>
     <url>//blog/2021/03/05/%E8%A5%BF%E6%96%B9%E5%93%B2%E5%AD%A6%E5%AF%BC%E8%AE%BA-week3-note/</url>
     <content><![CDATA[<h1 id="week3_note">week3_Note</h1>
@@ -4005,5 +3806,204 @@
 <p>设置 <strong>go module</strong> 的启用与不启用。</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">go env -w GO111MODULE=on</span><br></pre></td></tr></table></figure>
 ]]></content>
+  </entry>
+  <entry>
+    <title>CS302 Operating System Week1 Note</title>
+    <url>//blog/2021/01/13/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F-2021-01-13-CS302-Operating-System-Week1-Note/</url>
+    <content><![CDATA[<h2 id="what-is-an-operating-system">What is an operating system?</h2>
+<ul>
+<li>It is not an "operation" system
+<ul>
+<li>It is operating system</li>
+</ul></li>
+<li>Abstraction of hardware</li>
+<li><strong>Software</strong> that supports applications
+<ul>
+<li>Managing resources</li>
+<li>resolving conflicts</li>
+<li>handling faults</li>
+<li>preventing attacks, etc.</li>
+</ul></li>
+</ul>
+<h2 id="welcome-to-cs302">Welcome to CS302</h2>
+<ul>
+<li>We will study Operating System
+<ul>
+<li>Concepts &amp; practice</li>
+<li>Overview, Process, Memory, Storage</li>
+</ul></li>
+</ul>
+<h2 id="what-is-an-os">What is an OS</h2>
+<ul>
+<li><strong>Special layer</strong> of <strong>software</strong> that provides <strong>application software</strong> access to hardware resources
+<ul>
+<li>Convenient abstraction of complex hardware device</li>
+<li>Protected access to shared sources</li>
+<li>Security and authentication</li>
+<li>Communication amongst logical entities</li>
+</ul></li>
+</ul>
+<h2 id="an-os">An OS</h2>
+<ul>
+<li>Includes a <strong>program</strong>
+<ul>
+<li>called <strong>"kernel"</strong>, which manages all the physical devices(e.g., CPU, RAM, and hard disk)</li>
+<li>exposes some functions as system calls for others to configure the kernel or building things (e.g., C library) on top</li>
+</ul></li>
+<li>Includes some more programs
+<ul>
+<li>called "drivers", which handles the interaction between the kernel and the external devices(e.g., keyboard)<br />
+</li>
+<li>called a "shell", which renders a siple command-line user interface with a full set of commands</li>
+</ul></li>
+<li>Includes some "optional" programs
+<ul>
+<li>GUI, Browser, Paintbrush paint</li>
+</ul></li>
+</ul>
+<h2 id="what-does-an-os-do">What does an OS do?</h2>
+<ul>
+<li>Provide abstractions to apps
+<ul>
+<li>File systems(not a real things)</li>
+<li>Processes, threads</li>
+<li>Virtual memory</li>
+</ul></li>
+<li>Manage resources:
+<ul>
+<li>Memory, CPU, Storage,</li>
+<li>...</li>
+</ul></li>
+<li>Achieves the above by implementing specific algorithms and techniques
+<ul>
+<li>Scheduling</li>
+<li>Concurrency</li>
+</ul></li>
+</ul>
+]]></content>
+      <tags>
+        <tag>Operating System</tag>
+        <tag>CS302</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>CS302 Operating System Week2 Note</title>
+    <url>//blog/2021/01/20/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F-2021-01-20-CS302-Operating-System-Week2-Note/</url>
+    <content><![CDATA[<h2 id="process">Process</h2>
+<ul>
+<li>A Process is an <strong>execution instance</strong> of a program
+<ul>
+<li>More than one process can execute the same program code</li>
+</ul></li>
+</ul>
+<h2 id="process-vs.-program">Process vs. program</h2>
+<ul>
+<li>A process has <em>states</em> concerning the execution.
+<ul>
+<li>Which line of codes it is running</li>
+<li>How much time left before returning the CPU to others</li>
+</ul></li>
+<li>Linux commands about processes
+<ul>
+<li>ps: "process status", it can report a vast amount of information about every process in the system.</li>
+<li>top: allows users to monitor processes and system resource usage on Linux</li>
+</ul></li>
+</ul>
+<h2 id="what-is-a-shell">What is a Shell?</h2>
+<ul>
+<li>A shell is a program, open a "terminal", actually launches a "shell" process
+<ul>
+<li>Bash in linux</li>
+</ul></li>
+<li>Written in C
+<ul>
+<li>use getchar() to get your command "ps"</li>
+<li>syntax checking</li>
+<li>invoke a function <code>fork()</code> (a system call) to create a new process
+<ul>
+<li>i.e., becoming a child process of the shell</li>
+</ul></li>
+<li>Ask the child process to <code>exec()</code> the program "ps"</li>
+</ul></li>
+</ul>
+<h2 id="process-hierarchy">Process hierarchy</h2>
+<ul>
+<li>Process relationship
+<ul>
+<li>A parent process will have its child processes</li>
+<li>Also, a child process will have its child processes</li>
+<li>This forms a <em>tree hierarchy</em></li>
+</ul></li>
+</ul>
+<h2 id="system-call">System call</h2>
+<ul>
+<li>a function call</li>
+<li>exposed by the <strong>kernel</strong></li>
+<li>abstract away most low-level details</li>
+<li>Categorizing system calls
+<ul>
+<li>Process, File system, Memory, Security, Device</li>
+</ul></li>
+<li>How can we know if a "function' is a system under linux
+<ul>
+<li>Read the man page "syscalls" under linux</li>
+</ul></li>
+</ul>
+<h2 id="system-calls-vs-library-function-call">System calls VS Library function call</h2>
+<ul>
+<li>Library functions are usually compiled and packed inside an object called the <strong>library file</strong>
+<ul>
+<li>In Windows: .DLL - dynamically linked library</li>
+<li>In Linux: .So - shared objects</li>
+</ul></li>
+</ul>
+<h2 id="what-will-we-learn-about-process">What will we learn about Process</h2>
+<ul>
+<li>System calls
+<ul>
+<li>Hoa to program a simple, bare-bone shell?</li>
+</ul></li>
+<li>Lifecycle and Scheduling
+<ul>
+<li>How to create processes?</li>
+<li>How to handle the death of the processes</li>
+<li>Which process shall get the core next?</li>
+</ul></li>
+<li>Signals
+<ul>
+<li>How to suspend a process</li>
+</ul></li>
+<li>Synchronization</li>
+</ul>
+<h2 id="the-memory-of-a-process">The Memory of a Process</h2>
+<h2 id="memory">Memory</h2>
+<ul>
+<li>Virtual memory
+<ul>
+<li>Your process virtually owns all your machine's RAM</li>
+</ul></li>
+<li>Memory-related functions
+<ul>
+<li>E.g., how to write "malloc()"</li>
+</ul></li>
+</ul>
+<h2 id="file-system">File System</h2>
+<ul>
+<li>Each disk can have multiple FSs</li>
+<li>An OS may understand different FSs</li>
+</ul>
+<h1 id="os_l02_fundamental">OS_L02_fundamental</h1>
+<h2 id="four-components-of-a-computer-system">Four Components of a Computer System</h2>
+<ul>
+<li>computer hardware</li>
+<li>operating system</li>
+<li>system and application programs</li>
+<li>user(human being or program)</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>Operating System</tag>
+        <tag>CS302</tag>
+      </tags>
   </entry>
 </search>
