@@ -595,7 +595,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-08-01 17:18:13" itemprop="dateModified" datetime="2021-08-01T17:18:13+08:00">2021-08-01</time>
+                <time title="Modified: 2021-08-01 17:21:39" itemprop="dateModified" datetime="2021-08-01T17:21:39+08:00">2021-08-01</time>
               </span>
 
           
@@ -616,7 +616,10 @@
 <li><p>在<code>~/.ssh/config</code>中配置</p>
 <p><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim ~/.ssh/config</span><br></pre></td></tr></table></figure></p>
 <p>配置如下：</p>
-<p><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">host github.com</span><br><span class="line">    HostName github.com</span><br><span class="line">    IdentifyFile /root/.ssh/github</span><br><span class="line">    User git</span><br><span class="line">    IdentitiesOnly yes <span class="comment"># 启用此条，ssh不会尝试所有的key。只会尝试指定 IdentifyFile所指定的key。</span></span><br><span class="line">    port 22</span><br></pre></td></tr></table></figure></p></li>
+<p><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">host github.com</span><br><span class="line">    HostName github.com</span><br><span class="line">    IdentityFile /root/.ssh/github</span><br><span class="line">    User git</span><br><span class="line">    IdentitiesOnly yes </span><br><span class="line">    port 22</span><br></pre></td></tr></table></figure></p></li>
+</ol>
+<p>启用<code>IdentitiesOnly yes</code> 设置项，<code>ssh</code>不会尝试所有的<code>key</code>。只会尝试指定 <code>IdentifyFile</code>所指定的<code>key</code>。</p>
+<ol start="3" type="1">
 <li><p>在Github账户中添加账号</p>
 <p><a target="_blank" rel="noopener" href="https://docs.github.com/cn/github/authenticating-to-github/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account">新增 SSH 密钥到 GitHub 帐户</a></p></li>
 <li><p>测试链接</p>

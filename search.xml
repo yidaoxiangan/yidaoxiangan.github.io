@@ -1,0 +1,4009 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>CS302 Operating System Week1 Note</title>
+    <url>//blog/2021/01/13/CS302-Operating-System-Week1-Note/</url>
+    <content><![CDATA[<h2 id="what-is-an-operating-system">What is an operating system?</h2>
+<ul>
+<li>It is not an "operation" system
+<ul>
+<li>It is operating system</li>
+</ul></li>
+<li>Abstraction of hardware</li>
+<li><strong>Software</strong> that supports applications
+<ul>
+<li>Managing resources</li>
+<li>resolving conflicts</li>
+<li>handling faults</li>
+<li>preventing attacks, etc.</li>
+</ul></li>
+</ul>
+<h2 id="welcome-to-cs302">Welcome to CS302</h2>
+<ul>
+<li>We will study Operating System
+<ul>
+<li>Concepts &amp; practice</li>
+<li>Overview, Process, Memory, Storage</li>
+</ul></li>
+</ul>
+<h2 id="what-is-an-os">What is an OS</h2>
+<ul>
+<li><strong>Special layer</strong> of <strong>software</strong> that provides <strong>application software</strong> access to hardware resources
+<ul>
+<li>Convenient abstraction of complex hardware device</li>
+<li>Protected access to shared sources</li>
+<li>Security and authentication</li>
+<li>Communication amongst logical entities</li>
+</ul></li>
+</ul>
+<h2 id="an-os">An OS</h2>
+<ul>
+<li>Includes a <strong>program</strong>
+<ul>
+<li>called <strong>"kernel"</strong>, which manages all the physical devices(e.g., CPU, RAM, and hard disk)</li>
+<li>exposes some functions as system calls for others to configure the kernel or building things (e.g., C library) on top</li>
+</ul></li>
+<li>Includes some more programs
+<ul>
+<li>called "drivers", which handles the interaction between the kernel and the external devices(e.g., keyboard)<br />
+</li>
+<li>called a "shell", which renders a siple command-line user interface with a full set of commands</li>
+</ul></li>
+<li>Includes some "optional" programs
+<ul>
+<li>GUI, Browser, Paintbrush paint</li>
+</ul></li>
+</ul>
+<h2 id="what-does-an-os-do">What does an OS do?</h2>
+<ul>
+<li>Provide abstractions to apps
+<ul>
+<li>File systems(not a real things)</li>
+<li>Processes, threads</li>
+<li>Virtual memory</li>
+</ul></li>
+<li>Manage resources:
+<ul>
+<li>Memory, CPU, Storage,</li>
+<li>...</li>
+</ul></li>
+<li>Achieves the above by implementing specific algorithms and techniques
+<ul>
+<li>Scheduling</li>
+<li>Concurrency</li>
+</ul></li>
+</ul>
+]]></content>
+      <tags>
+        <tag>Operating System</tag>
+        <tag>CS302</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>CS302 Operating System Week2 Note</title>
+    <url>//blog/2021/01/20/CS302-Operating-System-Week2-Note/</url>
+    <content><![CDATA[<h2 id="process">Process</h2>
+<ul>
+<li>A Process is an <strong>execution instance</strong> of a program
+<ul>
+<li>More than one process can execute the same program code</li>
+</ul></li>
+</ul>
+<h2 id="process-vs.-program">Process vs. program</h2>
+<ul>
+<li>A process has <em>states</em> concerning the execution.
+<ul>
+<li>Which line of codes it is running</li>
+<li>How much time left before returning the CPU to others</li>
+</ul></li>
+<li>Linux commands about processes
+<ul>
+<li>ps: "process status", it can report a vast amount of information about every process in the system.</li>
+<li>top: allows users to monitor processes and system resource usage on Linux</li>
+</ul></li>
+</ul>
+<h2 id="what-is-a-shell">What is a Shell?</h2>
+<ul>
+<li>A shell is a program, open a "terminal", actually launches a "shell" process
+<ul>
+<li>Bash in linux</li>
+</ul></li>
+<li>Written in C
+<ul>
+<li>use getchar() to get your command "ps"</li>
+<li>syntax checking</li>
+<li>invoke a function <code>fork()</code> (a system call) to create a new process
+<ul>
+<li>i.e., becoming a child process of the shell</li>
+</ul></li>
+<li>Ask the child process to <code>exec()</code> the program "ps"</li>
+</ul></li>
+</ul>
+<h2 id="process-hierarchy">Process hierarchy</h2>
+<ul>
+<li>Process relationship
+<ul>
+<li>A parent process will have its child processes</li>
+<li>Also, a child process will have its child processes</li>
+<li>This forms a <em>tree hierarchy</em></li>
+</ul></li>
+</ul>
+<h2 id="system-call">System call</h2>
+<ul>
+<li>a function call</li>
+<li>exposed by the <strong>kernel</strong></li>
+<li>abstract away most low-level details</li>
+<li>Categorizing system calls
+<ul>
+<li>Process, File system, Memory, Security, Device</li>
+</ul></li>
+<li>How can we know if a "function' is a system under linux
+<ul>
+<li>Read the man page "syscalls" under linux</li>
+</ul></li>
+</ul>
+<h2 id="system-calls-vs-library-function-call">System calls VS Library function call</h2>
+<ul>
+<li>Library functions are usually compiled and packed inside an object called the <strong>library file</strong>
+<ul>
+<li>In Windows: .DLL - dynamically linked library</li>
+<li>In Linux: .So - shared objects</li>
+</ul></li>
+</ul>
+<h2 id="what-will-we-learn-about-process">What will we learn about Process</h2>
+<ul>
+<li>System calls
+<ul>
+<li>Hoa to program a simple, bare-bone shell?</li>
+</ul></li>
+<li>Lifecycle and Scheduling
+<ul>
+<li>How to create processes?</li>
+<li>How to handle the death of the processes</li>
+<li>Which process shall get the core next?</li>
+</ul></li>
+<li>Signals
+<ul>
+<li>How to suspend a process</li>
+</ul></li>
+<li>Synchronization</li>
+</ul>
+<h2 id="the-memory-of-a-process">The Memory of a Process</h2>
+<h2 id="memory">Memory</h2>
+<ul>
+<li>Virtual memory
+<ul>
+<li>Your process virtually owns all your machine's RAM</li>
+</ul></li>
+<li>Memory-related functions
+<ul>
+<li>E.g., how to write "malloc()"</li>
+</ul></li>
+</ul>
+<h2 id="file-system">File System</h2>
+<ul>
+<li>Each disk can have multiple FSs</li>
+<li>An OS may understand different FSs</li>
+</ul>
+<h1 id="os_l02_fundamental">OS_L02_fundamental</h1>
+<h2 id="four-components-of-a-computer-system">Four Components of a Computer System</h2>
+<ul>
+<li>computer hardware</li>
+<li>operating system</li>
+<li>system and application programs</li>
+<li>user(human being or program)</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>Operating System</tag>
+        <tag>CS302</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>西方哲学导论 Week3 Note</title>
+    <url>//blog/2021/03/05/%E8%A5%BF%E6%96%B9%E5%93%B2%E5%AD%A6%E5%AF%BC%E8%AE%BA-week3-note/</url>
+    <content><![CDATA[<h1 id="week3_note">week3_Note</h1>
+<h3 id="前苏格拉底时代">前苏格拉底时代</h3>
+<h4 id="anaximander">Anaximander</h4>
+<ul>
+<li>万物的本原是“无定”</li>
+<li>万物的多样性，水的“湿性”不能解释一切</li>
+<li>万物的本原应是没有任何确定规定性 - 混沌</li>
+<li>不定形且与水有关的东西 为 无定</li>
+</ul>
+<h4 id="anaximenes-546-a.d.---545-a.d">Anaximenes 546 a.d. - 545 a.d</h4>
+<ul>
+<li>世界的本原是气（综合了水和“无定”的特征）</li>
+<li>与东方本体论相似</li>
+</ul>
+<h4 id="heraclitus-赫拉克利特-504-a.d.---501-a.d">Heraclitus 赫拉克利特 504 a.d. - 501 a.d</h4>
+<ul>
+<li>性格高傲，出身望族， 把王位让给兄弟</li>
+<li>“世界是客观的”</li>
+<li>“世界的本原是火” - “世界秩序不是任何人或任何人锁创造的，它过去，现在，未来永远是永恒的活火，在一定分寸上燃烧，在一定分寸上熄灭”
+<ul>
+<li>唯物主义 - 客观存在</li>
+<li>万事万物是变化的</li>
+</ul></li>
+<li>“万物皆变，无物常驻”
+<ul>
+<li>“一切都是通过斗争和必然性而产生的”</li>
+<li>“太阳每天都是新的”</li>
+<li>“人不能同时走进同一条河流”</li>
+<li>“我们存在又不存在”</li>
+</ul></li>
+<li>简单，直观，朴素的表达</li>
+</ul>
+<h4 id="本原内在不变的统一原则是逻各斯">本原内在不变的统一原则是“逻各斯”</h4>
+<p>原意为话语，指说出的道理，是火在燃烧中遵循的理性规则和原则。即“一定分寸”</p>
+<h4 id="我们看见特殊我们只能说出普遍">我们看见特殊，我们只能说出普遍</h4>
+<ul>
+<li>我们使用名词描述 - 名词 在 逻辑学上 为 概念</li>
+</ul>
+<h4 id="毕达哥拉斯学派">毕达哥拉斯学派</h4>
+<p><strong>毕达哥拉斯</strong> 建立了一个有伦理，宗教和政治目的的社团：大家庭式的集体生活。</p>
+<p><strong>基本观点</strong>：数是万物的本原</p>
+<ul>
+<li>第一，数先于事物存在，是构成万物的基础
+<ul>
+<li>" 万物的本原是一，从一产生二，而是从属于一的补丁的质料，一则是原因。.....”</li>
+</ul></li>
+<li>第二，一切事物的性质都可以被归结为数的规定性
+<ul>
+<li>比例关系：（决定事物结构的和谐）</li>
+<li>对立关系：（有限和无限，奇数和偶数）</li>
+<li>类比关系：（4代表正义，8代表爱情.......）</li>
+</ul></li>
+</ul>
+<h4 id="埃利亚学派">埃利亚学派</h4>
+<p>创始人：Xenophanes</p>
+<ul>
+<li>世界的本原是绝对不动的“神”</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>西方哲学导论</tag>
+        <tag>哲学</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>CS304 Software Engineering Week4 Note</title>
+    <url>//blog/2021/03/08/CS304-Software-Engine-Week4-Note/</url>
+    <content><![CDATA[<h1 id="week4_note">Week4_note</h1>
+<h2 id="xp-is-an-iterative-process">XP is an Iterative Process</h2>
+<ul>
+<li>Iteration = two week cycle (1 - 3 weeks)</li>
+<li><strong>Plan</strong> each iteration in an iteration meeting that is held at the start of the iteration</li>
+<li>Iteration is going to implement set of <strong>user stories</strong></li>
+<li>Divide work into tasks small enough to finish in a day</li>
+<li>Each day, programmers work in pairs to finish task</li>
+</ul>
+<h2 id="what-are-user-stories">What are user stories</h2>
+<ul>
+<li>A user story represents
+<ul>
+<li>A <strong>feature customers</strong> want in the software</li>
+</ul></li>
+<li>A user story is the smallest amount of information (a step) necessary to allow the customer to define (and steer) a path through the system</li>
+<li>Written by customers(through communication with developers), and not by developers</li>
+<li>Typically written on index cards</li>
+</ul>
+<h2 id="writing-user-stories">Writing user stories</h2>
+<ul>
+<li>Material
+<ul>
+<li>A stack of blank index cards</li>
+<li>Pens or pencils</li>
+<li>Rubber bands</li>
+</ul></li>
+<li>Start with a goal of the system
+<ul>
+<li>e.g. "Applicant submits a loan application"</li>
+<li>Think about the step that the user takes as he/she does the activity</li>
+<li>Write no more than one step on each card</li>
+</ul></li>
+</ul>
+<h2 id="format-of-a-user-story">Format of a user story</h2>
+<ul>
+<li>Title: 2-3 words</li>
+<li>Acceptance test(unique identifier)</li>
+<li>Priority 1-2-3(1 most important)</li>
+<li>Story points(can mean #days of ideal development, i.e., no distractions or working on other things)</li>
+</ul>
+<h2 id="concepts">Concepts</h2>
+<ul>
+<li>Story point: unit of measure for expressing the overall size of a user story, feature, or other piece of work. The raw value of a story point is unimportant. What matters are the relative values.
+<ul>
+<li>Related to how hard it is and how much of it there is</li>
+<li><strong>Not</strong> related to amount of time or the number of people</li>
+<li>Unitless, but numerically-meaningful</li>
+</ul></li>
+<li>Ideal time: the amount of time "something" takes when stripped of all peripheral activities</li>
+<li>Elapsed time: the amount of time that passes on the clock to do "something"</li>
+<li>Velocity: measure of a team's rate of progress</li>
+</ul>
+<h2 id="priority">Priority</h2>
+<ul>
+<li>High</li>
+<li>Medium</li>
+<li>Low</li>
+</ul>
+<h2 id="estimating-story-points">Estimating story points</h2>
+<ul>
+<li>Choose a medium-size story and assign it a "5"</li>
+<li>Estimate other stories relative to that
+<ul>
+<li>Twice as big</li>
+<li>Half as big</li>
+<li>Almost but not quite as big</li>
+<li>A little bit bigger</li>
+</ul></li>
+<li>Only values:
+<ul>
+<li>0,1,2,3,5,8,13,20,40,100</li>
+</ul></li>
+</ul>
+<h2 id="estimating-ideal-days">Estimating ideal days</h2>
+<ul>
+<li>Ideal days vs. elapsed time in software development
+<ul>
+<li>Supporting current release</li>
+<li>sick time</li>
+<li>meetings</li>
+<li>demonstrations</li>
+<li>personal issue</li>
+<li>Phone call</li>
+</ul></li>
+<li>When estimating ideal days, assume:
+<ul>
+<li>The story being estimated is the only thing you'll work on</li>
+<li>Everything you need will be on hand when you start</li>
+<li>There will be no interruptions</li>
+</ul></li>
+</ul>
+<h2 id="ideal-days-vs.-story-points">Ideal Days vs. Story Points</h2>
+<ul>
+<li>Favoring story points:
+<ul>
+<li>Help drive cross-functional behavior</li>
+<li>Do not decay(change based on experience)</li>
+<li>Are a pure measure of size(focus on feature, not person)</li>
+<li>Estimation is typically faster in the long run</li>
+<li>My ideal days are not your ideal days(focus on person and their speed)</li>
+</ul></li>
+<li>Favoring ideal days;
+<ul>
+<li>Easier to explain outside of team</li>
+<li>Estimation is typically faster at first</li>
+</ul></li>
+</ul>
+<h2 id="deriving-an-estimate-for-a-user-story">Deriving an estimate for a user story</h2>
+<ul>
+<li>Expert opinion
+<ul>
+<li>Rely on gut feel based on (extensive) experience</li>
+<li>disadvantage for agile: need to consider all aspects of developing the user story, so one expert will likely not be enough</li>
+</ul></li>
+<li>Analogy
+<ul>
+<li>Relative to (several) other user stories</li>
+<li>Triangulation: little bigger than that "3" and a little smaller than that"8"</li>
+</ul></li>
+<li>Disaggregation
+<ul>
+<li>Break up into smaller, easier-to-estimate pieces/tasks.</li>
+<li>Need to make sure you don't miss any tasks</li>
+<li>Sanity check: does the sum of all the parts make sense?</li>
+<li>Planning poker
+<ul>
+<li>Combines expert opinion, analogy, disaggregation</li>
+</ul></li>
+</ul></li>
+</ul>
+<h2 id="velocity">Velocity</h2>
+<ul>
+<li>Velocity is a measure of a team's rate of progress</li>
+<li>Velocity is calculated by summing the number of story points assigned to each user story that the tea completed during the operation</li>
+<li>We assume that the team will produce in future iterations at the rate of their past average velocity
+<ul>
+<li>"Yesterdays weather"</li>
+</ul></li>
+</ul>
+<h2 id="prioritization">Prioritization</h2>
+<ul>
+<li>Driven by customer, in conjunction with developer</li>
+<li>Choose features to fill up velocity of iteration, based on:
+<ul>
+<li>Desirability of feature to a broad base of customers/users</li>
+<li>Desirability f feature to a small number of important customers/users</li>
+<li>The cohesiveness of the story in relation to other stories
+<ul>
+<li>Example:
+<ul>
+<li>"Zoom in" a high priority feature</li>
+<li>"Zoom out" not a high priority feature
+<ul>
+<li>But it becomes one relative to "Zoom in"</li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+<h2 id="planning-game">Planning game</h2>
+<ul>
+<li>Customer writes user stories</li>
+<li>Programmers estimate time to do each story</li>
+<li>If story is too big, customer splits it</li>
+<li>Customer chooses stories to match project velocity</li>
+<li>Project velocity is amount of work done in the previous iteration(s)</li>
+</ul>
+<h2 id="planning">Planning</h2>
+<ul>
+<li>Programmers only worry about one iteration at a time</li>
+<li>Customer can plan as many iterations as desired, but can change future iterations</li>
+</ul>
+<h2 id="simplicity">Simplicity</h2>
+<ul>
+<li>Add one feature(user story) at a time</li>
+<li>Don't worry about future stories</li>
+<li>Make program as simple as possible</li>
+<li>The simplest thing that could possibly work</li>
+</ul>
+<h2 id="need-educated-customer">Need Educated customer</h2>
+<h2 id="xp-works-best-when">XP works best when</h2>
+<ul>
+<li>Educated customer on site</li>
+<li>Small team</li>
+<li>People who like to talk</li>
+<li>All in one room(including customer)
+<ul>
+<li>These days the room can also be virtual</li>
+</ul></li>
+<li>Changing requirements</li>
+</ul>
+<h2 id="unit-tests-and-refactoring">Unit tests and refactoring</h2>
+<ul>
+<li>Because code is as simple as it can be, adding a enw feature tends to make it less simple</li>
+<li>To recover simplicity, you must refactor the code</li>
+<li>To refactor safely, yous should have a rigorous set of unit test</li>
+</ul>
+<h2 id="working-software">Working software</h2>
+<ul>
+<li>All software has automated(unit) test</li>
+<li>All test pass, all the time
+<ul>
+<li>Never check in broken code</li>
+</ul></li>
+<li>How to work on a task
+<ul>
+<li>Get latest version of the code. All tests pass</li>
+<li>Write test first. If fails</li>
+<li>Write code to make test pass. Now all tests pass</li>
+<li>Refactor(clean up)</li>
+<li>Check in your code</li>
+</ul></li>
+</ul>
+<h2 id="one-key-practice">One key practice</h2>
+<ul>
+<li>Write tests first, then write code</li>
+<li>various name
+<ul>
+<li>Test-first programming</li>
+<li>Test-driven development</li>
+</ul></li>
+<li>Is it testing or designing?</li>
+<li>Degree to which yous tick to if for MP?</li>
+</ul>
+<h2 id="why-test">Why test?</h2>
+<ul>
+<li>Improve quality - find bugs</li>
+<li>Measure quality
+<ul>
+<li>Prove there are no bugs?</li>
+<li>Determine if software is ready to be released</li>
+<li>Determine what to work on</li>
+<li>See if you made a mistake</li>
+</ul></li>
+<li>Learn the software</li>
+<li>Grade MPs</li>
+</ul>
+<h2 id="what-is-a-test">What is a Test?</h2>
+<ul>
+<li>Run program with known input(test inputs/data), check results (with test oracles)
+<ul>
+<li>Test pass (green) or fail(red)</li>
+</ul></li>
+<li>Tests can document faults</li>
+<li>Tests can document code</li>
+<li>Important terminology to remember:
+<ul>
+<li>Mistake, fault(or defect, or bug), failure, error</li>
+<li>Oracle</li>
+</ul></li>
+</ul>
+<h2 id="terminology-mistake-faultbug-failure-error">Terminology: Mistake, Fault/Bug, Failure, Error</h2>
+<ul>
+<li>Programmer makes a mistake</li>
+<li>Fault(defect, bug) appears in the program</li>
+<li>Program failure occurs during execution(program behaves unexpectedly)</li>
+<li>Error: difference between computed, observed, or measured value or condition and true, specified, or theoretically correct value or condition.</li>
+</ul>
+<h2 id="test-input-vs.-test-oracle">Test input vs. test oracle</h2>
+<h2 id="advanced-topics-in-junit">Advanced topics in junit</h2>
+<ul>
+<li>Assertion patterns</li>
+<li>Parameterized JUnit tests</li>
+<li>Junit theories</li>
+</ul>
+<h2 id="test-driven-developmenttdd">Test Driven Development(TDD)</h2>
+<ul>
+<li>One of the practices in XP</li>
+</ul>
+<h2 id="kent-becks-rules">Kent Beck's rules</h2>
+<ul>
+<li>Becks concept of test-driven development centers on two basic rules:
+<ul>
+<li>Never write a single line of code unless you have a failing automated test</li>
+<li>Eliminate duplication.</li>
+</ul></li>
+</ul>
+<h3 id="informal-requirements">Informal Requirements</h3>
+<p>If the maintenance contract number provided by the customer is not valid, the item follows the procedure for items not covered by warranty.</p>
+<h2 id="steps-in-test-driven-developmenttdd">Steps in Test Driven Development(TDD)</h2>
+<p>The iterative process</p>
+<ul>
+<li>Quickly add a test</li>
+<li>Run all tests and see the new one fail.</li>
+<li>Make a little change to code.</li>
+<li>Run all tests and see them all succeed.</li>
+<li>Refactor to remove duplication.</li>
+</ul>
+<h2 id="test-first-scenario">Test First Scenario</h2>
+<ul>
+<li>Write test for the newly
+<ul>
+<li>These test cases will serve as a specification for your implementation</li>
+<li>These test cases should fail now because the corresponding methods are not implement</li>
+<li>Write minimal code to make the test pas</li>
+<li>Add more tests</li>
+</ul></li>
+</ul>
+]]></content>
+      <tags>
+        <tag>CS304</tag>
+        <tag>Software Engineering</tag>
+        <tag>Junit</tag>
+        <tag>Extreme Development (XP)</tag>
+        <tag>Test Driven Development(TDD)</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>2021腾讯后台开发暑期实习面经 3月10日</title>
+    <url>//blog/2021/03/11/2021%E8%85%BE%E8%AE%AF%E5%90%8E%E5%8F%B0%E5%BC%80%E5%8F%91%E6%9A%91%E6%9C%9F%E5%AE%9E%E4%B9%A0%E9%9D%A2%E7%BB%8F-3%E6%9C%8810%E6%97%A5/</url>
+    <content><![CDATA[<h1 id="腾讯后台开发暑期实习面经-3月10日">2021腾讯后台开发暑期实习面经 3月10日</h1>
+<p>8日投的简历，10日下午收到腾讯面试官的电话，预约当晚7点电话面试。非常高效。</p>
+<h2 id="面试过程">面试过程</h2>
+<p>晚7点面试官打来电话。先要求做自我介绍。</p>
+<p>看到简历上C++相关项目，问是否用过STL库。答用过一些，提到了unordered_map。</p>
+<p>面试官开始问unordered_map的底层细节。答不熟悉C++底层，学校使用Java入门。</p>
+<h3 id="java">Java</h3>
+<p>面试官转向Java，问Hashmap的底层实现和数据结构。</p>
+<ul>
+<li><p>问Hashmap的增删查改过程。</p></li>
+<li><p>问Hashmap如何实现散列均匀。</p></li>
+<li><p>问Hashmap为什么要用红黑树。</p></li>
+<li><p>问Hashmap中数组过大怎么办。结合项目中稀疏矩阵提问。</p></li>
+<li><p>问红黑树基本原理。</p></li>
+<li><p>问AVL树原理。问AVL数如何保持平衡。问AVL数旋转过程。</p></li>
+<li><p>问哈希函数原理，字符串哈希方法。</p></li>
+<li><p>问Hashmap的哈希函数实现。</p></li>
+<li><p>问Hashmap的扩容机制。</p></li>
+<li><p>问需要存放大量数据是否适合使用Hashmap。</p></li>
+<li><p>问使用Hashmap存放学校所有人信息，用姓名作为Key应该怎么存。有重名怎么办。</p></li>
+</ul>
+<h3 id="操作系统">操作系统</h3>
+<p>问操作系统，答刚开始学，还没学完。遂没问操作系统的其他知识。</p>
+<h3 id="网络">网络</h3>
+<p>问计算机网络，先问是否了解http。</p>
+<p>问TCP和UDP的区别。</p>
+<p>问DNS请求过程。</p>
+<p>问三次握手和四次挥手。</p>
+<p>问在浏览器地址栏输入地址后敲下回车，发生了什么。</p>
+<p>问不考虑机器运行时间，浏览器发起一个http请求后收到回应的第一个字符需要几个RTT。</p>
+<p>问是否了解https。讲一下所知的。</p>
+<h3 id="misc">MISC</h3>
+<p>问十亿整数，如何查找前1000个大的数。(Top K 问题)</p>
+<ul>
+<li>问如何用字节流读取大文件。</li>
+<li>问堆的数据结构实现。</li>
+<li>问快速选择方法的具体思路。</li>
+</ul>
+<p>问十亿整数，如何查找中位数。</p>
+<p>问十亿总数，如何统计出现频率最高的K个数字。</p>
+<h3 id="手撕代码">手撕代码</h3>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 将ip地址转换为点分16进制字符串</span></span><br><span class="line"><span class="comment">// e.g. 0 -&gt; 0.0.0.0</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">convert</span><span class="params">(<span class="keyword">int</span> ip)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// code here</span></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+<h3 id="反问环节">反问环节</h3>
+<p>问面试官是什么事业群的。答TEG。</p>
+<p>问大概还有几轮面试，什么时候进行下一轮。答过了的话几天内会有人联系，大约还有两三轮。</p>
+<p>问有何建设性意见。答没有特别的意见。</p>
+<h3 id="没有问到的内容">没有问到的内容</h3>
+<p>数据库</p>
+<p>设计模式</p>
+<p>简历项目</p>
+]]></content>
+      <tags>
+        <tag>面经</tag>
+        <tag>腾讯</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>CS302 Operating System Week3 Note</title>
+    <url>//blog/2021/03/12/CS302-Operating-System-Week3-Note/</url>
+    <content><![CDATA[<h1 id="lecture-2-fundamental-os-concepts">Lecture 2 Fundamental OS Concepts</h1>
+<h2 id="our-roadmap">Our roadmap</h2>
+<ul>
+<li>Computer organization revision</li>
+<li>Kernel data structures in OS</li>
+<li>OS history</li>
+<li>Four fundamental OS concepts
+<ul>
+<li>Thread</li>
+<li>Address space(with translation)</li>
+<li>Process</li>
+<li>Dual mode operation/ protection</li>
+</ul></li>
+</ul>
+<h2 id="four-components-of-a-computer-system">Four Components of a computer system</h2>
+<ul>
+<li>Computer hardware</li>
+<li>Operating system</li>
+<li>system and application programs</li>
+<li>user</li>
+</ul>
+<h2 id="computer-system-organization">Computer System Organization</h2>
+<ul>
+<li>Computer-system operation
+<ul>
+<li>One or more CPUs, device controllers connect through common bus providing access to shared memory</li>
+<li>Concurrent execution of CPUs and devices competing for memory cycles</li>
+</ul></li>
+</ul>
+<h2 id="kernel-data-structures">Kernel Data Structures</h2>
+<ul>
+<li>Many similar to standard programming data structures
+<ul>
+<li>Singly linked list</li>
+<li>Doubly linked list</li>
+<li>Circular linked list</li>
+</ul></li>
+<li>Binary search tree left &lt;= right
+<ul>
+<li>Search performance is O(n)</li>
+<li>Balanced binary search tree is O(lgn)</li>
+</ul></li>
+<li>Hash function can create a hash map</li>
+<li>Bitmap - string of n binary digits representing the status of n items</li>
+<li>Linux data structures defined in include files &lt;linux/list.h&gt;,&lt;linux/kfifo.h&gt;,&lt;linux/rbtree.h&gt;</li>
+</ul>
+<h2 id="four-fundamental-os-concepts">Four Fundamental OS Concepts</h2>
+<ul>
+<li>Thread
+<ul>
+<li>Single unique execution context: fully describes program state</li>
+<li>Program Counter, Register, Execution Flags, Stack</li>
+</ul></li>
+<li>Address space(with translation)
+<ul>
+<li>Programs execute in an <strong>address space</strong> that is distinct from the memory space of the physical machine</li>
+</ul></li>
+<li>Process
+<ul>
+<li>An instance of an executing program is "a progress consisting of an address and one or more threads of control"</li>
+</ul></li>
+<li>Dual mode operation / Protection
+<ul>
+<li>Only the "system" has the ability to access certain resources</li>
+<li>The OS and the hardware are protected from user programs and user programs are isolated from one another by "controlling the translation" from program virtual addresses to machine physical addresses.</li>
+</ul></li>
+</ul>
+<h2 id="os-bottom-line-run-programs">OS Bottom Line: Run Programs</h2>
+<ul>
+<li>Load instruction and data segments of executable file into memory</li>
+<li>Create stack andd heap</li>
+<li>Transfer control to program</li>
+<li>Provide services to program</li>
+<li>While protecting OS and program</li>
+</ul>
+<h2 id="first-os-concept-thread-of-control">First OS Concept: Thread of Control</h2>
+<ul>
+<li>Certain registers hold the <strong>context</strong> of thread
+<ul>
+<li>Stack pointer holds the address of the top of stack
+<ul>
+<li>Other conventions: Frame pointer, Heap pointer, Data</li>
+</ul></li>
+<li>May be defined by the instruction set architecture or by compiler conventions</li>
+</ul></li>
+<li>Thread; Single unique execution context
+<ul>
+<li>Program Counter, Register, Execution Flag, Stack</li>
+</ul></li>
+<li>A thread is executing on a processor when it is resident in the processor registers</li>
+<li>PC register holds the address of executing instruction in the thread</li>
+<li>Registers hold the root state fo the tread
+<ul>
+<li>The rest is "in memory"</li>
+</ul></li>
+</ul>
+<h2 id="second-os-concept-programs-address-space">Second OS Concept: Program's address space</h2>
+<ul>
+<li>Address space: the set of accessible addresses + state associated with them</li>
+<li>For a 32-bit processor there are 2^32 = 4 billion address</li>
+<li>What happens when you read or write to an address?
+<ul>
+<li>Perhaps nothing</li>
+<li>Perhaps acs like regular memory</li>
+<li>Perhaps ignore writes</li>
+<li>Perhaps causes I/O operation</li>
+<li>Perhaps causes exception(fault)</li>
+</ul></li>
+</ul>
+<h2 id="multiprogramming---multiple-threads-of-control">Multiprogramming - Multiple Threads of Control</h2>
+<h2 id="how-can-we-give-the-illusion-of-multiple-processors">How can we give the illusion of multiple processors?</h2>
+<ul>
+<li>Assume a single processor: How do we provide the illusion of multiple processors?
+<ul>
+<li>Multiplex in time!</li>
+</ul></li>
+<li>Each virtual "CPU" needs a structure to hold:
+<ul>
+<li>Program Counter(PC), Stack Pointer(SP)</li>
+<li>Registers(Integer, Floating point, others)</li>
+</ul></li>
+<li>How switch from one virtual CPU to the next
+<ul>
+<li>Save PC, SP, and registers in current state block</li>
+<li>Load PC, SP, and registers from new state block</li>
+</ul></li>
+<li>what triggers switch?
+<ul>
+<li>Timer, voluntary yield, I/O, other things</li>
+</ul></li>
+</ul>
+<h2 id="the-basic-problem-of-concurrency">The Basic Problem of Concurrency</h2>
+<ul>
+<li>The basic problem of concurrency involves resources:
+<ul>
+<li>Hardware: single CPU, single DRAM, single I/O devices</li>
+<li>Multiprogramming API: processes think they have exclusive(独属的 ) access to shared resources</li>
+</ul></li>
+<li>OS has to coordinate all activities
+<ul>
+<li>Multiple processes, I/O interrupts, ...</li>
+<li>How can it keep all these things straight?</li>
+</ul></li>
+<li>Basic Idea: Use Virtual Machine abstraction
+<ul>
+<li>Simple machine abstraction for processes</li>
+<li>Multiplex these abstract machine</li>
+</ul></li>
+<li>Dra did this for "THE system"
+<ul>
+<li>Few thousand lines vs 1 million lines in OS 360(1K bugs)</li>
+</ul></li>
+</ul>
+<h2 id="properties-of-this-simple-multiprogramming-technique">Properties of this simple multiprogramming technique</h2>
+<ul>
+<li>All virtual CPUs share same non-CPU resources
+<ul>
+<li>I/O devices the same</li>
+<li>Memory the same</li>
+</ul></li>
+<li>Consequence of sharing:
+<ul>
+<li>Each thread can access the data of every other thread(good for sharing, bad for protection)</li>
+<li>Threads can share instructions(good for sharing, bad for protection)</li>
+<li>Can threads overwrite OS functions?</li>
+</ul></li>
+<li>This (unprotected) model is common in:
+<ul>
+<li>Embedded application</li>
+<li>Windows 3.1 / Early Macintosh(switch only with yield)</li>
+<li>windows 95 - ME(switch with both yield and timer)</li>
+</ul></li>
+</ul>
+<h2 id="protection">Protection</h2>
+<ul>
+<li>Operating System must protect itself from user programs
+<ul>
+<li>Reliability: compromising the operating system generally causes it to crash</li>
+<li>Security: limit the scope of what processes can do</li>
+<li>Privacy: limit each process to the data it is permitted to access</li>
+<li>Fairness: each should be limited to its appropriate share of system resources(CPU time, memory, I/O, etc)</li>
+</ul></li>
+<li>It must protect User programs from one another</li>
+<li>Primary Mechanism: limit the translation from program address space to physical memory space
+<ul>
+<li>Can only touch what is mapped into process "address space"</li>
+</ul></li>
+<li>Additional Mechanisms:
+<ul>
+<li>Privileged instructions, in/out instructions, special register</li>
+<li>syscall processing, subsystem implementation
+<ul>
+<li>e.g., file access rights, etc</li>
+</ul></li>
+</ul></li>
+</ul>
+<h2 id="third-os-concept-process">Third OS Concept: Process</h2>
+<ul>
+<li>Process: execution environment with Restricted Rights
+<ul>
+<li>Address Space with One or More Threads</li>
+<li>Owns memory(address space)</li>
+<li>Owns file descriptors, file system context, ...</li>
+<li>Encapsulate one or more threads sharing process resources</li>
+</ul></li>
+<li>Why processes?
+<ul>
+<li>Protected from each other!</li>
+<li>OS Protected from them</li>
+<li>Processes provides memory protection</li>
+<li>Threads more efficient than processes(later)</li>
+</ul></li>
+<li>Fundamental tradeoff between protection andd efficiency
+<ul>
+<li>Communication easier within a process</li>
+<li>Communication harder between processes</li>
+</ul></li>
+<li>Application instance consists of one or more processes</li>
+</ul>
+<h2 id="single-and-multithreaded-processes">Single and Multithreaded Processes</h2>
+<ul>
+<li>Threads encapsulate concurrency:"Active" component</li>
+<li>Address spaces encapsulate protection: "Passive" part
+<ul>
+<li>Keeps buggy program from trashing the system</li>
+</ul></li>
+<li>Why have multiple threads per address space?</li>
+</ul>
+<h2 id="fourth-os-concept-dual-mode-operation">FOurth OS Concept: Dual Mode Operation</h2>
+<ul>
+<li>Hardware provides at least two modes:
+<ul>
+<li>"Kernel" mode(or "supervisor" or "protected")</li>
+<li>"User" mode: Normal programs executed</li>
+</ul></li>
+<li>What is needed in the hardware to support "dual mode" operation?
+<ul>
+<li>A bit of state (user/system mode bit)</li>
+<li>Certain operations/ actions only permitted in system/kernel mode</li>
+<li>Certain operations / actions only permitted in system/kernel mode
+<ul>
+<li>In user mode they fail or trap</li>
+</ul></li>
+</ul></li>
+<li>User -&gt; Kernel transition sets system mode AND saves the user PC
+<ul>
+<li>Operating system code carefully puts aside user state then performs the necessary operations</li>
+</ul></li>
+<li>Kernel -&gt; User transition clears system mode AND restores appropriate user PC
+<ul>
+<li>return-from-interrupt</li>
+</ul></li>
+</ul>
+<h2 id="unix-system-structure">Unix System Structure</h2>
+<ul>
+<li>User Mode
+<ul>
+<li>Applications</li>
+<li>Standard Libs :
+<ul>
+<li>shells and commands</li>
+<li>compilers and interpreters</li>
+<li>system libraries</li>
+</ul></li>
+</ul></li>
+<li>Kernel Mode
+<ul>
+<li>system-call interface to the kernel</li>
+<li>signals terminal handling</li>
+<li>character I/O system</li>
+<li>terminal drivers</li>
+<li>file system</li>
+<li>swapping block I/O system</li>
+<li>disk adn tape drivers</li>
+<li>CPU scheduling</li>
+<li>page replacement</li>
+<li>demand paging</li>
+<li>virtual memory</li>
+<li>kernel interface to the hardware</li>
+</ul></li>
+<li>Hardware
+<ul>
+<li>terminal controllers</li>
+<li>terminals</li>
+<li>device controllers</li>
+<li>disks and tapes</li>
+<li>memory controllers</li>
+<li>physical memory</li>
+</ul></li>
+</ul>
+<h2 id="simple-protection-base-and-boundbb">Simple Protection: Base and bound(B&amp;B)</h2>
+<ul>
+<li>Requires relocating loader</li>
+<li>Still protects OS and isolates program</li>
+<li>No addition on address path</li>
+</ul>
+<h2 id="another-idea-address-space-translation">Another idea: Address Space Translation</h2>
+<ul>
+<li>Program operates in an address space that isn distinct from the physical memory space of the machine</li>
+</ul>
+<h2 id="a-simple-address-translation-with-base-and-bound">A simple address translation with Base and Bound</h2>
+<ul>
+<li>Can the program touch OS?</li>
+<li>Can it touch other programs?</li>
+</ul>
+<h2 id="tying-it-together-simple-bb-os-loads-process">Tying it together: Simple B&amp;B: OS loads process</h2>
+<h2 id="simple-bb-os-gets-ready-to-execute-process">Simple B&amp;B: OS gets ready to execute process</h2>
+<ul>
+<li>Privileged Inst: set special registers</li>
+<li>RTU</li>
+</ul>
+<h2 id="simple-bb-user-code-running">Simple B&amp;B: User Code Running</h2>
+<h2 id="types-of-mode-transfer">3 types of Mode Transfer</h2>
+<ul>
+<li>Syscall
+<ul>
+<li>Process requests a system service, e.g., exit</li>
+<li>Like a function call, but "outside" the process</li>
+<li>Does not have the address of the system function to call</li>
+<li>Like a Remote Procedure Call(RPC) - for later</li>
+<li>Marshall the syscall id and args in registers and exec syscall</li>
+</ul></li>
+<li>Interrupt
+<ul>
+<li>External asynchronous event triggers context switch</li>
+<li>e.g., Timer, I/O device</li>
+<li>Independent of user process</li>
+</ul></li>
+<li>Trap or Exception
+<ul>
+<li>Internal synchronous event in process triggers context switch</li>
+<li>el.g., Protection violation(segmentation fault), Divide by zero,...</li>
+</ul></li>
+<li>All 3 are UNPROGRAMMED CONTROL TRANSFER
+<ul>
+<li>Where does it go?</li>
+</ul></li>
+</ul>
+<h2 id="how-do-we-get-the-system-target-address-of-the-unprogrammed-control-transfer">How do we get the system target address of the "unprogrammed control transfer?"</h2>
+<h2 id="interrupt-vector">Interrupt Vector</h2>
+<ul>
+<li>Address and properties of each interrupt handler</li>
+</ul>
+<h2 id="simple-bb-user-kernel">Simple B&amp;B: User =&gt; Kernel</h2>
+<ul>
+<li>How to return to system?j</li>
+</ul>
+<h2 id="simple-bb-interrupt">Simple B&amp;B: Interrupt</h2>
+<ul>
+<li>How to save registers and set up system stack?</li>
+</ul>
+<h2 id="simple-bb-switch-user-process">Simple B&amp;B: Switch User Process</h2>
+<h2 id="simple-bb-resume">Simple B&amp;B: "resume"</h2>
+<h2 id="dual-mode-operation">Dual Mode Operation</h2>
+<h2 id="conclusion-four-fundamental-os-concepts">Conclusion: Four fundamental OS concepts</h2>
+<ul>
+<li>Thread</li>
+<li>Address Space with Translation</li>
+<li>Process</li>
+<li>Dual Mode operation/Protection</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>Operating System</tag>
+        <tag>CS302</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>西方哲学导论 Week4 Note</title>
+    <url>//blog/2021/03/12/%E8%A5%BF%E6%96%B9%E5%93%B2%E5%AD%A6%E5%AF%BC%E8%AE%BA-Week4-Note/</url>
+    <content><![CDATA[<h1 id="week4_note">Week4_note</h1>
+<h2 id="高尔吉亚-gorgias-公元前480---前370">高尔吉亚 （Gorgias 公元前480 - 前370）</h2>
+<ul>
+<li>三个命题
+<ul>
+<li>无物存在</li>
+<li>如果有物存在，人也无法认识</li>
+<li>即使可以认识，也无法把它告诉别人</li>
+</ul></li>
+<li>解读：
+<ul>
+<li>第一，如果有物存在，怎么证明它真实存在？</li>
+<li>第二，如果物可以认识，怎么证明对物的认识就是它本来的认识。</li>
+<li>第三，如果可以将物的表达结果告诉别人，怎么证明语言表达的就是思想认识的内容？</li>
+</ul></li>
+</ul>
+<h3 id="感觉与事物的真实状态是不一致的">感觉与事物的真实状态是不一致的</h3>
+<p>感觉“不是按照真理”</p>
+<h2 id="智者运动的历史地位">智者运动的历史地位</h2>
+<p>全部智者学派运动的重大价值在于：激发了人们的思想，要求哲学，宗教，习俗，道德以及建立在他们之上的制度来辨明自己的合理性。智者否认认识的可能性，那就使有人有必要说明能够认识的代理。他们迫使哲学寻求认识的标准。他们评级传统道德，迫使道德反对怀疑主义和虚无主义来保护产出，找出是非的合理的原则。他们评级传统的宗教信仰，迫使思想家认为有必要找出更圆满和纯粹的神的观念。</p>
+<h2 id="第二阶段苏格拉底哲学的形成">第二阶段，苏格拉底哲学的形成</h2>
+<p>（苏格拉底， Socrates， 公元前469 - 前399年）</p>
+<ul>
+<li>述而不作</li>
+<li>没有任何著作，其思想是通过”对话“报答，西方思想史上最伟大的哲学家之一。</li>
+<li>长得很丑（？）</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>西方哲学导论</tag>
+        <tag>哲学</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>CS302 Operating System Week4 Note</title>
+    <url>//blog/2021/03/13/CS302-Operating-System-Week4-Note/</url>
+    <content><![CDATA[<h1 id="lecture-3-process-i">Lecture 3: Process I</h1>
+<h2 id="what-is-a-process">What is a process?</h2>
+<ul>
+<li>Process is a program in execution</li>
+<li>It contains every accounting information of that running program e.g.
+<ul>
+<li>Current program counter</li>
+<li>Accumulated running time</li>
+<li>The list of files that are currently opened by that program</li>
+<li>The page table</li>
+</ul></li>
+<li>Important concept: Process control block</li>
+</ul>
+<h2 id="what-is-a-process-1">What is a process</h2>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">$ ls | cat | cat</span><br><span class="line">[ctrl + C]</span><br><span class="line">$</span><br></pre></td></tr></table></figure>
+<ul>
+<li>The command involves <strong>three processes</strong></li>
+<li>It will stop early if I send a <strong>signal</strong> to interrupt it</li>
+<li>Its progress is determined by the <strong>scheduler</strong></li>
+<li>The three processes <strong>cooperate</strong> to give useful output</li>
+</ul>
+<h3 id="what-are-those-two-cats">What are those two "cats"?</h3>
+<ul>
+<li>2 different processes using the same code "/bin/cat"</li>
+</ul>
+<h3 id="our-roadmap">Our Roadmap</h3>
+<ol type="1">
+<li>How to distinguish the two cats?</li>
+<li>Who (and hwo to) create the processes?</li>
+<li>Which should run first?</li>
+<li>What are those pipes?</li>
+<li>What if "ls" is feeding data too fast? ill the "cat" feels full and dies?</li>
+</ol>
+<h2 id="process-identification">Process identification</h2>
+<ul>
+<li>How can we identify processes from one to another?
+<ul>
+<li>Each process is given an unique ID number, and is called the processes ID, or the PID</li>
+<li>The system call, getpid(), prints the PID of the calling process.</li>
+</ul></li>
+</ul>
+<h2 id="process-creation">Process creation</h2>
+<ul>
+<li>To create a process, we use the system call fork().</li>
+</ul>
+<h2 id="process-creation---fork-system-call">Process creation - fork() system call</h2>
+<ul>
+<li>So, how do fork() and the processes behave?</li>
+<li>What do we know?
+<ul>
+<li>Both the parent and the child execute the same program</li>
+<li>The child process starts its execution at the location that fork() is returned, not from the beginning of the program</li>
+</ul></li>
+</ul>
+<h3 id="let-there-be-only-one-cpu">Let there be only ONE CPU</h3>
+<ul>
+<li>Only one process is allowed to be executed at one time</li>
+<li>However, we can't predict which process will be chosen by the OS</li>
+<li>That is controlled by the OS's scheduler</li>
+</ul>
+<p>IMPORTANT: For child, the return value of fork() is zero</p>
+<p>关于fork如何实现形式上返回两个值，详见<a href="https://www.zhihu.com/question/24173190/answer/244790670">此文章</a></p>
+<h3 id="fork-behaves-like-cell-division">fork() behaves like "cell division"</h3>
+<ul>
+<li>It creates the child process by cloning from the parent process, including all user-space data e.g.</li>
+</ul>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Cloned items</th>
+<th style="text-align: left;">Descriptions</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Program counter[CPU register]</td>
+<td style="text-align: left;">That's why they both execute from the same line of code after fork() returns</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Program code[file &amp; memory]</td>
+<td style="text-align: left;">They are sharing the same piece of code.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Memory</td>
+<td style="text-align: left;">Including local variables, global variables, and dynamically allocated memory</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Opened files[Kernel's internal]</td>
+<td style="text-align: left;">If the parent has opened a file "A", then the child will also have file "A" opened automatically.</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>However
+<ul>
+<li>fork() does not clone the following</li>
+<li>Note: PCB is in the kernel space</li>
+</ul></li>
+</ul>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Distinct items</th>
+<th style="text-align: left;">Parent</th>
+<th style="text-align: left;">Child</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Return value of fork()</td>
+<td style="text-align: left;">PID of the child process</td>
+<td style="text-align: left;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">PID</td>
+<td style="text-align: left;">Unchanged</td>
+<td style="text-align: left;">Different, not necessarily be "Parent PID + 1"</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Parent process</td>
+<td style="text-align: left;">Unchanged</td>
+<td style="text-align: left;">Parent</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Running time</td>
+<td style="text-align: left;">Cumulated</td>
+<td style="text-align: left;">Just created, so should be 0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">[Advanced] File locks</td>
+<td style="text-align: left;">Unchanged</td>
+<td style="text-align: left;">None</td>
+</tr>
+</tbody>
+</table>
+<h2 id="fork-can-only-duplicate">fork() can only duplicate</h2>
+<ul>
+<li>If a process can only duplicate itself and always runs the same program, it's not quite meaningful
+<ul>
+<li>how can we execute other programs?</li>
+</ul></li>
+<li>We want CHANGE!
+<ul>
+<li>Meet the exec*() system call family</li>
+</ul></li>
+</ul>
+<h2 id="exec">exec</h2>
+<ul>
+<li>execl() - member of the exec system call family(and the family has 6 members)</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;before execl ...\n&quot;</span>);</span><br><span class="line">execl(<span class="string">&quot;/bin/ls&quot;</span>, <span class="string">&quot;/bin/ls&quot;</span>, <span class="literal">NULL</span>);</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;after execl ...\n&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>Arguments of the execl() call</p>
+<ul>
+<li>1st argument: the program name, “/bin/ls” in the example.</li>
+<li>2nd argument: argument[0] to the program.</li>
+<li>3rd argument: argument[1] to the program.</li>
+</ul>
+<h2 id="exec-1">exec</h2>
+<ul>
+<li>The process is changing the code that is executing and never returns to the original code
+<ul>
+<li>The last two lines of codes are therefore not executed</li>
+</ul></li>
+<li>The process that call an exec* system call will <strong>replace</strong> user-space info e.g.,
+<ul>
+<li>Program Code</li>
+<li>Memory: local variables, global variables, and dynamically allocated memory</li>
+<li>Register value: e.g.m the program counter</li>
+</ul></li>
+<li>But, the kernel-space info of that process is preserved, including:
+<ul>
+<li>PID</li>
+<li>Process relationship</li>
+<li>etc.</li>
+</ul></li>
+</ul>
+<h2 id="when-fork-meets-exec">When fork() meets exec*()</h2>
+<ul>
+<li>To implement the core part of a shell</li>
+<li>To implement the C library call system()</li>
+</ul>
+<h2 id="fork-exec-system">fork() + exec*() = system()</h2>
+<ul>
+<li>It si very weird to allow different execution orders</li>
+<li>How to let tht child to execute first?
+<ul>
+<li>But... we can't control the <strong>OS scheduler</strong></li>
+</ul></li>
+<li>Then, our problem becomes...
+<ul>
+<li>How to <strong>suspend</strong> the execution of the parent process?</li>
+<li>How to wake the parent up after the child is terminated?</li>
+</ul></li>
+</ul>
+<h3 id="fork-execl-wait-system">fork() + exec*(l + wait() = system()</h3>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">system_ver_CS302</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *cmd_str)</span> </span>&#123;</span><br><span class="line"> <span class="keyword">if</span>(cmd_str == <span class="number">-1</span>)</span><br><span class="line">  <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line"> <span class="keyword">if</span>(fork() == <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="built_in">execl</span>(<span class="string">&quot;/bin/sh&quot;</span>, <span class="string">&quot;/bin/sh&quot;</span>, <span class="string">&quot;-c&quot;</span>, cmd_str, <span class="literal">NULL</span>);</span><br><span class="line">    <span class="built_in">fprintf</span>(stderr, <span class="string">&quot;%s: command not found\n&quot;</span>, cmd_str);</span><br><span class="line">    <span class="built_in">exit</span>(<span class="number">-1</span>);</span><br><span class="line">  &#125;</span><br><span class="line"><span class="built_in">wait</span>(<span class="literal">NULL</span>);</span><br><span class="line"> <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line"> &#125;</span><br><span class="line"> </span><br><span class="line"> <span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line"> <span class="built_in">printf</span>(<span class="string">&quot;before...\n\n&quot;</span>);</span><br><span class="line"> <span class="built_in">system_ver_CS302</span>(<span class="string">&quot;/bin/ls&quot;</span>);</span><br><span class="line"> <span class="built_in">printf</span>(<span class="string">&quot;\nafter...\n&quot;</span>);</span><br><span class="line"> <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="process-life-cycleuser-space">Process Life Cycle(user-space)</h3>
+<h3 id="wait---user-space">wait() - user-space</h3>
+<p>wait() system call</p>
+<ul>
+<li>suspend the calling process to waiting state and return (wakes up) when
+<ul>
+<li>one of its child processes changes from
+<ul>
+<li>running to terminated</li>
+</ul></li>
+<li>Or a signal is received(will cover)</li>
+</ul></li>
+<li>return immediately(i.e., does nothing) fi
+<ul>
+<li>It has no children
+<ul>
+<li>Or a child terminates before the parent calls wait for</li>
+</ul></li>
+</ul></li>
+</ul>
+<h3 id="wait-vs-waitpid">wait() vs waitpid()</h3>
+<p>wait()</p>
+<ul>
+<li>wait for any one of the children</li>
+<li>Detect child termination</li>
+</ul>
+<p>waitpid()</p>
+<ul>
+<li>depending on the parameters, waitpid() will wait for a particular child only</li>
+<li>Depending on the parameters, waitpid() multiple child's status change</li>
+</ul>
+<h2 id="summary">summary</h2>
+<ul>
+<li>A new process is created by <strong>fork()</strong>
+<ul>
+<li>Who is the first process</li>
+</ul></li>
+<li>A process is a program being brought by <strong>exec</strong> to the memory
+<ul>
+<li>has state(initial state = ready)</li>
+<li>waiting for the OS to schedule the CPU to run it</li>
+</ul></li>
+<li>Can a process execute more than one program?
+<ul>
+<li>Yes, keeps on calling the <strong>exec</strong> system call family</li>
+</ul></li>
+<li>You now know how system() C library call is implemented by syscalls fork(), exec(), and wait()</li>
+</ul>
+<h2 id="exec-arguments-explained">exec*() – arguments explained</h2>
+<ul>
+<li>Environment variables</li>
+<li>A set of strings maintained by the shell.</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> **argv, <span class="keyword">char</span> **envp)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">int</span> i;</span><br><span class="line">  <span class="keyword">for</span>(i = <span class="number">0</span>; envp[i]; i++)</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%s\n&quot;</span>, envp[i]);</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>The “**envp” variable is an array of string</p>
+<p>A string is an array of characters</p>
+<ul>
+<li>Environment variables
+<ul>
+<li>A set of strings maintained by the shell.</li>
+<li>Quite a number of programs will read and make use of the environment variable.</li>
+</ul></li>
+</ul>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Variable name</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">SHELL</td>
+<td style="text-align: left;">The path to the shell that you're using</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">PWD</td>
+<td style="text-align: left;">The full path to the directory that you’re currently on.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">HOME</td>
+<td style="text-align: left;">The full path to your home directory</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">USER</td>
+<td style="text-align: left;">Your login name.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">EDITOR</td>
+<td style="text-align: left;">Your default text editor.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">PRINTER</td>
+<td style="text-align: left;">Your default printer</td>
+</tr>
+</tbody>
+</table>
+]]></content>
+      <tags>
+        <tag>Operating System</tag>
+        <tag>CS302</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>CS304 Software Engineering Week5 Note</title>
+    <url>//blog/2021/03/17/CS304-Software-Engineering-Week5-Note/</url>
+    <content><![CDATA[<h1 id="week5_note">week5_Note</h1>
+<h2 id="project">Project</h2>
+<p>Rules for submitting pull requests</p>
+<h2 id="project-rules-what-not-to-do-when-making-pull-requestpr">Project Rules: What not to do when making pull request(PR)?</h2>
+<ul>
+<li>Need to change the code to resolve conflicts so that developers can merge cleanly</li>
+<li>No communication with the user and developer. Only fixing the way you like.</li>
+<li>Do not choose documentation related issue.</li>
+<li>Do not adding too many commits to your PR. You PR should be short.</li>
+<li>Make minimal changes to current code. A PR that change less lines will be more likely to be accepted!</li>
+<li>Hit-and run PR: commits and run away without responding. This is very bad practice because:
+<ul>
+<li>Waste time of developer in code review</li>
+<li>Developers need to correct you mistake because you didn;t even check if you are implementing the correct issue</li>
+<li>Developer mention you several times but do not respond. Leave a bad reputation in GitHub.</li>
+</ul></li>
+</ul>
+<h2 id="recap-failure-and-errors">Recap: Failure and errors</h2>
+<ul>
+<li>Why is the difference between failure and errors?
+<ul>
+<li>计算、观察或测量值或条件，与真实、规定或理论上正确的值或条件之间的差异（Discrepancy between a computed, observed or measured value or condition and the true, specified, or theoretically correct value or condition.），可译为“错误”。Error是能够导致系统出现Failure的系统内部状态。</li>
+<li>Failure：当一个系统不能执行所要求的功能时，即为Failure，可译为“失效”。（Termination of the ability of an element or an item to perform a function as required.)</li>
+</ul></li>
+</ul>
+<h2 id="test-driven-developmenttdd">Test Driven Development(TDD)</h2>
+<p>One of the core practices in XP</p>
+<h2 id="kent-becks-rules">Kent Beck's rules</h2>
+<ul>
+<li>Beck's concept of test-driven development centers on two basic rules.</li>
+<li>Eliminate duplication.</li>
+</ul>
+<h2 id="ambiguity-in-informal">Ambiguity in Informal</h2>
+<p>If the maintenance contract number provided by the customer is not valid?</p>
+<ul>
+<li>Contract number cannot contain alphabets or special characters</li>
+<li>Contract number must be 5 digits</li>
+<li>Contract number cannot start with 0?</li>
+</ul>
+<h2 id="steps-in-test-driven-development-tdd">Steps in Test Driven Development (TDD)</h2>
+<ul>
+<li>The iterative process
+<ul>
+<li>Quickly add a test.</li>
+<li>Run all tests and see the new one fail.</li>
+<li>Make a little change to code.</li>
+<li>Run all tests and see them all succeed.</li>
+<li>Refactor to remove duplication</li>
+</ul></li>
+</ul>
+<h2 id="which-example-has-better-tests">Which example has better tests?</h2>
+<ul>
+<li>Each test should be independent of each other</li>
+<li>Any given behaviour should be specified in one and only</li>
+<li>Correct method signature should be assertEquals(expected,actual)</li>
+<li>Use .equals() to compare strings</li>
+</ul>
+<h2 id="is-there-a-standard-measurement-for-test-quality">Is there a standard measurement for test quality</h2>
+<p>Yes, code coverage!</p>
+<h2 id="what-is-code-coverage">What is Code Coverage</h2>
+<ul>
+<li>Code coverage is a measure used to describe <strong>the degree to which the source code of a program is executed when a particular</strong> <em>test suite runs</em>(A form of dynamic analysis)</li>
+<li>Code Coverage is classified as a <strong>White box testing</strong>
+<ul>
+<li>White Box testing: Testing where <strong>internal structure/ design/ implementation of the item</strong> being tested <strong>is known</strong></li>
+</ul></li>
+</ul>
+<h2 id="benefits-of-code-coverage">Benefits of Code Coverage</h2>
+<ul>
+<li>Identify untested part of codebase</li>
+<li>Improve the quality by imporved test coverage</li>
+<li>Identify testing gaps or missing tests</li>
+<li>Identify the redundant/dead code</li>
+</ul>
+<h2 id="coverage-criteria">Coverage Criteria</h2>
+<p>To measure what percentage of code has been exercised by a test suite, one or more coverage</p>
+<ul>
+<li>Instructions Coverage
+<ul>
+<li>Method’s bytecode stream is a sequence of instructions for JVM</li>
+<li>The Bytecode for a method are executed when that method is invoked.</li>
+</ul></li>
+<li>Statements Coverage
+<ul>
+<li>Reports whether each executable statement was executed</li>
+</ul></li>
+<li>Branch Coverage
+<ul>
+<li>Reports whether Boolean expressions evaluate to true</li>
+</ul></li>
+<li>Method Coverage
+<ul>
+<li>Reports whether a method (function) was invoked while testing the application</li>
+</ul></li>
+<li>Class Coverage
+<ul>
+<li>Report of number of classes from the code base covered.</li>
+</ul></li>
+</ul>
+<h2 id="equation-for-computing-coverage">Equation for Computing Coverage</h2>
+<p><span class="math display">\[\text{Statement Coverage} = \frac{\text{Number of executed statements}}{\text{Total number of statements}} \times 100\]</span></p>
+<p><span class="math display">\[
+\text{Branch Coverage} = \frac{\text{Number of Executed Branches}}{\text{Total number of Branches}} \times 100
+\]</span></p>
+<h2 id="code-coverage-analysis-process">Code Coverage Analysis Process</h2>
+<ul>
+<li>Writing test cases and execute them</li>
+<li>Finding areas of code not covered using Code Coverage Tool</li>
+<li>Creating additional tests for identified gaps to increase test coverage</li>
+<li>Determining a quantitative measure of code coverage</li>
+</ul>
+<h2 id="code-coverage-using-jacoco">Code Coverage using JaCoCo</h2>
+<ul>
+<li>JaCoCo is an open source code coverage Tool for Java, which has been created by the EclEmma team
+<ul>
+<li>Configure JaCoCo agent with JVM of your system to instrument java classes</li>
+<li>.EXEC file gets generated while the test cases are executed on the sys</li>
+<li>Generate Code Coverage report using ant (in different format)</li>
+</ul></li>
+</ul>
+<h2 id="mutation-testing">Mutation Testing</h2>
+<h3 id="general-view">General View</h3>
+<p>We are performing muttion analysis whenever we</p>
+<ul>
+<li>use well defined rules(mutation operators)</li>
+<li>defined on syntactic description(grammars)</li>
+<li>to make <strong>systematic changes</strong>(Applied universally or according to empirically verified distribution)</li>
+<li>to the <strong>syntax</strong> or to <strong>objects</strong> developed from the syntax</li>
+</ul>
+<h2 id="why-mutation">Why Mutation?</h2>
+<ul>
+<li>Mutant processes are created to try to mimic typical syntactic errors made by program</li>
+<li>Many differing <strong>mutants</strong> are run against the specified tests to assess the quality of the tests</li>
+<li>The tests are attributed a score between 0 and 1, as to whether they can distinguish between the original and the mutants.</li>
+</ul>
+<h2 id="mutators">Mutators</h2>
+<p>Mutators are patterns applied to source code to produce mutations</p>
+]]></content>
+      <tags>
+        <tag>CS304</tag>
+        <tag>Software Engineering</tag>
+        <tag>Test Driven Development(TDD)</tag>
+        <tag>Mutation Testing</tag>
+        <tag>Code Coverage</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hexo使用Pandoc渲染带来的列表缩进问题及解决方案</title>
+    <url>//blog/2021/03/17/Hexo%E4%BD%BF%E7%94%A8Pandoc%E6%B8%B2%E6%9F%93%E5%B8%A6%E6%9D%A5%E7%9A%84%E5%88%97%E8%A1%A8%E7%BC%A9%E8%BF%9B%E9%97%AE%E9%A2%98%E5%8F%8A%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/</url>
+    <content><![CDATA[<h2 id="x00-起因">0x00 起因</h2>
+<p>为了让数学公式在博客上被成功的渲染，我找了半天的教程。最后按照这篇next主题这篇<a href="https://theme-next.js.org/docs/third-party-services/math-equations">官方指导</a>来解决了公式渲染问题。</p>
+<p>具体思路如下。</p>
+<ol type="1">
+<li>在 next/config.yml 文件中修改如下。</li>
+</ol>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Math Formulas Render Support</span></span><br><span class="line"><span class="attr">math:</span></span><br><span class="line">  <span class="comment"># Default (false) will load mathjax / katex script on demand.</span></span><br><span class="line">  <span class="comment"># That is it only render those page which has `mathjax: true` in front-matter.</span></span><br><span class="line">  <span class="comment"># If you set it to true, it will load mathjax / katex srcipt EVERY PAGE.</span></span><br><span class="line">  <span class="attr">every_page:</span> <span class="literal">false</span></span><br><span class="line"></span><br><span class="line">  <span class="attr">mathjax:</span></span><br><span class="line">    <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">    <span class="comment"># Available values: none | ams | all</span></span><br><span class="line">    <span class="attr">tags:</span> <span class="string">none</span></span><br><span class="line"></span><br><span class="line">  <span class="attr">katex:</span></span><br><span class="line">    <span class="attr">enable:</span> <span class="literal">false</span></span><br><span class="line">    <span class="comment"># See: https://github.com/KaTeX/KaTeX/tree/master/contrib/copy-tex</span></span><br><span class="line">    <span class="attr">copy_tex:</span> <span class="literal">false</span></span><br></pre></td></tr></table></figure>
+<ol start="2" type="1">
+<li>删除原有的<code>hexo-renderer-marked</code>包，安装<code>hexo-renderer-pandoc</code>包。</li>
+</ol>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">$ npm un hexo-renderer-marked</span><br><span class="line">- no output</span><br><span class="line">$ npm i hexo-renderer-pandoc</span><br><span class="line">- no output</span><br></pre></td></tr></table></figure>
+<ol start="3" type="1">
+<li>安装 <a href="https://github.com/jgm/pandoc">pandoc</a>。</li>
+</ol>
+<h2 id="x01-问题">0x01 问题</h2>
+<p>数学公式渲染得非常完美，但是markdown文档的无序列表出了问题。</p>
+<p>起因在于我使用vscode编辑markdown文档，markdown使用两个空格来表示无序列表和子列表的缩进。</p>
+<p>markdown格式并没有非常严格统一的标准，各家都有自己小小的不同。pandoc则默认使用4个空格来做列表和子列表的缩进。</p>
+<h2 id="x02-解决">0x02 解决</h2>
+<p>在网上查了一下，五年前就有人在<a href="https://github.com/jgm/pandoc">pandoc项目</a>下提出了相关的<a href="https://github.com/jgm/pandoc/issues/2210">issue</a>。程序员们为应该使用4个空格还是2个空格进行缩进吵得不亦乐乎。</p>
+<p>issue串中有人提出了<a href="https://github.com/jgm/pandoc/issues/2210#issuecomment-215547943">解决方案</a>。</p>
+<blockquote>
+<p>Sorry about the necro post.</p>
+<p>Using --tab-stop 2 in the command line will allow you to use 2 spaces for nesting lists. Not sure of this is a deprecated or undocumented feature, works in 1.17.0.2-win.</p>
+</blockquote>
+<p>也就是说pandoc提供了 <code>--tab-stop 2</code> 这一标签来确定这类缩进的空格数。我们可以轻易的猜想到hexo使用了 <code>hexo-renderer-pandoc</code>这一npm包来调用pandoc以渲染markdown。</p>
+<p>找到调用的js源代码并修改。</p>
+<p>目录：<strong>myblog/node_modules/hexo-renderer-pandoc/index.js</strong></p>
+<p>源代码为：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> args = [ <span class="string">&#x27;-f&#x27;</span>, <span class="string">&#x27;markdown-smart&#x27;</span>+extensions, <span class="string">&#x27;-t&#x27;</span>, <span class="string">&#x27;html-smart&#x27;</span>, math]</span><br></pre></td></tr></table></figure>
+<p>修改为：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> args = [ <span class="string">&#x27;-f&#x27;</span>, <span class="string">&#x27;markdown&#x27;</span>+extensions, <span class="string">&#x27;-t&#x27;</span>, <span class="string">&#x27;html&#x27;</span>, math, <span class="string">&#x27;--tab-stop&#x27;</span>, <span class="string">&#x27;2&#x27;</span>]</span><br></pre></td></tr></table></figure>
+<p>其中，去掉两个smart是解决<a href="https://github.com/wzpan/hexo-renderer-pandoc/issues/36">另一个bug</a>。不在此赘述。</p>
+]]></content>
+      <tags>
+        <tag>Hexo</tag>
+        <tag>Pandoc</tag>
+        <tag>Markdown</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>2021-03-18-2021腾讯后台开发暑期实习面经-3月18日-二面</title>
+    <url>//blog/2021/03/18/2021%E8%85%BE%E8%AE%AF%E5%90%8E%E5%8F%B0%E5%BC%80%E5%8F%91%E6%9A%91%E6%9C%9F%E5%AE%9E%E4%B9%A0%E9%9D%A2%E7%BB%8F-3%E6%9C%8818%E6%97%A5-%E4%BA%8C%E9%9D%A2/</url>
+    <content><![CDATA[<h2 id="x00-准备">0x00 准备</h2>
+<p>今天一整天没课，为面试准备了一整天。前前后后做了几千字的笔记。</p>
+<h2 id="x01-面试">0x01 面试</h2>
+<p>晚上7点开始。先自我介绍。</p>
+<p>面试官问：选出一个能介绍你自己的项目。</p>
+<p>我选了游戏项目。</p>
+<p>面试官：我们部门主要是做基础架构的，你要是想做游戏我可以帮你推给其他部门。</p>
+<p>我：立刻改口。</p>
+<p>面试官问其他项目，提到C/C++。</p>
+<p>面试官要求设计一个接口。基于C/C++，输入两个int型的变量，输出它们的乘积。</p>
+<p>面试官问网络相关项目。</p>
+<p>面试官问：tcp和udp能同时用一个端口吗。</p>
+<p>面试官问：什么时候能来上班。</p>
+<p>面试官问：老家什么地方的。</p>
+<p>面试官问：打算考研吗？</p>
+<p>面试官问：将来有什么打算？</p>
+<h2 id="x02-反问环节">0x02 反问环节</h2>
+<p>我：主要业务是什么？</p>
+<p>我：技术水平如何？</p>
+<p>我：希望什么时候能入职？</p>
+<p>我：听说腾讯工作比其他大厂轻松，真的吗？</p>
+<p>我：如果过了，还有几轮面试？</p>
+<p>我：有什么需要学习的地方？</p>
+<p>我：面试中有哪些不足？</p>
+<h2 id="x03-后记">0x03 后记</h2>
+<p>满打满算只问了二十分钟，没怎么问技术问题。面试总时长三十分钟。</p>
+<p>10分钟出结果，官网显示复试过了，到hr面。大概teg真缺人。</p>
+]]></content>
+      <tags>
+        <tag>面经</tag>
+        <tag>腾讯</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>CS302 Operating System Week5 Note 0x00</title>
+    <url>//blog/2021/03/20/CS302-Operating-System-Week5-Note-0x00/</url>
+    <content><![CDATA[<h2 id="user-space-invoke-system-calls">User space invoke system calls</h2>
+<p>E.g.</p>
+<ul>
+<li>fork()</li>
+<li>exec*()</li>
+<li>wait()</li>
+</ul>
+<p>Kernel space keep PCB.</p>
+<h2 id="when-invoking-a-system-callmemory-view">When invoking a system call(memory view)</h2>
+<ul>
+<li>When running a program code of a user process.</li>
+<li>As the code is in use-space memory, so the program counter is pointing to that region.</li>
+<li>When the process is calling the system call "getpid()".</li>
+<li>Then, the CPU switches <strong>from the user-space to the kernel-space</strong>, and reads the PID of the process from the kernel.</li>
+<li>When the CPU has finished executing the "getpid()" system call
+<ul>
+<li>It <strong>switches back to the user-space memory</strong>, and continues running that program code.</li>
+</ul></li>
+</ul>
+<h2 id="when-invoking-a-system-call-cpu-view">When invoking a system call (CPU view)</h2>
+<ul>
+<li>user process
+<ul>
+<li>user process executing</li>
+<li>call system call</li>
+</ul></li>
+<li>kernel
+<ul>
+<li>trap mode bit = 0</li>
+<li>execute system call</li>
+<li>return mode bit = 1</li>
+</ul></li>
+<li>return from system call</li>
+</ul>
+<h2 id="process-real-time-costwall-clock-time">Process real time cost(wall-clock time)</h2>
+<h2 id="user-time-vs-system-time">User time VS System time</h2>
+<ul>
+<li>With the tool <strong>"time"</strong>
+<ul>
+<li>Real-time</li>
+<li>user time</li>
+<li>sys time</li>
+</ul></li>
+</ul>
+<p>Accessing hardware costs the process more time.</p>
+<ul>
+<li><p>The user time and the sys time together <strong>define the performance of an application</strong></p></li>
+<li>Function calls cause overhead
+<ul>
+<li>Stack pushing</li>
+</ul></li>
+<li>Sys calls may cause even more
+<ul>
+<li>Sys call is from another "process" (the kernel)</li>
+<li>Switching to another "process" -&gt; context switch(will see later)</li>
+</ul></li>
+</ul>
+<h2 id="fork-inside-the-kernel">fork() inside the kernel</h2>
+<ul>
+<li>Inside kernel, processes are arranged as a doubly linked list, called the <strong>task list</strong>.</li>
+</ul>
+<h2 id="fork-in-action---array-of-opened-files">fork() in action - array of opened files?</h2>
+<p>Array of opened files contains:</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Array Index</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">Standard Input Stream; FILE *stdin;</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">Standard Output stream; FILE *stdout;</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">Standard Error Stream; FILE *stderr;</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">3 or beyond</td>
+<td style="text-align: left;">Storing the files you opened. e.g., fopen(), open(), etc.</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p>That's why a parent process <strong>shares the same terminal output stream</strong> as the child process.</p></li>
+<li><p>Stream is just a <strong>logical</strong> object for you to read as a <strong>sequence of bytes</strong></p></li>
+</ul>
+<h2 id="working-of-system-calls-exec">Working of system calls exec*()</h2>
+<ul>
+<li>exec*()l is called</li>
+<li>The process returns to user-space <strong>but is executing another program</strong></li>
+</ul>
+<h2 id="exec-in-action">exec*() in action</h2>
+<ul>
+<li>Process 1234 invoked exec*()</li>
+<li>get in kernel space
+<ul>
+<li>kernel space will operate the memory of current process:
+<ul>
+<li>local variable is cleared</li>
+<li>Dynamically-allocated memory is cleared</li>
+<li>Global variable is reset based on the new code</li>
+<li>Code and constants are changed to the new program code.</li>
+</ul></li>
+<li>The kernel will also
+<ul>
+<li>reset the register values(e.g., program counter)</li>
+</ul></li>
+</ul></li>
+</ul>
+<h2 id="working-of-system-calls-wait-and-exit">working of system calls wait() and exit()</h2>
+<h2 id="exit-kernel-view">exit() kernel-view</h2>
+<ul>
+<li>The kernel frees all the allocated memory(I guess in kernel space).</li>
+<li>The list of opened files are all closed.(So it's okay to skip fclosed()); though not recommended</li>
+<li>Then, the kernel <strong>frees everything on the user-space memory</strong> about the concerned process, including program code and allocated memory.</li>
+<li>Process ID stills in the kernel's process table
+<ul>
+<li>Why?
+<ul>
+<li>[Wiki] This entry is still needed to allow the process that started the (now zombie) process to read its exit status.</li>
+</ul></li>
+<li>The status of the child is now called <strong>zombie ("terminated")</strong>.</li>
+</ul></li>
+<li>Last but no least, the <strong>kernel</strong> notifies the <strong>parent</strong> of the child process about the termination of its child.</li>
+<li>The kernel sends a SIGCHLD <strong>signal</strong> to the parent.</li>
+</ul>
+<h2 id="summary----what-the-kernel-does-for-exit">Summary -- what the kernel does for exit()</h2>
+<ul>
+<li>Step(1) Clean up most of the allocated kernel-space memory (e.g., process's running time info)</li>
+<li>step(2) Clean up the exit process's user-space memory</li>
+<li>Step(3) Notify the parent with SIGCHLD.</li>
+</ul>
+<h2 id="wait-kernel-views-registering-signal-handling-routine">wait() kernel view's registering signal handling routine</h2>
+<ul>
+<li>By default, every process does not respond to the SIGCHLD
+<ul>
+<li>i.g., the parent ignores his child unless he is waiting for the child</li>
+</ul></li>
+<li>But if a process has called <strong>wait()</strong>
+<ul>
+<li>The kernel will register a <strong>signal handling routine</strong> for that process.(in kernel space)</li>
+</ul></li>
+<li>When <strong>SIGCHLD</strong> comes, the corresponding <strong>signal handling routine is invoked</strong>!</li>
+<li><p>Note: the parent is still inside the <strong>wait()</strong> system call</p></li>
+<li>Default Handler of SIGCHLD registered by the kernel
+<ul>
+<li>Accept and remove the SIGCHLD signal</li>
+<li>Destroy the child process in the <strong>kernel-space(remove it from process table, task-list, etc.)</strong></li>
+</ul></li>
+<li>The kernel
+<ul>
+<li>Deregisters the signal handling routine for the parent</li>
+<li>returns the PID of the terminated child as the return value of <strong>wait()</strong></li>
+</ul></li>
+<li><p>The parent is ignoring <strong>SIGCHLD</strong> again</p></li>
+</ul>
+<h2 id="overall---normal-case">Overall - normal case</h2>
+<p><img src="https://i.loli.net/2021/03/20/kYmM4vbSTXDjguI.png" /> <img src="https://i.loli.net/2021/03/20/JIPhXcKWqeum67s.png" /></p>
+<h2 id="parents-wait-after-childs-exit">Parent's wait() after child's exit()</h2>
+<p><img src="https://i.loli.net/2021/03/20/aAFH3YhZqIXnUmW.png" /> <img src="https://i.loli.net/2021/03/20/He8WFQhvETbtIsm.png" /></p>
+<h2 id="wait-and-exit-short-summary">wait() and exit() short summary</h2>
+<ul>
+<li>exit() system call turns a process into a zombie when
+<ul>
+<li>The process call <strong>exit()</strong></li>
+<li>The process returns from <strong>main()</strong></li>
+<li>The process terminates abnormally
+<ul>
+<li>The kernel knows that the process is terminated abnormally. Hence, the kernel invokes <strong>exit()</strong> for it.</li>
+</ul></li>
+</ul></li>
+<li><strong>wait()</strong> and <strong>waitpid()</strong> are to reap zombie child processes
+<ul>
+<li>It is a must that you should never leave any zombies in the system</li>
+<li><strong>wait()</strong> and <strong>waitpid()</strong> pause the caller until
+<ul>
+<li>A child terminates/stops, OR</li>
+<li>The caller receives a signal (i.e., the signal interrupted the <strong>wait()</strong>)</li>
+</ul></li>
+</ul></li>
+<li>Linux will label zombie process as "<strong>&lt;defunct&gt;</strong>"</li>
+<li>To look for them</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">ps aux | grep defunct</span><br></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> pid;</span><br><span class="line">    <span class="keyword">if</span>( (pid = fork()) !=<span class="number">0</span> ) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;Look at the status of the child process %d\n&quot;</span>, pid);  </span><br><span class="line">        <span class="keyword">while</span>( <span class="built_in">getchar</span>() != <span class="string">&#x27;\n&#x27;</span> ); <span class="comment">// &quot;enter&quot; here. Child process is defunct/zombie</span></span><br><span class="line">        <span class="built_in">wait</span>(<span class="literal">NULL</span>);</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;Look again!\n&quot;</span>); <span class="comment">// &quot;enter&quot; here. Child process vanish.</span></span><br><span class="line">    <span class="keyword">while</span>( <span class="built_in">getchar</span>() != <span class="string">&#x27;\n&#x27;</span> );</span><br><span class="line">&#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>This program requires you to type “enter” twice before the process terminates.</p>
+<p>You are expected to see the status of the child process changes (ps aux [PID]) between the 1st and the 2nd “enter"</p>
+<h2 id="calling-wait-is-important">Calling wait() is important</h2>
+<ul>
+<li>It is not only about process execution suspension…</li>
+<li>It is about <strong>system resource management</strong>.
+<ul>
+<li>A zombie takes up a PID;</li>
+<li>The total number of PIDs are limited;</li>
+<li>Read the limit: <code>cat /proc/sys/kernel/pid_max</code></li>
+<li>It is 32768.</li>
+</ul></li>
+<li>What will happen if we don’t clean up the zombies?</li>
+</ul>
+<h2 id="the-fork-bomb">The fork bomb</h2>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span> </span>&#123;</span><br><span class="line"><span class="keyword">while</span>( fork() );</span><br><span class="line"><span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Deliberately missing wait()</li>
+<li>Do not try this on department’s machines…</li>
+</ul>
+<h2 id="the-first-process">The first process</h2>
+<ul>
+<li>We now focus on the process-related events
+<ul>
+<li>The kernel, while it is booting up, creates the first process – <strong>init</strong>.</li>
+</ul></li>
+<li>The <strong>init</strong> process:
+<ul>
+<li>has <strong>PID = 1</strong>, and</li>
+<li>is running the program code <code>/sbin/init</code>.</li>
+</ul></li>
+<li>Its first task is to create more processes…
+<ul>
+<li>Using <strong>fork()</strong> and **exec*()**.</li>
+</ul></li>
+</ul>
+<h2 id="process-blossoming">PRocess blossoming</h2>
+<ul>
+<li>You can view the tree with the command:
+<ul>
+<li><code>pstree</code> or</li>
+<li><code>pstree -A</code> for the ASCII-character-only display. <img src="https://i.loli.net/2021/03/20/MepN8ycu5l9R2xK.png" /></li>
+</ul></li>
+</ul>
+<h2 id="process-blossoming...-with-orphans">Process blossoming... with orphans?</h2>
+<ul>
+<li>However, termination can happen, at any time and in any place…
+<ul>
+<li>This is no good because an orphan turns the hierarchy from a <strong>tree</strong> into a <strong>forest</strong>!</li>
+<li>Plus, no one would know the termination of the orphan. <img src="https://i.loli.net/2021/03/20/8C2vnly7B4OI9S6.png" /></li>
+</ul></li>
+</ul>
+<h2 id="process-blossomingwith-re-parent">Process blossoming…with re-parent</h2>
+<ul>
+<li>In Linux
+<ul>
+<li>The <strong>init</strong> process will become the step-mother of all orphans</li>
+<li>It's called <strong>re-parenting</strong></li>
+</ul></li>
+<li>In Windows
+<ul>
+<li>It maintains a forest-like process hierarchy...... <img src="https://i.loli.net/2021/03/20/gtrRVB4wQEjcJ9x.png" /></li>
+</ul></li>
+</ul>
+<h2 id="re-parenting-example">Re-parenting example</h2>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line">    <span class="keyword">if</span>(fork() == <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++) &#123;</span><br><span class="line">       <span class="built_in">printf</span>(<span class="string">&quot;(%d) parent&#x27;s PID = %d\n&quot;</span>,</span><br><span class="line">       <span class="built_in">getpid</span>(), <span class="built_in">getppid</span>() );</span><br><span class="line">       <span class="built_in">sleep</span>(<span class="number">1</span>);</span><br><span class="line">       &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">       <span class="built_in">sleep</span>(<span class="number">1</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;(%d) bye.\n&quot;</span>, <span class="built_in">getpid</span>());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Output:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ ./reparent</span><br><span class="line">(1235) parent<span class="string">&#x27;s PID = 1234</span></span><br><span class="line"><span class="string">(1235) parent&#x27;</span>s PID = 1234</span><br><span class="line">(1234) <span class="built_in">bye</span>.</span><br><span class="line">$ (1235) parent’s PID = 1</span><br><span class="line">(1235) parent’s PID = 1</span><br><span class="line">(1235) parent’s PID = 1</span><br><span class="line">(1235) <span class="built_in">bye</span>.</span><br></pre></td></tr></table></figure>
+<h2 id="what-had-happened-during-re-parenting">What had happened during re-parenting?</h2>
+<p><img src="https://i.loli.net/2021/03/20/HaXNdsfRWzAu3xM.png" /> <img src="https://i.loli.net/2021/03/20/rKSyb39t6cUqdOF.png" /></p>
+<h2 id="background-jobs">Background jobs</h2>
+<ul>
+<li>The re-parenting operation enables something called <strong>background jobs</strong> in Linux
+<ul>
+<li>It allows a process runs without a parent terminal/shell</li>
+</ul></li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ ./infinite_loop &amp;</span><br><span class="line">$ <span class="built_in">exit</span></span><br><span class="line">[ The shell is gone ]</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ ps –C infinite_loop</span><br><span class="line"></span><br><span class="line">PID TTY</span><br><span class="line">1234 ... ./infinite_loop</span><br><span class="line"></span><br><span class="line">$ _ </span><br></pre></td></tr></table></figure>
+<h2 id="process-lifecycle">Process lifecycle</h2>
+<p><img src="https://i.loli.net/2021/03/20/Rvua5wCxG8TN4h9.png" /></p>
+<h2 id="process-lifecycle---ready">Process lifecycle - Ready</h2>
+<p><img src="https://i.loli.net/2021/03/20/uSARTdtOzioGFg4.png" /></p>
+<h2 id="process-lifecycle---running">Process lifecycle - Running</h2>
+<p><img src="https://i.loli.net/2021/03/20/OqcYJzE9DfIQFmb.png" /></p>
+<h2 id="process-lifecycle---blocking">Process lifecycle - Blocking</h2>
+<p><img src="https://i.loli.net/2021/03/20/eRZ1UKxXsPwj37u.png" /></p>
+<h2 id="process-lifecycle---interruptible-wait">Process lifecycle - Interruptible wait</h2>
+<ul>
+<li>Example. <strong>Reading a file.</strong>
+<ul>
+<li>Sometimes, the process has to wait for the response from the device and, therefore, it is blocked
+<ul>
+<li>this blocking state is <strong>interruptible</strong></li>
+<li>E.g., “Ctrl + C” can get the process out of the waiting state (but goes to termination state instead).</li>
+</ul></li>
+</ul></li>
+</ul>
+<h2 id="process-lifecycle---un-interruptible-wait">Process lifecycle - Un-Interruptible wait</h2>
+<p>Sometimes, a process needs to wait for a resource until it really gets what it wants</p>
+<ul>
+<li>Doesn’t want to be “Ctrl-C” interruptible</li>
+<li><strong>Un-interruptible status</strong>
+<ul>
+<li>No way to signal it to wake up unless it returns itself</li>
+<li>Check online! The only solution is … Who set this?</li>
+<li>E.g., <a href="http://man7.org/linux/man-pages/man2/delete_module.2.html">syscall call</a></li>
+</ul></li>
+<li>Why set this?
+<ul>
+<li>Easier programming for lazy programmer (e.g., a driver program for a DVD drive)</li>
+<li>The programmer “thinks” the wait is very short and robust .
+<ul>
+<li>This is one the top reasons that hang your machine / process today!</li>
+</ul></li>
+<li>…</li>
+</ul></li>
+<li><a href="http://unix.stackexchange.com/questions/96797/what-does-the-interruptible-sleep-state-indicate">http://unix.stackexchange.com/questions/96797/what-does-the-interruptible-sleep-state-indicate</a></li>
+<li><a href="http://stackoverflow.com/questions/767551/how-to-stop-uninterruptible-process-on-linux">http://stackoverflow.com/questions/767551/how-to-stop-uninterruptible-process-on-linux</a></li>
+</ul>
+<h2 id="process-lifecycle---return-back-to-ready">Process lifecycle - return back to ready</h2>
+<p><img src="https://i.loli.net/2021/03/20/lxZ2SmhivuwteIk.png" /></p>
+<h2 id="process-lifecycle---going-to-die">Process lifecycle - going to die</h2>
+<p><img src="https://i.loli.net/2021/03/20/VBXdG42kHjFn9MC.png" /></p>
+]]></content>
+      <tags>
+        <tag>Operating System</tag>
+        <tag>CS302</tag>
+        <tag>Process</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>CS302 Operating System Week5 Note 0x01</title>
+    <url>//blog/2021/03/21/CS302-Operating-System-Week5-Note-0x01/</url>
+    <content><![CDATA[<h2 id="lecture-5-job-schedule">Lecture 5: Job Schedule</h2>
+<h2 id="what-is-context-switching">What is context switching?</h2>
+<ul>
+<li><strong>Scheduling</strong> is the procedure that decides which process to run next.</li>
+<li><strong>Context switching</strong> is the actual switching procedure, from one process to another</li>
+</ul>
+<p><img src="https://i.loli.net/2021/03/21/aWyzdCbMBG68Evs.png" /></p>
+<p>Whenever a process goes to blocking / waiting state. E.g., <strong>wait()/sleep()</strong> is called</p>
+<ul>
+<li>A POSIX signal arrives (e.g., SIGCHLD)</li>
+<li>An interrupt arrives (e.g., keystroke(键击，按键))</li>
+<li>When the OS scheduler says “time’s up!” (e.g., round-robin)
+<ul>
+<li>Put it back to "ready"</li>
+</ul></li>
+<li>When the OS scheduler says “hey, I know you haven’t finished, but the PRESIDENT just arrives, please hold on” (e.g., preemptive(先发制人), round-robin with priority)
+<ul>
+<li>Put it back to "ready"</li>
+</ul></li>
+</ul>
+<p>Why?</p>
+<ul>
+<li>For multi-tasking</li>
+<li>For fully utilize the CPU</li>
+</ul>
+<h2 id="cpu-switch-from-process-a-to-process-b">CPU Switch From Process A to Process B</h2>
+<p><img src="https://i.loli.net/2021/03/21/n7Npi6VaJRPbLcW.png" /></p>
+<ul>
+<li>This is also called a “context switch”</li>
+<li>Code executed in kernel above is <strong>overhead</strong></li>
+</ul>
+<h2 id="context-switching">Context switching</h2>
+<p>Suppose this process gives up running on the CPU, e.g., calling sleep(). Then:</p>
+<ul>
+<li>Running --&gt; Interruptible Wait</li>
+</ul>
+<p>Now, it is time for the scheduler to choose the next process to run.</p>
+<p><img src="https://i.loli.net/2021/03/21/XFox2ZaIrgHtTS4.png" /></p>
+<p>But, before the scheduler can seize(抓住) the control of the CPU, a very important step has to be taken:</p>
+<ul>
+<li>Backup all current context of that process to the kernel-space’s PCB:
+<ul>
+<li>current register values</li>
+<li>program counter (which line of code the current program is at)</li>
+</ul></li>
+</ul>
+<p>Say, the scheduler decides to schedule another process in the ready queue. Then, the schedule has to <strong>load the context of that process from the main memory</strong> to the CPU.</p>
+<p>We call the entire operation: <strong>context switching</strong>.</p>
+<p><img src="https://i.loli.net/2021/03/21/yhSARJjOkWaYt3s.png" /></p>
+<h2 id="context-switch-is-expensive">Context switch is expensive</h2>
+<ul>
+<li>Direct costs in kernel:
+<ul>
+<li>Save and restore registers, etc.</li>
+<li>Switch address space (expensive instructions)</li>
+</ul></li>
+<li>Indirect costs: cache, buffer cache, &amp; TLB misses</li>
+</ul>
+<p><img src="https://i.loli.net/2021/03/21/8twrKcX2WEOlj3h.png" /></p>
+<h2 id="what-is-process-scheduling">What is process scheduling?</h2>
+<ul>
+<li>Scheduling is an important topic in the research of the operating system.
+<ul>
+<li>Related theoretical topics are covered in computer system performance evaluation.</li>
+</ul></li>
+<li>Scheduling is required because the number of computing resource – the CPU – is <strong>limited</strong>.</li>
+</ul>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">CPU-bound Process</th>
+<th style="text-align: left;">I/O-bound process</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Spends most of its running time on the CPU, i.e., <strong>user-time &gt; sys-time</strong></td>
+<td style="text-align: left;">Spends most of its running time on I/O, i.e., <strong>sys-time &gt; user-time</strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Examples - AI course assignments</td>
+<td style="text-align: left;">Examples - <strong>/bin/ls</strong>, networking programs</td>
+</tr>
+</tbody>
+</table>
+<h2 id="classes-of-process-scheduling">Classes of process scheduling</h2>
+<p>Preemptive(先发制人) scheduling (Non-preemptive is out)</p>
+<ul>
+<li>What is it?
+<ul>
+<li>When a process is chosen by the scheduler, the process would have the CPU until...
+<ul>
+<li>the process voluntarily waits I/O, or</li>
+<li>the process voluntarily releases the CPU, e.g., <strong>exit()</strong></li>
+<li><strong>particular kinds of interrupts (e.g., periodic clock interrupt, a new process steps in) are detected.</strong></li>
+</ul></li>
+</ul></li>
+<li>History
+<ul>
+<li>In old days, it was called “time-sharing”</li>
+<li>Nowadays, all systems are time-sharing</li>
+</ul></li>
+<li>Pros
+<ul>
+<li>Good for systems that emphasize <strong>interactiveness</strong>.</li>
+<li>Because every task will receive attentions from the CPU</li>
+</ul></li>
+<li>Cons
+<ul>
+<li>Bad for systems that emphasize the time in finishing tasks</li>
+</ul></li>
+</ul>
+<h2 id="scheduling-algorithms">Scheduling algorithms</h2>
+<ul>
+<li>Inputs to the algorithms <img src="https://i.loli.net/2021/03/21/F7slOBkMJwWZqhT.png" /></li>
+</ul>
+<p>Online vs Offline</p>
+<p>An offline scheduling algorithm assumes that you know the sequence of processes that a scheduler will face</p>
+<ul>
+<li>Theoretical baseline</li>
+</ul>
+<p>An online scheduling algorithm does not have such an assumption.</p>
+<ul>
+<li>Practical use</li>
+</ul>
+<h2 id="algorithm-evaluation">Algorithm evaluation</h2>
+<ul>
+<li>Number of context switches</li>
+<li>Individual &amp; average <strong>turnaround time</strong></li>
+<li><p>Individual &amp; average <strong>waiting time</strong></p></li>
+<li>Turnaround time
+<ul>
+<li>The time between the arrival of the task and the termination of the task.</li>
+</ul></li>
+<li>Waiting time
+<ul>
+<li>The accumulated time that a task has waited for the CPU.</li>
+</ul></li>
+</ul>
+<h2 id="different-algorithms">Different algorithms</h2>
+<ul>
+<li>Algorithms
+<ul>
+<li>Shortest-job-first (SJF)</li>
+<li>Round-robin (RR)</li>
+<li>Priority scheduling with multiple queues.</li>
+<li>… (lab session)</li>
+</ul></li>
+</ul>
+<p>Assumption: context switch is free (in practice, it is expensive)</p>
+<h2 id="non-preemptive-sjf">Non-preemptive SJF</h2>
+<p><img src="https://i.loli.net/2021/03/21/xfnSV4osMLgOPZa.png" /></p>
+<p><img src="https://i.loli.net/2021/03/21/9MR4KfBxo7sDYhz.png" /></p>
+<p><img src="https://i.loli.net/2021/03/21/lB9zRy46YnLkTjr.png" /></p>
+<p><img src="https://i.loli.net/2021/03/21/wBD1MfZyPul7UW5.png" /></p>
+<p><img src="https://i.loli.net/2021/03/21/U2omBrqWPQGSfZv.png" /></p>
+<h2 id="sjf">SJF</h2>
+<p>Problem</p>
+<ul>
+<li>What if tasks arrive after P2 <strong>all have CPU requirement &lt; 3</strong>?</li>
+<li>Problem persists even for its preemptive version</li>
+</ul>
+<h2 id="preemptive-sjf">Preemptive SJF</h2>
+<p>-Whenever a new process arrives at the system, the scheduler steps in and selects the next task based on <strong>their remaining CPU requirements</strong>.</p>
+<p><img src="https://i.loli.net/2021/03/21/3lrxoLj7dniw5Ka.png" /></p>
+<p><img src="https://i.loli.net/2021/03/21/1ae9iMt8sRfDIjo.png" /></p>
+<p><img src="https://i.loli.net/2021/03/21/4f6Ux2JARFuaPoE.png" /></p>
+<p><img src="https://i.loli.net/2021/03/21/Z6as8k7mudDFfiM.png" /></p>
+<p><img src="https://i.loli.net/2021/03/21/FsBldWNebSG8w7c.png" /></p>
+<p><img src="https://i.loli.net/2021/03/21/lJrNDQ9vazxpgHC.png" /></p>
+<h2 id="sjf-preemptive-or-not">SJF: Preemptive or not?</h2>
+<p><img src="https://i.loli.net/2021/03/21/VuBWlwMxL7pcT64.png" /></p>
+<p>The waiting time and the turnaround time decrease at the expense of the <strong>increased number of context switches</strong>.</p>
+<p>Context switch is expensive. (That’s why we shall minimize the # of sys calls as well; on a syscall, the program switch from user-process to kernel-"process".)</p>
+<h2 id="round-robin">Round-robin</h2>
+<p>Round-Robin (RR) scheduling is preemptive.</p>
+<ul>
+<li>Every process is given a quantum, or the amount of time allowed to execute.</li>
+<li>Whenever the quantum of a process is used up (i.e., 0), the process releases the CPU and <strong>this is the preemption</strong>.</li>
+<li>Then, the scheduler steps in and it chooses <strong>the next process which has a non-zero quantum</strong> to run.</li>
+<li>If all processes in the system have used up the quantum, they will be re-charged to their initial values.</li>
+<li>Processes are therefore running one-by-one as a <strong>circular queue</strong>, for the basic version (i.e., no priority)
+<ul>
+<li>New processes are added to the tail of the ready queue</li>
+<li>New process arrives won’t trigger a new selection decision</li>
+</ul></li>
+</ul>
+<p><img src="https://i.loli.net/2021/03/21/RSJHhuLyW5ZPkDq.png" /></p>
+<p><img src="https://i.loli.net/2021/03/21/PySuCFQhDepj9gv.png" /></p>
+<p><img src="https://i.loli.net/2021/03/21/142FKhakDXcEjNB.png" /></p>
+<p><img src="https://i.loli.net/2021/03/21/A2kMB7UlGSZJvt6.png" /></p>
+<p><img src="https://i.loli.net/2021/03/21/th1KoP9UlYX2MLR.png" /></p>
+<p><img src="https://i.loli.net/2021/03/21/w5sMacbVl3YnAtU.png" /></p>
+<p><img src="https://i.loli.net/2021/03/21/oigfW1UG7lbIrC4.png" /></p>
+<p><img src="https://i.loli.net/2021/03/21/PJvspqBMNTcionh.png" /></p>
+<p><img src="https://i.loli.net/2021/03/21/ZQxCMDwrWbP24KA.png" /></p>
+<p><img src="https://i.loli.net/2021/03/21/79u3asq5nxIUOLX.png" /></p>
+<h2 id="rr-vs-sjf">RR VS SJF</h2>
+<p><img src="https://i.loli.net/2021/03/21/HdXVBU7jfAucJFh.png" /></p>
+<p>So, the RR algorithm gets all the bad! Why do we still need it?</p>
+<p>The <strong>responsiveness of the processes</strong> is great under the RR algorithm. E.g., you won’t feel a job is “frozen” because every job gets the CPU from time to time!</p>
+<h2 id="priority-scheduling">Priority Scheduling</h2>
+<ul>
+<li>A task is given a priority (and is usually an integer).</li>
+<li>A scheduler selects the next process based on the priority</li>
+<li>A higher priority process + RR = priority queue + new process arrival triggers a new selection</li>
+</ul>
+<p>Static priority</p>
+<ul>
+<li>Every task is given a fixed priority.</li>
+<li>The priority is <strong>fixed</strong> throughout the life of the task.</li>
+</ul>
+<p>Dynamic priority</p>
+<ul>
+<li>Every task is given an initial priority</li>
+<li>The priority is <strong>changing</strong> throughout the life of the task.</li>
+</ul>
+<h2 id="if-a-task-is-preempted-in-the-middle">If a task is preempted in the middle</h2>
+<p>Note:</p>
+<ul>
+<li>it has been dequeued</li>
+<li>Re-enqueue back to the queue</li>
+<li>Quantum preserved / recharge?
+<ul>
+<li>Depends
+<ul>
+<li>Preserved: need more book keeping</li>
+<li>Recharge: easy (assumed in this course)</li>
+</ul></li>
+</ul></li>
+</ul>
+<h2 id="static-priority-scheduling-an-example">Static priority scheduling – an example</h2>
+<p><strong>Properties</strong>: process is assigned a fix priority when they are submitted to the system.</p>
+<ul>
+<li>E.g., Linux kernel 2.6 has 100 priority classes, [0-99].</li>
+</ul>
+<p><img src="https://i.loli.net/2021/03/21/LErOoKeGtx1Mb5c.png" /></p>
+<ul>
+<li>The highest priority class will be selected.
+<ul>
+<li>The tasks are usually <strong>short-lived</strong>, but <strong>important</strong>;
+<ul>
+<li>To prevent high-priority tasks from running indefinitely</li>
+</ul></li>
+</ul></li>
+</ul>
+<p><img src="https://i.loli.net/2021/03/21/opFdfaKGsk9I4Cc.png" /></p>
+<p>Lower priority classes will be scheduled only when the upper priority classes has no tasks.</p>
+<p><img src="https://i.loli.net/2021/03/21/6WkCr5l4SEYA7pF.png" /></p>
+<h2 id="multiple-queue-priority-scheduling">Multiple queue priority scheduling</h2>
+<p>Definitions</p>
+<ul>
+<li>It is still a priority scheduler.</li>
+<li>But, at each priority class, different schedulers may be deployed.</li>
+<li>The priority can be a mix of static and dynamic.</li>
+</ul>
+<p><img src="https://i.loli.net/2021/03/21/4ur79GhJRp5DI3C.png" /></p>
+<p>Real example, the Linux Scheduler.</p>
+<ul>
+<li>A multiple queue, (kind of) static priority scheduler</li>
+</ul>
+<p><img src="https://i.loli.net/2021/03/21/NbPXLg94BctGJeE.png" /></p>
+<p><img src="https://i.loli.net/2021/03/21/TSKDFktNyqGfp81.png" /></p>
+<p><img src="https://i.loli.net/2021/03/21/UAJGqMZQ4d75Sh8.png" /></p>
+<p>Do you notice that real (Linux) scheduler does not rely on task’s CPU (remaining) requirement values?</p>
+<p>That is because in practice it’s very difficult to estimate how much CPU time a task needs – CPU is very complicated nowadays:</p>
+<ul>
+<li>Superscalar</li>
+<li>Out-of-order execution (OOE)</li>
+<li>Branch prediction</li>
+</ul>
+<h2 id="recall-four-fundamental-os-concepts">Recall: Four Fundamental OS Concepts</h2>
+<ul>
+<li>Thread
+<ul>
+<li>Single unique execution context: fully describes program state</li>
+<li>Program Counter, Registers, Execution Flags, Stack</li>
+</ul></li>
+<li>Address space (with translation)
+<ul>
+<li>Programs execute in an <strong>address space</strong> that is distinct from the memory space of the physical machine</li>
+</ul></li>
+<li>Process
+<ul>
+<li>An instance of an executing program is <strong>a process consisting of an address space and one or more threads of control</strong></li>
+</ul></li>
+<li>Dual mode operation / Protection
+<ul>
+<li>Only the "system" has the ability to access certain resources</li>
+<li>The OS and the hardware are protected from user programs and user programs are isolated from one another by <strong>controlling the translation</strong> from program virtual addresses to machine physical addresses.</li>
+</ul></li>
+</ul>
+<h2 id="recall-process-what-we-knew-so-far">Recall: Process (What we knew so far)</h2>
+<ul>
+<li>Process: An instance of an executing program
+<ul>
+<li>An address space,</li>
+<li>One or more threads of control</li>
+</ul></li>
+<li><p><strong>Heavyweight</strong> process: a process has a single thread of control</p></li>
+<li>Two properties of heavyweight process
+<ul>
+<li>Sequential program execution stream
+<ul>
+<li>Active part</li>
+</ul></li>
+<li>Protected resource
+<ul>
+<li>Passive part</li>
+</ul></li>
+</ul></li>
+</ul>
+<h2 id="modern-process-with-threads">Modern Process with Threads</h2>
+<ul>
+<li>Thread: a <em>sequential execution stream within process</em> (Sometimes called a <strong>"Lightweight process"</strong>)
+<ul>
+<li>Process still contains a single Address Space</li>
+<li>No protection between threads</li>
+</ul></li>
+<li>Multithreading: <strong>a single program made up of a number of different concurrent activities</strong>
+<ul>
+<li>Sometimes called multitasking, as in Ada …</li>
+</ul></li>
+<li>Why separate the concept of a thread from that of a process?
+<ul>
+<li>Discuss the “thread” part of a process (<strong>concurrency</strong>, <strong>parallelism</strong>)</li>
+<li>Separate from the “address space” (protection)</li>
+<li><em>Heavyweight Process  Process with one thread</em></li>
+</ul></li>
+</ul>
+<h2 id="single-and-multithreaded-processes">Single and Multithreaded Processes</h2>
+<p><img src="https://i.loli.net/2021/03/21/hw4nLtPEGrJSWFH.png" /></p>
+<ul>
+<li>Threads encapsulate concurrency: <strong>"Active"</strong> component</li>
+<li>Address spaces encapsulate protection: <strong>"Passive"</strong> part
+<ul>
+<li>Keeps buggy program from trashing the system</li>
+</ul></li>
+</ul>
+<h2 id="threads-in-a-process">Threads in a Process</h2>
+<ul>
+<li>Threads are useful at user-level: parallelism, hide I/O latency, interactivity</li>
+<li>Option A (early Java): user-level library, one multi-threaded process
+<ul>
+<li>Library does thread context switch</li>
+<li>Kernel time slices between processes, e.g., on system call I/O</li>
+</ul></li>
+<li>Option B (SunOS, Linux/Unix variants): many single-threaded processes</li>
+<li>Option C (Windows): scheduler activations
+<ul>
+<li>Kernel allocates processes to user-level library</li>
+<li>Thread library implements context switch</li>
+<li>System call I/O that blocks triggers up-call(向上调用)</li>
+</ul></li>
+<li>Option D (Linux, MacOS, Windows): use kernel thread
+<ul>
+<li>System calls for thread fork, join, exit (and lock, unlock,…)</li>
+<li>Kernel does context switching</li>
+<li>Simple, but a lot of transitions between user and kernel mode</li>
+</ul></li>
+</ul>
+<h2 id="thread-state">Thread State</h2>
+<ul>
+<li>State shared by all threads in process/address space
+<ul>
+<li>Content of memory (global variables, heap)</li>
+<li>I/O state (file descriptors, network connections, etc)</li>
+</ul></li>
+<li>State "private" to each thread
+<ul>
+<li>Kept in <strong>TCB = Thread Control Block</strong></li>
+<li>CPU registers (including, program counter)</li>
+<li>Execution stack – what is this?</li>
+</ul></li>
+<li>Execution Stack
+<ul>
+<li>Parameters, temporary variable</li>
+<li>Return PCs are kept while called procedures are executing</li>
+</ul></li>
+</ul>
+<h2 id="shared-vs.-per-thread-state">Shared vs. Per-Thread State</h2>
+<p><img src="https://i.loli.net/2021/03/21/CVwTcXiEUdlanz3.png" /></p>
+<h2 id="execution-stack-example">Execution Stack Example</h2>
+<p><img src="https://i.loli.net/2021/03/21/qCFatinEZPGmAgz.png" /></p>
+<h2 id="thread-lifecycle">Thread Lifecycle</h2>
+<p><img src="https://i.loli.net/2021/03/21/GUYc5SwleOmhyn3.png" /></p>
+<h2 id="multithreaded-processes">Multithreaded Processes</h2>
+<ul>
+<li>Multithreaded Processes</li>
+<li>Thread Control Blocks (TCBs):</li>
+</ul>
+<p><img src="https://i.loli.net/2021/03/21/L1oCDs4WH9A5vem.png" /></p>
+<ul>
+<li>Switching threads within a block is a simple thread switch</li>
+<li>Switching threads across blocks requires changes to memory and I/O address tables</li>
+</ul>
+<h2 id="putting-it-together-process">Putting it Together: Process</h2>
+<p><img src="https://i.loli.net/2021/03/21/flWQw84Xq3InPKa.png" /></p>
+<h2 id="putting-it-together-processes">Putting it Together: Processes</h2>
+<p><img src="https://i.loli.net/2021/03/21/FVRAfGEohTvJwn5.png" /></p>
+<ul>
+<li>Switch overhead: high
+<ul>
+<li>CPU state: low</li>
+<li>Memory/IO state: high</li>
+</ul></li>
+<li>Process creation: high</li>
+<li>Protection
+<ul>
+<li>CPU: yes</li>
+<li>Memory/IO: yes</li>
+</ul></li>
+<li>Sharing overhead: high (involves at least a context switch)</li>
+</ul>
+<h2 id="putting-it-together-threads">Putting it Together: Threads</h2>
+<p><img src="https://i.loli.net/2021/03/21/lS5TiQB3hy2wIac.png" /></p>
+<ul>
+<li>Switch overhead: low (as only CPU state)</li>
+<li>Thread creation: low</li>
+<li>Protection
+<ul>
+<li>CPU: yes</li>
+<li>Memory/IO: no</li>
+</ul></li>
+<li>Sharing overhead: low(thread switch overhead low)</li>
+</ul>
+<h2 id="putting-it-together-multi-cores">Putting it Together: Multi-Cores</h2>
+<p><img src="https://i.loli.net/2021/03/21/E7OACRQ82WxmDv4.png" /></p>
+<ul>
+<li>Switch overhead: low (only CPU state)</li>
+<li>Thread creation: low</li>
+<li>Protection
+<ul>
+<li>CPU: yes</li>
+<li>Memory/IO: No</li>
+</ul></li>
+<li>Sharing overhead:
+<ul>
+<li>low (thread switch overhead low, may not need to switch CPU at all!)</li>
+</ul></li>
+</ul>
+<h2 id="simultaneous-multithreadinghyperthreading">Simultaneous MultiThreading/Hyperthreading</h2>
+<ul>
+<li>Hardware technique
+<ul>
+<li>Superscalar processors can execute multiple instructions that are independent</li>
+<li>Hyperthreading duplicates register state to make a second “thread,” allowing more instructions to run</li>
+</ul></li>
+<li>Can schedule each thread as if were separate CPU
+<ul>
+<li>But, sub-linear speedup!</li>
+</ul></li>
+<li>Original called "Simultaneous Multithreading"
+<ul>
+<li><a href="http://www.cs.washington.edu/research/smt/index.html">http://www.cs.washington.edu/research/smt/index.html</a></li>
+<li>Intel, SPARC, Power (IBM)</li>
+<li>A virtual core on AWS’ EC2 is basically a hyperthread</li>
+</ul></li>
+</ul>
+<h2 id="putting-it-together-hyper-threading">Putting it Together: Hyper-Threading</h2>
+<p><img src="https://i.loli.net/2021/03/21/RdVeTqyZ8E6J79G.png" /></p>
+<ul>
+<li>Switch overhead between
+<ul>
+<li>hardware-threads: very-low (done in hardware)</li>
+</ul></li>
+<li>Contention for ALUs/FPUs may hurt performance</li>
+</ul>
+<h2 id="multiprocessing-vs-multiprogramming">Multiprocessing vs Multiprogramming</h2>
+<ul>
+<li>Remember Definitions:
+<ul>
+<li>Multiprocessing <span class="math inline">\(\equiv\)</span> Multiple CPUs</li>
+<li>Multiprogramming <span class="math inline">\(\equiv\)</span> Multiple Jobs or Processes</li>
+<li>Multithreading <span class="math inline">\(\equiv\)</span> Multiple threads per Process</li>
+</ul></li>
+<li>What does it mean to run two threads “concurrently”?
+<ul>
+<li>Scheduler is free to run threads in any order and interleaving: FIFO, Random, …</li>
+<li>Dispatcher(调度器) can choose to run each thread to completion or time-slice in big chunks or small chunks</li>
+</ul></li>
+</ul>
+<p><img src="https://i.loli.net/2021/03/21/9EvxMH6kUKApa71.png" /></p>
+]]></content>
+      <tags>
+        <tag>Operating System</tag>
+        <tag>CS302</tag>
+        <tag>Process</tag>
+        <tag>Multithread</tag>
+        <tag>Schedule</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>2021-03-23-腾讯后台开发暑期实习面经-3月22日-hr面</title>
+    <url>//blog/2021/03/23/%E8%85%BE%E8%AE%AF%E5%90%8E%E5%8F%B0%E5%BC%80%E5%8F%91%E6%9A%91%E6%9C%9F%E5%AE%9E%E4%B9%A0%E9%9D%A2%E7%BB%8F-3%E6%9C%8822%E6%97%A5-hr%E9%9D%A2/</url>
+    <content><![CDATA[<h2 id="x00-前">0x00 前</h2>
+<p>早上hr打了两个电话过来。在睡觉，全部没接到，以为自己完蛋了。</p>
+<p>半个小时后又打过来，约当天下午四点面试。</p>
+<h2 id="x01-中">0x01 中</h2>
+<p>开始面试</p>
+<p>hr要求自我介绍。</p>
+<p>hr问哪里人。</p>
+<p>hr问学校信息。</p>
+<p>hr要求介绍一下项目经经历，谈一下项目的意义。</p>
+<p>hr问有打算读研吗？为什么做出这种选择。</p>
+<p>hr要求谈一下Java和c++的区别。</p>
+<p>hr问什么时候能入职。</p>
+<p>hr要求谈更多的项目细节。</p>
+<p>hr问是否还参加了其他公司的面试。如果收到offer去哪家。</p>
+<p>hr问有没有认识的亲属在腾讯。</p>
+<h2 id="x02-后">0x02 后</h2>
+<p>加了微信，做了云证。等offer审批中。</p>
+]]></content>
+      <tags>
+        <tag>面经</tag>
+        <tag>腾讯</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>CS302 Operating System Week6 Note</title>
+    <url>//blog/2021/03/28/CS302-Operating-System-Week6-Note/</url>
+    <content><![CDATA[<h1 id="week6-note">Week6 Note</h1>
+<h2 id="lecture-7-synchronization同步化">Lecture 7: Synchronization(同步化)</h2>
+<h2 id="synchronization-of-threadsprocesses">Synchronization of threads/processes</h2>
+<p><img src="https://i.loli.net/2021/03/24/xcEWwND9iXTt3vI.png" /></p>
+<h2 id="shared-memory-between-processes">Shared memory between processes</h2>
+<p><img src="https://i.loli.net/2021/03/24/1glRmSyY3vZa8c9.png" /></p>
+<h2 id="race-condition-understanding-the-problem">Race Condition: Understanding the problem</h2>
+<p><img src="https://i.loli.net/2021/03/24/DknpK75zUjmO2qs.png" /></p>
+<h2 id="race-condition">Race Condition</h2>
+<h3 id="normal-execution-and-abnormal-execution">Normal execution and Abnormal execution</h3>
+<p>Normal execution</p>
+<p><img src="https://i.loli.net/2021/03/24/8jwVHvCBN7cLOgz.png" /></p>
+<p>Abnormal execution</p>
+<p><img src="https://i.loli.net/2021/03/24/rLbBhEJoO9XFcA4.png" /></p>
+<ul>
+<li>The above scenario is called the race condition. May happen whenever <strong>shared object</strong> + <strong>multiple processes/threads</strong> + <strong>concurrently</strong></li>
+<li>A <strong>race condition</strong> means +the outcome of an execution depends on a particular order in which the shared resource is accessed.</li>
+<li>Remember: race condition is always a bad thing and debugging race condition is a nightmare!
+<ul>
+<li>It may end up …
+<ul>
+<li>99% of the executions are fine.</li>
+<li>1% of the executions are problematic.</li>
+</ul></li>
+</ul></li>
+</ul>
+<h2 id="mutual-exclusion-the-cure">Mutual Exclusion – the cure</h2>
+<p><img src="https://i.loli.net/2021/03/24/8mCKLxFEWu1rjDe.png" /></p>
+<h2 id="solution---mutual-exclusion">Solution - Mutual exclusion</h2>
+<ul>
+<li>Shared object is still sharable, but
+<ul>
+<li>Do not access the “shared object” <strong>at the same time</strong></li>
+<li>Access the “shared object” one by one</li>
+</ul></li>
+</ul>
+<h2 id="critical-section---the-realization">Critical Section - the realization</h2>
+<p><img src="https://i.loli.net/2021/03/24/JQgnprTM2iUfHjW.png" /></p>
+<ul>
+<li>Critical section is the code segment that is accessing the shared object</li>
+</ul>
+<h2 id="critical-section-cs-the-realization">Critical Section (CS) – the realization</h2>
+<p><img src="https://i.loli.net/2021/03/24/owDMSrLq2b7d1xR.png" /></p>
+<h2 id="a-typical-mutual-exclusion-scenario">A typical mutual exclusion scenario</h2>
+<p><img src="https://i.loli.net/2021/03/24/owDMSrLq2b7d1xR.png" /></p>
+<h2 id="a-typical-mutual-exclusion-scenario-1">A typical mutual exclusion scenario</h2>
+<p><img src="https://i.loli.net/2021/03/24/owDMSrLq2b7d1xR.png" /></p>
+<h2 id="summary">Summary</h2>
+<ul>
+<li>Race condition
+<ul>
+<li>Happens when programs accessing a shared object</li>
+<li>The outcome of the computation <strong>totally depends on the execution sequences</strong> of the processes involved</li>
+</ul></li>
+<li><strong>Mutual exclusion</strong> is a requirement
+<ul>
+<li>If it could be achieved, then the problem of the race condition would be gone.</li>
+</ul></li>
+<li><strong>A critical section</strong> is the code segment that access shared objects.
+<ul>
+<li>Critical section should be <strong>as tight as possible</strong>&gt;
+<ul>
+<li>Well, you can <strong>set the entire code of a program to be a big critical section</strong></li>
+<li>But, the program will have a very high chance to <strong>block other processes</strong> or to <strong>be blocked by other processes</strong></li>
+</ul></li>
+</ul></li>
+<li>Note that *one critical section<strong> can be designed for </strong>accessing more than one shared objects**.</li>
+<li><strong>Implementing section entry and exit</strong> is a challenge.
+<ul>
+<li>The entry and the exit are <strong>the core parts that guarantee mutual exclusion</strong></li>
+<li>Unless they are correctly implemented, race condition would appear.</li>
+</ul></li>
+<li>Mutual exclusion hinders(阻碍) the performance of parallel computations.</li>
+</ul>
+<h2 id="entry-and-exit-implementation---requirements">Entry and exit implementation - requirements</h2>
+<ul>
+<li>Requirement #1. Mutual Exclusion
+<ul>
+<li>No two processes could be simultaneously go inside their own critical sections.</li>
+</ul></li>
+<li>Requirement #2. Bounded Waiting
+<ul>
+<li>Once a process starts trying to enter her CS, there is a bound on the number of times other processes can enter theirs.</li>
+</ul></li>
+<li>Requirement #3. Progress
+<ul>
+<li>Say no process currently in C.S.</li>
+<li>One of the processes trying to enter will eventually get in.</li>
+</ul></li>
+</ul>
+<h2 id="disabling-interrupt-for-the-whole-cs">#0 – disabling interrupt for the whole CS</h2>
+<ul>
+<li>Aim
+<ul>
+<li>To <strong>disable context switching</strong> when the process is inside the critical section.</li>
+</ul></li>
+<li>Effect
+<ul>
+<li>When a process is in its critical section, no other processes could be able to run</li>
+</ul></li>
+<li>Correctness?
+<ul>
+<li>Uni-core: Correct but not permissible
+<ul>
+<li>at userspace: what if one writes a CS that loops infinitely and the other process(e.g., the shell) never gets the context switch back to kill it.</li>
+</ul></li>
+<li>Multi-core:Incorrect
+<ul>
+<li>If there is another core modifying the shared object in the memory(unless you disable interrupts on all cores)</li>
+</ul></li>
+</ul></li>
+</ul>
+<h2 id="achieving-mutual-exclusion">Achieving Mutual Exclusion</h2>
+<ul>
+<li>Lock-based
+<ul>
+<li>Use yet another shared objects: <strong>locks</strong>
+<ul>
+<li><strong>What about race condition on lock?</strong></li>
+<li>Atomic instructions: instructions that cannot be "interrupted"</li>
+</ul></li>
+<li>Spin-based lock
+<ul>
+<li>Process synchronization
+<ul>
+<li>Basic spinning using 1 shared variable</li>
+<li>Peterson's solution: Spin using 2 shared variables</li>
+</ul></li>
+<li>Thread synchronization
+<ul>
+<li><code>pthread_spin_lock</code></li>
+</ul></li>
+</ul></li>
+<li>Sleep-based lock
+<ul>
+<li>Process synchronization
+<ul>
+<li>POSIX semaphore(信号标，旗语)</li>
+</ul></li>
+<li>Thread synchronization
+<ul>
+<li><code>pthread_mutex_lock</code></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+<h2 id="basic-spin-lockbusy-waiting">#1: Basic Spin lock(busy waiting)</h2>
+<ul>
+<li>Idea.
+<ul>
+<li>Loop on <strong>another shared object</strong>, turn, to detect the status of other process</li>
+</ul></li>
+</ul>
+<p><img src="https://i.loli.net/2021/03/28/eaIoJ6hZdb1y3s7.png" /></p>
+<ul>
+<li>Correct
+<ul>
+<li>but it wastes CPU resources</li>
+<li>OK for short waiting
+<ul>
+<li>Especially these days we have multi-core
+<ul>
+<li>Will not block other irrelevant processes a lot</li>
+</ul></li>
+<li>OK when spin-time &lt; context-switch-overhead</li>
+</ul></li>
+</ul></li>
+<li>Impose a <strong>strict alternation(交替)</strong> other
+<ul>
+<li>SOmetimes you give me my turn but I'm not ready to enter CS yet
+<ul>
+<li>Then you have to wait long</li>
+</ul></li>
+</ul></li>
+</ul>
+<h2 id="basic-spin-lock-violates-progress">#1: Basic Spin lock violates progress</h2>
+<p><img src="https://i.loli.net/2021/03/28/To7ZWs8tPN5wE1D.png" /></p>
+<ul>
+<li>Consider the following sequence:
+<ul>
+<li>Process0 leaves cs(), set turn=1</li>
+<li>Process enter cs(), leaves cs()
+<ul>
+<li>set turn=0, work on <code>remainder_section_slow()</code></li>
+</ul></li>
+<li>Process 0 loops back and enter cs() again, leaves cs(), set turn=1</li>
+<li>Process 0 finishes its <code>remainder_section()</code>, go back to top of the loop
+<ul>
+<li>It can't enter its cs(), as turn=1</li>
+<li>That is process0 gets blocked, but Process 1 is outside its cs(), it is at its <code>remainder_section_slow()</code></li>
+</ul></li>
+</ul></li>
+</ul>
+<h2 id="spin-smarterby-petersons-solution">#2: Spin Smarter(by Peterson's solution)</h2>
+<ul>
+<li>Highlight:
+<ul>
+<li>Use one more extra shared object: <strong>interested</strong>
+<ul>
+<li>If I am not <strong>interested</strong>
+<ul>
+<li>I let you go</li>
+</ul></li>
+<li>If we are both <strong>interested</strong>
+<ul>
+<li>Takes turns</li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+<p><img src="https://i.loli.net/2021/03/28/9tAqI4ncQhRFZws.png" /></p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> turn; <span class="comment">/* who is last enter cs */</span></span><br><span class="line"><span class="keyword">int</span> interested[<span class="number">2</span>] = &#123;FALSE,FALSE&#125;; <span class="comment">/* express interest to enter cs*/</span></span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">lock</span><span class="params">( <span class="keyword">int</span> process )</span> </span>&#123; <span class="comment">/* process is 0 or 1 */</span></span><br><span class="line">    <span class="keyword">int</span> other; <span class="comment">/* number of the other process */</span> </span><br><span class="line">    other = <span class="number">1</span>-process; <span class="comment">/* other is 1 or 0 */</span></span><br><span class="line">    interested[process] = TRUE; <span class="comment">/* express interest */</span></span><br><span class="line">    turn = other;</span><br><span class="line">    <span class="keyword">while</span> ( turn == other &amp;&amp; interested[other] == TRUE ) ; <span class="comment">/* busy waiting */</span></span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> <span class="function"><span class="keyword">void</span> <span class="title">unlock</span><span class="params">( <span class="keyword">int</span> process )</span> </span>&#123; <span class="comment">/* process: who is leaving */</span></span><br><span class="line"> interested[process] = FALSE; <span class="comment">/* I just left critical region */</span></span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.loli.net/2021/03/28/qZatAYcrXoLPsku.png" /></p>
+<h3 id="case-1">Case 1</h3>
+<p><img src="https://i.loli.net/2021/03/28/HAfyd2OZsBYUPXz.png" /></p>
+<h3 id="case-2">Case 2</h3>
+<p><img src="https://i.loli.net/2021/03/28/e3UKz5mrBbPskNh.png" /></p>
+<h2 id="spin-smarter-by-petersons-solution">Spin Smarter (by Peterson’s solution)</h2>
+<ul>
+<li>Busy waiting
+<ul>
+<li>shared variable <strong>turn</strong> for mutual exclusion</li>
+<li>shared variables <strong>interest</strong> to resolve strict alternation</li>
+</ul></li>
+<li>Peterson’s solution satisfies all three criteria! (Why?) &gt; “It satisfies the three essential criteria to solve the critical section problem, provided that changes to the variables turn, interest[0], and interest[1] propagate immediately and atomically.”---wikipedia</li>
+<li>Suffer from priority inversion problem
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Peterson&#39;s_algorithm">Does it work for &gt;2 processes?</a></li>
+</ul></li>
+</ul>
+<h2 id="petersons-solution-satisfies-three-criteria">Peterson’s solution satisfies three criteria</h2>
+<ul>
+<li>Mutual exclusion
+<ul>
+<li>interested[0] == interested[1] == true</li>
+<li>turn == 0 or turn == 1, not both</li>
+</ul></li>
+<li>Progress
+<ul>
+<li>If only P0 to enter critical section
+<ul>
+<li>interested[1] == false, thus P0 enters critical section</li>
+</ul></li>
+<li>If both P0 and P1 to enter critical section
+<ul>
+<li>interested[0] == interested[1] == true and (turn == 0 or turn == 1)</li>
+</ul></li>
+<li>One of P0 and P1 will be selected</li>
+</ul></li>
+<li>Bounded-waiting
+<ul>
+<li>If both P0 and P1 to enter critical section, and P1 selected first</li>
+<li>When P1 exit, interested[1] = false
+<ul>
+<li>If P0 runs fast: interested[1] == false, P0 enters critical section</li>
+<li>If P1 runs fast: interested[1] = true, but turn = 0, P0 enters critical section</li>
+</ul></li>
+</ul></li>
+</ul>
+<h2 id="peterson-spinlock-suffers-from-priority-inversion">Peterson spinlock suffers from Priority Inversion</h2>
+<ul>
+<li>Priority/Preemptive Scheduling (Linux, Windows… all OS..)
+<ul>
+<li>A low priority process L is inside the critical region, but …</li>
+<li>A high priority process H gets the CPU and wants to enter the critical region.
+<ul>
+<li>But H can not lock (because L has not unlock)</li>
+<li>So, H gets the CPU to do nothing but spinning</li>
+</ul></li>
+</ul></li>
+</ul>
+<p><img src="https://i.loli.net/2021/03/28/1OaBtAv2zWcsypj.png" /></p>
+<h2 id="sleep-based-lock-semaphore">#3: Sleep-based lock: Semaphore</h2>
+<ul>
+<li>Semaphore is just a struct, which includes
+<ul>
+<li>an integer that counts the # of resources available
+<ul>
+<li>Can do more than solving mutual exclusion</li>
+</ul></li>
+<li>a wait-list</li>
+</ul></li>
+<li>The trick is still the section entry/exit function implementation
+<ul>
+<li>Need to interact with scheduler (must involve kernel, e.g., syscall)</li>
+<li>Implement uninterruptable section entry/exit
+<ul>
+<li>Section entry/exit function are short
+<ul>
+<li>Compared with Implementation #0 (uninterruptable throughout the whole CS)</li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+<h2 id="semaphore-logical-view">Semaphore logical view</h2>
+<p><img src="https://i.loli.net/2021/03/28/9Iw3RXEQMTd25Bv.png" /></p>
+<p><img src="https://i.loli.net/2021/03/28/mjQkK8JXYhfVN4W.png" /></p>
+<p><img src="https://i.loli.net/2021/03/28/3NZxWLhpy6wR9vu.png" /></p>
+<p><img src="https://i.loli.net/2021/03/28/fOb73mvoXn5lRyD.png" /></p>
+<h2 id="using-semaphoreuser-level">Using Semaphore(User-level)</h2>
+<figure>
+<img src="https://i.loli.net/2021/03/28/X9xEkgviClG1jAR.png" alt="image.png" /><figcaption>image.png</figcaption>
+</figure>
+<h2 id="using-semaphore-beyond-mutual-exclusion">Using Semaphore beyond mutual exclusion</h2>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Problem</th>
+<th style="text-align: left;">Properties</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Producer-Consumer Problem</td>
+<td style="text-align: left;">Two classes of processes: producer and consumer;At least one producer and one consumer.[Single-Object Synchronization]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Dining Philosopher Problem</td>
+<td style="text-align: left;">They are all running the same program;At least two processes.[Multi-Object Synchronization]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Reader Writer Problem</td>
+<td style="text-align: left;">Multiple reads, 1 write</td>
+</tr>
+</tbody>
+</table>
+<h2 id="producer-consumer-problem-introduction">Producer-consumer problem – introduction</h2>
+<ul>
+<li>Also known as the <strong>bounded-buffer problem</strong>.</li>
+<li>Single-object synchronization</li>
+</ul>
+<p><img src="https://i.loli.net/2021/03/28/Zp4z2lWD6PixmnV.png" /></p>
+<p><img src="https://i.loli.net/2021/03/28/olPw9tHSEF7efVj.png" /></p>
+<h2 id="producer-consumer-problem-semaphore">Producer-consumer problem: semaphore</h2>
+<ul>
+<li>The problem can be divided into two sub-problems.
+<ul>
+<li>Mutual exclusion
+<ul>
+<li>The buffer is a shared object. <strong>MUtual exclusion</strong> is needed. Done by one <strong>binary semaphore</strong></li>
+</ul></li>
+<li>Synchronization.
+<ul>
+<li>Because the buffer’s size is bounded, coordination is needed. Done by two semaphores
+<ul>
+<li>Notify the producer to stop producing when the buffer is full
+<ul>
+<li>In other words, notify the producer to produce when the buffer is NOT full</li>
+</ul></li>
+<li>Notify the consumer to stop eating when the buffer is empty
+<ul>
+<li>In other words, notify the consumer to consume when the buffer is NOT empty</li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+<p><img src="https://i.loli.net/2021/03/28/kAfUN9Q3rDmthC7.png" /></p>
+<p><img src="https://i.loli.net/2021/03/28/KgXVexjTW6MNbp3.png" /></p>
+<h2 id="producer-consumer-problem-question-1">Producer-consumer problem – question #1</h2>
+<p><img src="https://i.loli.net/2021/03/28/qN73VYXQvMDIycg.png" /></p>
+<p><img src="https://i.loli.net/2021/03/28/ylYsXotxbz3eUTm.png" /></p>
+<h2 id="producer-consumer-problem-question-2">Producer-consumer problem – question #2</h2>
+<p><img src="https://i.loli.net/2021/03/28/l9dPoXV7bC3gkIj.png" /></p>
+<p><img src="https://i.loli.net/2021/03/28/T2LSgMi3jdu1mQI.png" /></p>
+<p><img src="https://i.loli.net/2021/03/28/TwPMaklHRb172x8.png" /></p>
+<ul>
+<li>This scenario is called a <strong>deadlock</strong>
+<ul>
+<li>Consumer waits for Producer’s mutex at line 6
+<ul>
+<li>i.e., it waits for Producer (line 9) to unlock the mutex</li>
+</ul></li>
+<li>Producer waits for Consumer’s avail at line 7
+<ul>
+<li>i.e., it waits for Consumer (line 9) to release avail</li>
+</ul></li>
+</ul></li>
+<li>Implication: careless implementation of the producer-consumer solution can be disastrous(灾难性的).</li>
+</ul>
+<h2 id="deadlock">Deadlock</h2>
+<h2 id="summary-on-producer-consumer-problem">Summary on producer-consumer problem</h2>
+<ul>
+<li>How to avoid race condition on the shared buffer?
+<ul>
+<li>E.g., Use a <strong>binary semaphore</strong></li>
+</ul></li>
+<li>How to achieve synchronization?
+<ul>
+<li>E.g., Use two semaphores: fill and avail</li>
+</ul></li>
+</ul>
+<h2 id="dining-philosopher-introduction">Dining philosopher – introduction</h2>
+<ul>
+<li>5 philosophers, 5 plates of spaghetti, and 5 chopsticks.</li>
+<li>The jobs of each philosopher are to <strong>think</strong> and to <strong>eat</strong> +They <strong>need exactly two chopsticks</strong> in order to eat the spaghetti.</li>
+<li>Question: how to construct a synchronization protocol such that they:
+<ul>
+<li>will not <strong>starve to death</strong>, and</li>
+<li>will not result in any <strong>deadlock scenarios</strong>?
+<ul>
+<li>A waits for B’s chopstick</li>
+<li>B waits for C’s chopstick</li>
+<li>C waits for A’s chopstick …</li>
+</ul></li>
+</ul></li>
+<li>It’s a multi-object synchronization problem</li>
+</ul>
+<h2 id="dining-philosopher---introduction">Dining philosopher - introduction</h2>
+<p><img src="https://i.loli.net/2021/03/28/KbRpEYgs8DmxN4h.png" /></p>
+<p><img src="https://i.loli.net/2021/03/28/VsaBJtQOTHoCpFk.png" /></p>
+<p><img src="https://i.loli.net/2021/03/28/zgIHNJyjnD9LV3v.png" /></p>
+<h2 id="dining-philosopher-requirement-1">Dining philosopher – requirement #1</h2>
+<ul>
+<li>Mutual exclusion
+<ul>
+<li>While you are eating, people cannot steal your chopstick</li>
+<li>Two persons cannot hold the same chopstick</li>
+</ul></li>
+<li>Let’s propose the following solution
+<ul>
+<li>When you are hungry, you have to check if anyone is using the chopsticks that you need.</li>
+<li>If yes, you wait</li>
+<li>If no, seize <strong>both chopsticks</strong></li>
+<li>After eating, put down both your chopsticks.</li>
+</ul></li>
+</ul>
+<h2 id="dining-philosopher-meeting-requirement-1">Dining philosopher – meeting requirement #1?</h2>
+<p><img src="https://i.loli.net/2021/03/28/9wURXOj5EA3Sm2y.png" /></p>
+<h2 id="dining-philosopher---deadlock">Dining philosopher - deadlock</h2>
+<p><img src="https://i.loli.net/2021/03/28/5VdJecotKTB92L7.png" /></p>
+<h2 id="dining-philosopher-requirement-2">Dining philosopher – requirement #2</h2>
+<ul>
+<li>Synchronization
+<ul>
+<li>Should avoid deadlock.</li>
+</ul></li>
+<li>How about the following suggestions:
+<ul>
+<li>First, a philosopher takes a chopstick.</li>
+<li>If a philosopher finds that she cannot take the second chopstick, then she should put it down.</li>
+<li>Then, the philosopher goes to sleep for a while.</li>
+<li>When wake up, she retries</li>
+<li>Loop until both chopsticks are seized.</li>
+</ul></li>
+</ul>
+<h2 id="dining-philosopher-meeting-requirement-2">Dining philosopher – meeting requirement #2?</h2>
+<p><img src="https://i.loli.net/2021/03/28/prULTuWw4boNB9Q.png" /></p>
+<h2 id="dining-philosopher-before-the-final-solution">Dining philosopher – before the final solution</h2>
+<ul>
+<li><p>Before we present the final solution, let us see what problems we have.</p></li>
+<li>Problems
+<ul>
+<li>Model each chopstick as a semaphore is intuitive, but may cause deadlock</li>
+<li>Using sleep() to avoid deadlock is effective, yet creating starvation.</li>
+</ul></li>
+</ul>
+<p><img src="https://i.loli.net/2021/03/28/mODMgBls7XdKeaY.png" /></p>
+<h2 id="dining-philosopher-the-final-solution">Dining philosopher – the final solution</h2>
+<p><img src="https://i.loli.net/2021/03/28/HN5EAoOLdexK7vl.png" /></p>
+<h2 id="dining-philosopher-hungry">Dining philosopher – Hungry</h2>
+<p><img src="https://i.loli.net/2021/03/28/nBmdjZDJOev36bA.png" /></p>
+<h2 id="dining-philosopher-finish-eating">Dining philosopher – Finish eating</h2>
+<p><img src="https://i.loli.net/2021/03/28/MOpr4FjnVfBl6kC.png" /></p>
+<h2 id="dining-philosopher-the-core">Dining philosopher – the core</h2>
+<ul>
+<li>5 philosophers -&gt; ideally how many chopsticks?</li>
+<li>how many chopsticks do we have now?</li>
+<li>Very common in today’s cloud computing multi-tenancy model</li>
+</ul>
+<h2 id="summary-on-ipc-problems">Summary on IPC problems</h2>
+<ul>
+<li>The problems have the following properties in common:
+<ul>
+<li>Multiple number of processes;</li>
+<li>Processes have to be synchronized in order to generate useful output;</li>
+<li>Each resource may be shared as well as limited, and there may be more than one shared processes.</li>
+</ul></li>
+<li>The synchronization algorithms have the following requirements in common:
+<ul>
+<li>Guarantee mutual exclusion;</li>
+<li>Uphold(维护) the correct synchronization among processes; and</li>
+<li>(must be) Deadlock-free.</li>
+</ul></li>
+</ul>
+<h2 id="heisenbugs">Heisenbugs</h2>
+<ul>
+<li>Jim Gray, 1998 ACM Turing Award winner, coined that term</li>
+<li>You find your program P has a concurrency bug</li>
+<li>You insert ‘printf’ statements or GDB to debug P</li>
+<li>Then because of those debugging things added, P behaves normally when you are in debug mode</li>
+</ul>
+<p><img src="https://i.loli.net/2021/03/28/2HgierqPQCFj6XM.png" /></p>
+]]></content>
+      <tags>
+        <tag>Operating System</tag>
+        <tag>CS302</tag>
+        <tag>Race conditon</tag>
+        <tag>Mutual Exclusion</tag>
+        <tag>Dining philosopher</tag>
+        <tag>Producer-consumer problem</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>CS302 Operating System Week8 Note</title>
+    <url>//blog/2021/04/19/CS302-Operating-System-Week8-Note/</url>
+    <content><![CDATA[<h1 id="lecture-7-deadlock">Lecture 7: Deadlock</h1>
+<h2 id="starvation-vs-deadlock">starvation vs Deadlock</h2>
+<ul>
+<li>Starvation vs. Deadlock
+<ul>
+<li>Starvation: thread waits indefinitely(无限期的)
+<ul>
+<li>Low-priority thread waiting for resources constantly in use by high-priority thread</li>
+</ul></li>
+<li>Deadlock: circular waiting for resources
+<ul>
+<li>Thread A owns Res 1 and is waiting for Res 2</li>
+<li>Thread B owns Res 2 and is waiting for Res 1</li>
+</ul></li>
+</ul></li>
+</ul>
+<h2 id="conditions-for-deadlock">Conditions for Deadlock</h2>
+<ul>
+<li>Deadlock not always deterministic</li>
+<li>Deadlocks occur with multiple resources
+<ul>
+<li>Means you cannot decompose the problem</li>
+<li>Cannot solve deadlock for each resource independently</li>
+<li>System with 2 disk drives and two threads
+<ul>
+<li>Each thread needs 2 disk drives to function</li>
+<li>Each gets one disk and waits for another one</li>
+</ul></li>
+</ul></li>
+</ul>
+<h2 id="four-requirements-for-deadlock">Four requirements for Deadlock</h2>
+<ul>
+<li>Mutual exclusion
+<ul>
+<li>Only one thread at a time can use a resource</li>
+</ul></li>
+<li>Hold and wait
+<ul>
+<li>Thread holding at least one resource is waiting to acquire additional resource held by other threads</li>
+</ul></li>
+<li>No preemption
+<ul>
+<li>Resources are released only voluntarily by the thread holding the resource, after thread is finished with it</li>
+</ul></li>
+<li>Circular wait
+<ul>
+<li>There exists a set {T_1, ..., T_n} of waiting threads
+<ul>
+<li>T1 is waiting for a resource that is held by T2</li>
+<li>T2 is waiting for a resource that is held by T3</li>
+<li>...</li>
+<li>Tn is waiting for a resource that is held by T1</li>
+</ul></li>
+</ul></li>
+</ul>
+<h2 id="resource-allocation-graph">Resource-Allocation Graph</h2>
+<ul>
+<li>System Model
+<ul>
+<li>A set of Threads T1, T2, ... Tn</li>
+<li>Resource types R1,R2,...,Rm
+<ul>
+<li>CPU cycles, memory space, I/O devices</li>
+</ul></li>
+<li>Each resource type R1 has W1 instances</li>
+<li>Each thread utilizes a resources as follows:
+<ul>
+<li><code>Request()</code>,<code>Use()</code>,<code>Release()</code></li>
+</ul></li>
+</ul></li>
+<li>Resource-Allocation Graph:
+<ul>
+<li>V is partitioned into two types:
+<ul>
+<li>T = {T1,T2,...,Tn}, the set threads in the system</li>
+<li>R = {R1,R2,...,Rm}, the set of resource types in system</li>
+</ul></li>
+<li>Request edge - directed edge - T1 -&gt; Rj</li>
+<li>assignment edge - directed edge Rj -&gt; Ti</li>
+</ul>
+<img src="https://i.loli.net/2021/04/18/R478lWcrza9OYPE.png" title="fig:" alt="image.png" /></li>
+</ul>
+<h2 id="resource-allocation-graph-examples">Resource Allocation Graph Examples</h2>
+<ul>
+<li>Recall:
+<ul>
+<li>request edge - directed edge T1 -&gt; Rj</li>
+<li>assignment edge - directed edge Rj -&gt; Ti</li>
+</ul></li>
+</ul>
+<figure>
+<img src="https://i.loli.net/2021/04/18/YGR9jOWEDreTM5J.png" alt="image.png" /><figcaption>image.png</figcaption>
+</figure>
+<h2 id="methods-for-handling-deadlocks">Methods for Handling Deadlocks</h2>
+<ul>
+<li>Allow system to enter deadlock and then recover
+<ul>
+<li>Requires deadlock detection algorithm</li>
+<li>Some technique for forcibly preempting resources and/or terminating tasks</li>
+</ul></li>
+<li>Ensure that system will <strong>never</strong> enter a deadlock
+<ul>
+<li>Need to monitor all resource acquisitions</li>
+<li>Selectively deny those that <strong>might</strong> lead to deadlock</li>
+</ul></li>
+<li>Ignore the problem and pretend that deadlocks never occur in the system
+<ul>
+<li>Used by most operating system, including UNIX</li>
+</ul></li>
+</ul>
+<h2 id="deadlock-detection-algorithm">Deadlock Detection Algorithm</h2>
+<ul>
+<li>Only one of each type of resource -&gt; look for cycles</li>
+<li>More than one resource of each type
+<ul>
+<li>More deadlock detection algorithm</li>
+</ul></li>
+</ul>
+<h2 id="several-instances-of-a-resource-type">Several Instances of a Resource Type</h2>
+<ul>
+<li><code>Available</code>: A vector of length <strong>m</strong> indicates the number of available resources of each type</li>
+<li><code>Allocation</code>: A <strong>n * m</strong> matrix defines the number of resources of each type currently allocated to each process.</li>
+<li><code>Request</code>: An <strong>n * m</strong> matrix indicates the current request of each process. If Request[i_j]=k, then process P_i is requesting k more instances of resource type. R_j.</li>
+</ul>
+<h2 id="detection-algorithm">Detection Algorithm</h2>
+<ol type="1">
+<li>Let <code>Work</code> and <code>Finish</code> be vectors of length m and n, respectly initialize:
+<ol type="1">
+<li>Work = Available</li>
+<li>For i = 1,2,...n, if Allocation_i not 0, then Finish[i] = false; otherwise, Finish[i] = true.</li>
+</ol></li>
+<li>Find an index i such that both:
+<ol type="1">
+<li>Finish[i] == false</li>
+<li>Request_i &lt;= Work</li>
+</ol>
+<ul>
+<li>If no such i exists, go to step 4</li>
+</ul></li>
+<li>As follow.
+<ul>
+<li>Work = Work + Allocation_i</li>
+<li>Finish[i] = true</li>
+<li>go to step 2</li>
+</ul></li>
+<li>If Finish[i] == false, for some i, 1 &lt;= i &lt;= n, then the system is in deadlock state. Moreover, if Finish[i] == false, then P_i is deadlocked</li>
+</ol>
+<h2 id="example-of-detection-algorithm">Example of Detection Algorithm</h2>
+<ul>
+<li>Five processes P_0 through P_4; three resource type A(7 instances), B(2 instances), and C(6 instances)</li>
+<li>Snapshot at time T_0:</li>
+</ul>
+<p>Allocation</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: left;">A</th>
+<th style="text-align: left;">B</th>
+<th style="text-align: left;">C</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">P0</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">P1</td>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">P2</td>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">3</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">P3</td>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">P4</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">2</td>
+</tr>
+</tbody>
+</table>
+<p>Request</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: left;">A</th>
+<th style="text-align: left;">B</th>
+<th style="text-align: left;">C</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">P0</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">P1</td>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">P2</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">P3</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">P4</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">2</td>
+</tr>
+</tbody>
+</table>
+<p>Available</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">A</th>
+<th style="text-align: left;">B</th>
+<th style="text-align: left;">C</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+</tr>
+</tbody>
+</table>
+<p>Sequence &lt;P_0,P_2,P_3,P_1,P_4&gt; will result in Finish[i] = true for all i.</p>
+<p>If P_2 request an additional instance of type C, that is</p>
+<p>Request</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: left;">A</th>
+<th style="text-align: left;">B</th>
+<th style="text-align: left;">C</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">P0</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">P1</td>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">P2</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">P3</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">P4</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">2</td>
+</tr>
+</tbody>
+</table>
+<p>The state of system:</p>
+<ul>
+<li>Can reclaim resources held by process P_0(not deadlocked), but insufficient resources to fulfill other process; request</li>
+<li>Deadlock exist, consisting of processes P_1, P_2, P_3, and P_4</li>
+</ul>
+<h2 id="what-to-do-when-detect-deadlock">What to do when detect deadlock?</h2>
+<ul>
+<li>Terminate thread, force it to give up resources
+<ul>
+<li>In Bridge example, Godzilla picks up a car, hurls it into the river. Deadlock solved!</li>
+<li>Shoot a dining philosopher</li>
+<li>But, ont always possible</li>
+</ul></li>
+<li>Preempt resources without killing off thread
+<ul>
+<li>Take away resources from thread temporarily</li>
+<li>Does not always fit with semantics of computation</li>
+</ul></li>
+<li>Roll back actions of deadlocked threads
+<ul>
+<li>For bridge example, make one car roll backwards(may require others behind him)</li>
+<li>Common technique in databases(transactions)</li>
+<li>Of courses, if you restart in exactly the same way, may reenter deadlock once again</li>
+</ul></li>
+<li>Many operating systems use other options</li>
+</ul>
+<h2 id="techniques-for-preventing-deadlock">Techniques for Preventing Deadlock</h2>
+<ul>
+<li>Infinite resources
+<ul>
+<li>Include enough resources so that no one ever runs out of resources. Examples:
+<ul>
+<li>Bay bridge with 12,000 lanes. Never wait!</li>
+<li>Infinite disk space (not realistic yet?)</li>
+</ul></li>
+</ul></li>
+<li>No sharing of resources(totally independent threads)
+<ul>
+<li>Not very realistic</li>
+</ul></li>
+<li>Do not allow waiting
+<ul>
+<li>Technique used in Ethernet/some multiprocessor nets
+<ul>
+<li>Every speaks at once. On collision, back off and retry</li>
+</ul></li>
+<li>Inefficient, since have to keep retrying
+<ul>
+<li>Consider: driving to SUSTech; when hit traffic jam, suddenly you are transported back home and told to retry!</li>
+</ul></li>
+</ul></li>
+<li>Make all threads request everything they will need at the beginning
+<ul>
+<li>Problem: Predicting future is hard, tend to over-estimate resources. Example:
+<ul>
+<li>If need 2 chopsticks, request both at same time</li>
+<li>Don not leave home until we know no one is using any intersection between home and SUSTech; only one car on the Bay Bridge at a time</li>
+</ul></li>
+</ul></li>
+<li>Force all threads to request resources in a particular order preventing any cyclic use of resources
+<ul>
+<li>Thus, preventing deadlock</li>
+<li>Example (x.P, y.P, z.P,…)
+<ul>
+<li>Make tasks request disk, then memory, then…</li>
+<li>Keep from deadlock on freeways around SF by requiring everyone to go clockwise</li>
+</ul></li>
+</ul></li>
+</ul>
+<h2 id="bankers-algorithm">Banker's Algorithm</h2>
+<ul>
+<li>Multiple instances of each resource type</li>
+<li>Each process must a priori claim maximum use</li>
+<li>When a process requests a resource it may have to wait</li>
+<li>When a process gets all its resources it must return them in a finite amount of time</li>
+</ul>
+<h2 id="data-structures-for-the-bankers-algorithm">Data Structures for the Banker's Algorithm</h2>
+<p>Let n = number of processes, and m = number of resources type</p>
+<ul>
+<li>Available: Vector of length m. If available [j] = k, there are k instances of resource type Rj available</li>
+<li>Max: n x m matrix. If Max [i,j] = k, then process Pi may request at most k instances of resource type Rj</li>
+<li>Allocation: n x m matrix. If Allocation[i,j] = k then Pi is currently allocated k instances of Rj</li>
+<li>Need: n x m matrix. If Need[i,j] = k, then Pi may need k more instances of Rj to complete its task</li>
+</ul>
+<p>Need [i,j] = Max[i,j] – Allocation [i,j]</p>
+<h2 id="safety-algorithm">Safety Algorithm</h2>
+<p>1.Let Work and Finish be vectors of length m and n ,respectively. Initialize:</p>
+<ul>
+<li>Work = Available</li>
+<li>Finish [i] = false for i = 0, 1, …, n- 1</li>
+</ul>
+<p>2.Find an index i such that both:</p>
+<ul>
+<li>Finish [i] = false</li>
+<li>Need[i] &lt;= Work (i.e., for all k, Need[i,k] &lt;= Work[k])</li>
+</ul>
+<p>3.Work = Work + Allocation[i]</p>
+<ul>
+<li>Finish[i] = true</li>
+<li>go to step 2</li>
+</ul>
+<p>4.If Finish [i] == true for all i, then the system is in a safe state</p>
+<h2 id="resource-request-algorithm-for-process-pi">Resource-Request Algorithm for Process Pi</h2>
+<p>Request = request vector for process P_i. If Request [i,j] = k then process P_i wants k instances of resource type R_j</p>
+<p>1.If Request[i] &lt;= Need[i] go to step 2. Otherwise, raise error condition, since process has exceeded its maximum claim.</p>
+<p>2.If Request[i] &lt;= Available, go to step 3. Otherwise P_i must wait, since resources are not available</p>
+<p>3.Pretend to allocate requested resources to P_i by modifying the state as follows:</p>
+<ul>
+<li>Available = Available – Request;</li>
+<li>Allocation[i] = Allocation[i] + Request[i];</li>
+<li>Need[i] = Need[i] – Request[i];</li>
+</ul>
+<p>If safe -&gt; the resources are allocated to P_i</p>
+<p>If unsafe -&gt; P_i must wait, and the old resource-allocation state is restored</p>
+<h2 id="example-of-bankers-algorithm">Example of Banker’s Algorithm</h2>
+<figure>
+<img src="https://i.loli.net/2021/04/19/Hw4ceUOAytXTCxQ.png" alt="image.png" /><figcaption>image.png</figcaption>
+</figure>
+<figure>
+<img src="https://i.loli.net/2021/04/19/lNTfRIovi2Jurp6.png" alt="image.png" /><figcaption>image.png</figcaption>
+</figure>
+<figure>
+<img src="https://i.loli.net/2021/04/19/NoS8zDVsimU1ECy.png" alt="image.png" /><figcaption>image.png</figcaption>
+</figure>
+<figure>
+<img src="https://i.loli.net/2021/04/19/wb8DSxMQ2ngGO65.png" alt="image.png" /><figcaption>image.png</figcaption>
+</figure>
+]]></content>
+      <tags>
+        <tag>Operating System</tag>
+        <tag>CS302</tag>
+        <tag>Banker&#39;s Algorithm</tag>
+        <tag>Deadlock</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>CS302 Operating System Week9 Note</title>
+    <url>//blog/2021/04/20/CS302-Operating-System-Week9-Note/</url>
+    <content><![CDATA[<h1 id="lecture-8-address-translation">Lecture 8: Address Translation</h1>
+<h2 id="want-processes-to-co-exist">Want Processes to Co-exist</h2>
+<figure>
+<img src="https://i.loli.net/2021/04/20/vKsR5WSm8BMr34P.png" alt="image.png" /><figcaption>image.png</figcaption>
+</figure>
+<ul>
+<li>Consider multiprogramming on physical memory
+<ul>
+<li>What happens when pintos needs to expand?</li>
+<li>If emacs needs more memory than is on the machine?</li>
+<li>If pintos has an error and writes to address 0x7100?</li>
+<li>When does gcc have to know it will run at 0x4000?</li>
+<li>What if emacs is not using its memory?</li>
+</ul></li>
+</ul>
+<h2 id="virtualizing-resources">Virtualizing Resources</h2>
+<ul>
+<li>Physical Reality: different processes/threads share the same hardware
+<ul>
+<li>Need to multiplex CPU (done)</li>
+<li>Need to multiplex use of Memory (today)</li>
+<li>Need to multiplex disk and devices (later in term)</li>
+</ul></li>
+<li>Why worry about memory sharing?
+<ul>
+<li>The complete working state of a process is defined by its data in memory (and registers)</li>
+<li>Consequently, two different processes cannot use the same memory
+<ul>
+<li>Two different data cannot occupy same locations in memory</li>
+</ul></li>
+<li>May not want different threads to have access to each other’s memory</li>
+</ul></li>
+</ul>
+<h2 id="next-objective">Next Objective</h2>
+<ul>
+<li>Dive deeper into the concepts and mechanisms of memory sharing and address translation</li>
+<li>Enabler of many key aspects of operating systems
+<ul>
+<li>Protection</li>
+<li>Multi-programming</li>
+<li>Isolation</li>
+<li>Memory resource management</li>
+<li>I/O efficiency</li>
+<li>Sharing</li>
+<li>Inter-process communication</li>
+<li>Demand paging</li>
+</ul></li>
+<li>Today: Linking, Segmentation</li>
+</ul>
+<h2 id="recall-single-and-multithreaded-processes">Recall: Single and Multithreaded Processes</h2>
+<figure>
+<img src="https://i.loli.net/2021/04/20/1F3nQqABWCsR2Ol.png" alt="image.png" /><figcaption>image.png</figcaption>
+</figure>
+<ul>
+<li>Threads encapsulate concurrency
+<ul>
+<li>“Active” component of a process</li>
+</ul></li>
+<li>Address spaces encapsulate protection
+<ul>
+<li>Keeps buggy program from trashing the system</li>
+<li>“Passive” component of a process</li>
+</ul></li>
+</ul>
+<h2 id="important-aspects-of-memory-multiplexing">Important Aspects of Memory Multiplexing</h2>
+<ul>
+<li>Protection: prevent access to private memory of other processes
+<ul>
+<li>Kernel data protected from User programs</li>
+<li>Programs protected from themselves</li>
+<li>May want to give special behavior to different memory regions (Read Only, Invisible to user programs, etc)</li>
+</ul></li>
+<li>Controlled overlap: sometimes we want to share memory across processes.
+<ul>
+<li>E.g., communication across processes, share code</li>
+<li>Need to control such overlap</li>
+</ul></li>
+<li><strong>Translation</strong>:
+<ul>
+<li>Ability to translate accesses from one address space (virtual) to a different one (physical)</li>
+<li>When translation exists, processor uses virtual addresses, physical memory uses physical addresses</li>
+<li>Side effects:
+<ul>
+<li>Can be used to give uniform view of memory to programs</li>
+<li>Can be used to provide protection (e.g., avoid overlap)</li>
+<li>Can be used to control overlap</li>
+</ul></li>
+</ul></li>
+</ul>
+<h2 id="recall-os-bottom-line-run-programs">Recall: OS Bottom Line: Run Programs</h2>
+<figure>
+<img src="https://i.loli.net/2021/04/20/AG9TRC2dOe6LUrw.png" alt="image.png" /><figcaption>image.png</figcaption>
+</figure>
+<h2 id="recall-address-space">Recall: Address Space</h2>
+<figure>
+<img src="https://i.loli.net/2021/04/20/o1zedwGy48klHCn.png" alt="image.png" /><figcaption>image.png</figcaption>
+</figure>
+<h2 id="recall-context-switch">Recall: Context Switch</h2>
+<figure>
+<img src="https://i.loli.net/2021/04/20/DIivEC6GzJOfbPM.png" alt="image.png" /><figcaption>image.png</figcaption>
+</figure>
+<h2 id="binding-of-instructions-and-data-to-memory">Binding of Instructions and Data to Memory</h2>
+<figure>
+<img src="https://i.loli.net/2021/04/20/HmSe9Xv26aCJ1hV.png" alt="image.png" /><figcaption>image.png</figcaption>
+</figure>
+<h2 id="nd-copy-of-program-from-previous-example">2nd copy of program from previous example</h2>
+<figure>
+<img src="https://i.loli.net/2021/04/20/Ww8ZYupRdO2DQP9.png" alt="image.png" /><figcaption>image.png</figcaption>
+</figure>
+<h2 id="multi-step-processing-of-a-program-for-execution">Multi-step Processing of a Program for Execution</h2>
+<ul>
+<li>Preparation of a program for execution involves components at:
+<ul>
+<li>Compile time (i.e., “gcc”)</li>
+<li>Link time (UNIX “ld” does link)</li>
+<li>Load time</li>
+<li>Execution time (e.g., dynamic libs)</li>
+</ul></li>
+<li>Addresses can be bound to final values anywhere in this path
+<ul>
+<li>Depends on hardware support</li>
+<li>Also depends on operating system</li>
+</ul></li>
+<li>Dynamic Libraries
+<ul>
+<li>Linking postponed until execution</li>
+<li>Small piece of code, stub, used to locate appropriate memory-resident library routine</li>
+<li>Stub replaces itself with the address of the routine, and executes routine</li>
+</ul></li>
+</ul>
+<figure>
+<img src="https://i.loli.net/2021/04/20/MEbNQGxo15YyK4f.png" alt="image.png" /><figcaption>image.png</figcaption>
+</figure>
+<h2 id="multiplexing-memory-approaches">Multiplexing Memory Approaches</h2>
+<ul>
+<li>Uniprogramming</li>
+<li>Multiprogramming
+<ul>
+<li>Without protection</li>
+<li>With protection (base+bound)</li>
+</ul></li>
+<li>Virtual memory
+<ul>
+<li>Base &amp; Bound</li>
+<li>Segmentation</li>
+<li>Paging</li>
+<li>Paging + Segmentation</li>
+</ul></li>
+</ul>
+<h2 id="uniprogramming">Uniprogramming</h2>
+<p>Uniprogramming (no Translation or Protection)</p>
+<ul>
+<li>Application always runs at same place in physical memory since only one application at a time</li>
+<li>Application can access any physical address</li>
+</ul>
+<h2 id="multiprogramming-primitive-stage">Multiprogramming (primitive stage)</h2>
+<p>Multiprogramming without Translation or Protection</p>
+<ul>
+<li>Must somehow prevent address overlap between threads</li>
+</ul>
+<p>Use Loader/Linker: Adjust addresses while program loaded into memory (loads, stores, jumps)</p>
+<ul>
+<li>Everything adjusted to memory location of program</li>
+<li>Translation done by a linker-loader (relocation)</li>
+<li>Common in early days (… till Windows 3.x, 95?)j</li>
+</ul>
+<p>With this solution, no protection: bugs in any program can cause other programs to crash or even the OS</p>
+<h2 id="multiprogramming-version-with-protection">Multiprogramming (Version with Protection)</h2>
+<ul>
+<li>Can we protect programs from each other without translation?</li>
+</ul>
+<figure>
+<img src="https://i.loli.net/2021/04/20/S6YGgOHRsco9j57.png" alt="image.png" /><figcaption>image.png</figcaption>
+</figure>
+<ul>
+<li>Yes: use two special registers <strong>BaseAddr</strong> and <strong>LimitAddr</strong> to prevent user from straying outside designated area
+<ul>
+<li>If user tries to access an illegal address, cause an error</li>
+</ul></li>
+<li>During switch, kernel loads new base/limit from PCB (Process Control Block)
+<ul>
+<li>User not allowed to change base/limit registers</li>
+</ul></li>
+</ul>
+<h2 id="virtual-memory-support-in-modern-cpus">Virtual memory support in modern CPUs</h2>
+<ul>
+<li>The MMU – memory management unit
+<ul>
+<li>Usually on-chip (but some architecture may off-chip or no hardware MMU)</li>
+</ul></li>
+</ul>
+<figure>
+<img src="https://i.loli.net/2021/04/20/kC9LI21YfTObJK5.png" alt="image.png" /><figcaption>image.png</figcaption>
+</figure>
+<h2 id="virtual-memory-how-does-it-work">Virtual memory – how does it work?</h2>
+<ul>
+<li>Step 1. When CPU wants to fetch an instruction
+<ul>
+<li>the virtual address is sent to MMU and</li>
+<li>is translated into a physical address.</li>
+</ul></li>
+</ul>
+<figure>
+<img src="https://i.loli.net/2021/04/20/HelC9OBoyZEJjTn.png" alt="image.png" /><figcaption>image.png</figcaption>
+</figure>
+<ul>
+<li>Step 2. The memory returns the instruction</li>
+</ul>
+<figure>
+<img src="https://i.loli.net/2021/04/20/tZglMbL5DHN2uyI.png" alt="image.png" /><figcaption>image.png</figcaption>
+</figure>
+<ul>
+<li>Step 3. The CPU decodes the instruction.
+<ul>
+<li>An instruction uses virtual addresses
+<ul>
+<li>but not physical addresses.</li>
+</ul></li>
+</ul></li>
+</ul>
+<figure>
+<img src="https://i.loli.net/2021/04/20/H2vFd4A9UeTBNbL.png" alt="image.png" /><figcaption>image.png</figcaption>
+</figure>
+<ul>
+<li>Step 4. With the help of the MMU, the target memory is retrieved.</li>
+</ul>
+<figure>
+<img src="https://i.loli.net/2021/04/20/YJnmWIAH3aQeZ28.png" alt="image.png" /><figcaption>image.png</figcaption>
+</figure>
+<h2 id="general-address-translation">General Address translation</h2>
+<ul>
+<li>Recall: Address Space:
+<ul>
+<li>All the addresses and state a process can touch</li>
+<li>Each process has different address space</li>
+</ul></li>
+<li>Consequently, two views of memory:
+<ul>
+<li>View from the CPU (what program sees, virtual memory)</li>
+<li>View from memory (physical memory)</li>
+<li>Translation box (MMU) converts between the two views</li>
+</ul></li>
+<li>Translation makes it much easier to implement protection
+<ul>
+<li>If task A cannot even gain access to task B’s data, no way for A to adversely affect B</li>
+</ul></li>
+<li>With translation, every program can be linked/loaded into same region of user address space</li>
+</ul>
+<h2 id="simple-example-base-and-bounds">Simple Example: Base and Bounds</h2>
+<figure>
+<img src="https://i.loli.net/2021/04/20/E4w8TXvzghyRMIL.png" alt="image.png" /><figcaption>image.png</figcaption>
+</figure>
+<ul>
+<li>Could use base/bounds for dynamic address translation – translation happens at execution:
+<ul>
+<li>Alter address of every load/store by adding “base”</li>
+<li>Generate error if address bigger than limit</li>
+</ul></li>
+<li>This gives program the illusion that it is running on its own dedicated machine, with memory starting at 0
+<ul>
+<li>Program gets continuous region of memory</li>
+<li>Addresses within program do not have to be relocated when program placed in different region of DRAM</li>
+</ul></li>
+</ul>
+<h2 id="issues-with-simple-bb-method">Issues with Simple B&amp;B Method</h2>
+<figure>
+<img src="https://i.loli.net/2021/04/20/I6wok71iLXcsbfE.png" alt="image.png" /><figcaption>image.png</figcaption>
+</figure>
+<ul>
+<li>Fragmentation problem over time
+<ul>
+<li>Not every process is same size  memory becomes fragmented</li>
+</ul></li>
+<li>Missing support for sparse address space
+<ul>
+<li>Would like to have multiple chunks/program (Code, Data, Stack)</li>
+</ul></li>
+<li>Hard to do inter-process sharing
+<ul>
+<li>Want to share code segments when possible</li>
+<li>Want to share memory between processes</li>
+<li>Helped by providing multiple segments per process</li>
+</ul></li>
+</ul>
+<h2 id="more-flexible-segmentation">More Flexible Segmentation</h2>
+<ul>
+<li>Logical View: multiple separate segments
+<ul>
+<li>Typical: Code, Data, Stack</li>
+<li>Others: memory sharing, etc</li>
+</ul></li>
+<li>Each segment is given region of contiguous memory
+<ul>
+<li>Has a base and limit</li>
+<li>Can reside anywhere in physical memory</li>
+</ul></li>
+</ul>
+<h2 id="implementation-of-multi-segment-model">Implementation of Multi-Segment Model</h2>
+<figure>
+<img src="https://i.loli.net/2021/04/20/vasg58tlUXIzwV3.png" alt="image.png" /><figcaption>image.png</figcaption>
+</figure>
+<h2 id="observations-about-segmentation">Observations about Segmentation</h2>
+<ul>
+<li>Virtual address space has holes
+<ul>
+<li>Segmentation efficient for sparse address spaces</li>
+<li>A correct program should never address gaps
+<ul>
+<li>If it does, trap to kernel and dump core</li>
+</ul></li>
+</ul></li>
+<li>When is it OK to address outside valid range?
+<ul>
+<li>This is how the stack and heap are allowed to grow</li>
+<li>For instance, stack takes fault, system automatically increases size of stack</li>
+</ul></li>
+<li>Need protection mode in segment table
+<ul>
+<li>For example, code segment would be read-only</li>
+<li>Data and stack would be read-write (stores allowed)</li>
+<li>Shared segment could be read-only or read-write</li>
+</ul></li>
+<li>What must be saved/restored on context switch?
+<ul>
+<li>Segment table stored in CPU, not in memory (small)</li>
+<li>Might store all of processes memory onto disk when switched (called “swapping”)</li>
+</ul></li>
+</ul>
+<h2 id="problems-with-segmentation">Problems with Segmentation</h2>
+<ul>
+<li>Must fit variable-sized chunks into physical memory</li>
+<li>May move processes multiple times to fit everything</li>
+<li>Fragmentation: wasted space
+<ul>
+<li>External: free gaps between allocated chunks</li>
+<li>Internal: do not need all memory within allocated chunks</li>
+</ul></li>
+</ul>
+<h2 id="general-address-translation-1">General Address Translation</h2>
+<figure>
+<img src="https://i.loli.net/2021/04/20/YTerqF4UK3x5EcI.png" alt="image.png" /><figcaption>image.png</figcaption>
+</figure>
+<h2 id="paging-physical-memory-in-fixed-size-chunks">Paging: Physical Memory in Fixed Size Chunks</h2>
+<ul>
+<li>Solution to fragmentation from segments?
+<ul>
+<li>Allocate physical memory in fixed size chunks (“pages”)</li>
+<li>Every chunk of physical memory is equivalent
+<ul>
+<li>Can use simple vector of bits to handle allocation:
+<ul>
+<li>00110001110001101 … 110010</li>
+</ul></li>
+<li>Each bit represents page of physical memory
+<ul>
+<li>1 -&gt; allocated, 0 -&gt; free</li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li>Should pages be as big as our previous segments?
+<ul>
+<li>No: Can lead to lots of internal fragmentation
+<ul>
+<li>Typically have small pages (1K-16K)</li>
+</ul></li>
+<li>Consequently: need multiple pages per segment</li>
+</ul></li>
+</ul>
+<h2 id="how-to-implement-paging">How to Implement Paging?</h2>
+<figure>
+<img src="https://i.loli.net/2021/04/20/YSiDTnqZvhEwjmF.png" alt="image.png" /><figcaption>image.png</figcaption>
+</figure>
+<h2 id="simple-page-table-example">Simple Page Table Example</h2>
+<figure>
+<img src="https://i.loli.net/2021/04/20/u41L3jDmZxE9PI8.png" alt="image.png" /><figcaption>image.png</figcaption>
+</figure>
+<h2 id="what-about-sharing">What about Sharing?</h2>
+<figure>
+<img src="https://i.loli.net/2021/04/20/3mHPDzaIWopB5FS.png" alt="image.png" /><figcaption>image.png</figcaption>
+</figure>
+<h2 id="summary-paging">Summary: paging</h2>
+<figure>
+<img src="https://i.loli.net/2021/04/20/kfRiAIJUVNL4Wv8.png" alt="image.png" /><figcaption>image.png</figcaption>
+</figure>
+<figure>
+<img src="https://i.loli.net/2021/04/20/SR5UtnhfzCW9gcT.png" alt="image.png" /><figcaption>image.png</figcaption>
+</figure>
+<h2 id="page-table-discussion">Page Table Discussion</h2>
+<ul>
+<li>What needs to be switched on a context switch?
+<ul>
+<li>Page table pointer and limit</li>
+</ul></li>
+<li>Analysis
+<ul>
+<li>Pros
+<ul>
+<li>Simple memory allocation</li>
+<li>Easy to share</li>
+</ul></li>
+<li>Con: What if address space is sparse?
+<ul>
+<li>E.g., on UNIX, code starts at 0, stack starts at (231-1)</li>
+<li>With 1K pages, need 2 million page table entries!</li>
+</ul></li>
+<li>Con: What if table really big?
+<ul>
+<li>Not all pages used all the time -&gt; would be nice to have working set of page table in memory</li>
+</ul></li>
+</ul></li>
+<li>How about multi-level paging or combining paging and segmentation?</li>
+</ul>
+<h2 id="fix-for-sparse-address-space-the-two-level-page-table">Fix for sparse address space: The two-level page table</h2>
+<figure>
+<img src="https://i.loli.net/2021/04/20/sozW5YmNOfIgwXu.png" alt="image.png" /><figcaption>image.png</figcaption>
+</figure>
+<h2 id="summary-two-level-paging">Summary: Two-Level Paging</h2>
+<figure>
+<img src="https://i.loli.net/2021/04/20/5oKwFAq6kYugXvf.png" alt="image.png" /><figcaption>image.png</figcaption>
+</figure>
+<figure>
+<img src="https://i.loli.net/2021/04/20/shTIWf7GwLl9mNO.png" alt="image.png" /><figcaption>image.png</figcaption>
+</figure>
+<h2 id="multi-level-translation-segments-pages">Multi-level Translation: Segments + Pages</h2>
+<figure>
+<img src="https://i.loli.net/2021/04/20/eEDwi34dZUIXAHg.png" alt="image.png" /><figcaption>image.png</figcaption>
+</figure>
+<h2 id="what-about-sharing-complete-segment">What about Sharing (Complete Segment)?</h2>
+<figure>
+<img src="https://i.loli.net/2021/04/20/vEMgKZ9qOUN2YSG.png" alt="image.png" /><figcaption>image.png</figcaption>
+</figure>
+]]></content>
+      <tags>
+        <tag>Operating System</tag>
+        <tag>CS302</tag>
+        <tag>Virtual Memory</tag>
+        <tag>Page Table</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>数字极简的一些思路-关于微信，知乎，支付宝，淘宝和网易云音乐</title>
+    <url>//blog/2021/06/25/%E6%95%B0%E5%AD%97%E6%9E%81%E7%AE%80%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%9D%E8%B7%AF-%E5%85%B3%E4%BA%8E%E5%BE%AE%E4%BF%A1%EF%BC%8C%E7%9F%A5%E4%B9%8E%EF%BC%8C%E6%94%AF%E4%BB%98%E5%AE%9D%EF%BC%8C%E6%B7%98%E5%AE%9D%E5%92%8C%E7%BD%91%E6%98%93%E4%BA%91%E9%9F%B3%E4%B9%90/</url>
+    <content><![CDATA[<p>现在我成功的将手机上的APP数量降到了27个，其中包含了原生APP。这些APP有3个在dock栏中，另外24个则刚好占满iPhone 8 plus 的一页。</p>
+<p>我想谈谈我在这个过程中遇到的一些困难和思路，也许能够给和我有着相同目标的极简主义者一些启发。</p>
+<p>无疑的，我曾经是一个重度的移动互联网用户。如果按照十年前的标准，我想，现在绝大多数人都可以被称作是重度的移动互联网用户。我的手机也曾被各式各样的APP占满。在最开始接触到极简主义的思想时，我曾统计过我的APP总数，那时我手机中有150个APP。而如今，在接触极简主义的一年多后，我成功将这个数字降低到了27。除去Apple的原生app外，在手机上，我总共使用了其他互联网服务商的总计8个APP。</p>
+<p>在最初接触极简主义之后，我首先将这个数量降低到了60多。这一步非常的容易，因为我很轻松的就找到了那些我三个月以上未曾打开的APP，并且将他们全部删掉。但在这之后的APP，才是极简路上的真正的大难题。</p>
+<p>在逐渐极简掉剩下的APP的过程中，我的许多思维发生了很大的改变。</p>
+<h2 id="审视互联网服务商的开放性">审视互联网服务商的开放性</h2>
+<p>自人类进入移动互联网时代以来，总体来说，互联网走向更加狭隘，封闭的地步。作为用户的我们似乎总是认为所有服务都应该有它自己的APP，而我们却忘记了互联网本质上是基于PC和Web服务这两个事实。但是实际上，所有你可以用手机做的事情，你都可以用PC更快更好的完成。基于互联网开放和自由的原则，我仔细审视了那些故意封闭自己服务圈的互联网服务，在这里我给出几个例子。</p>
+<p>我不会使用知乎APP，知乎作为一个问答社区的所有功能和内容本可以在移动端的Web页面完成，但是它为了所谓的日活，KPI以及广告投放数据，在移动端的Web页面强制引导你下载它的APP。在APP中，如果你不登陆你就没法浏览它的内容。我是一个不在知乎上做内容产出和社交互动的用户，但即使如此我也必须登录才能使用。除此之外，你不得不忍受骚扰推送，不得不忍受夹杂在答案中的广告，不得不忍受那些把圈钱写在脸上的二级页面甚至是一级页面。但是我无法完全放弃知乎，因为它现在依然是中文互联网最优质的内容社区。因此，我转向于Web端的知乎。在浏览器上，我可以管控属于我自己的Web页面。我可以用基于JS的插件直接屏蔽掉它的广告，我可以随意的使用URL分享内容，我可以找到/explore这个未被服务商意识到的免登录使用的页面，或是直接使用插件屏蔽登录检测。在浏览器上，用户要自由得许多，而这些我在APP上被服务商故意限制和禁止的行为，本就是互联网赋予我们的基本的权利。</p>
+<p>不使用APP的另一个好处是，它限制了我无时无刻沉迷在知乎的社区内容中。我不再会向从前一样从早到晚的被信息流干扰，只有在坐在PC前学习或工作时，我才会搜索我所需要的信息。如果不得已需要用手机使用知乎时，可以暂时的请求PC端的/explore的页面来查找信息。</p>
+<p>我也不会使用支付宝APP和淘宝APP。作为一个互联网自由和开放的忠实拥趸，我旗帜鲜明的反对移动支付。因为无法接受我的交易情况可以被除了商家和我之外的另一个人知晓，也无法接受我的余额可以被其他人监管和冻结（你的现金无法被冻结，而银行卡被冻结的难度要比支付宝高上许多）。现金交易的匿名性无法被取代，在现实中可以使用现金的场景我绝不会使用移动支付。我曾经也使用支付宝购买基金，或是使用花呗分期付款，但现在我一律不用它额外的金融服务。我只用它来转账和在淘宝购物。</p>
+<p>因此，我的一个原则就是：能够通过浏览器使用的服务，就不要通过APP来使用。基于这个原则，我卸载了很多的APP：知乎，淘宝，支付宝，豆瓣，百度网盘，百度等等</p>
+<h2 id="重新思考智能手机这件工具的用途">重新思考智能手机这件工具的用途</h2>
+<p>智能手机变得越来越强大，在很多事情上，智能手机表现得和PC端一样出色。比如说收发邮件，使用IM软件即时通讯，购物，刷微博等等。但是，<em>智能手机破坏了不同事务之间的边界。工作，学习，娱乐之间不再泾渭分明。</em>在十五年前，我们只能在电脑上使用QQ，如果要和人交流，我们必须打开电脑登录QQ。但是现在，我们每时每刻都登陆着QQ和微信，每天的上线时间是24个小时。智能手机消除了这种中断感----人们可以永远都在线，而不是像从前一样在特定的时间上线，在特定的时间下线。</p>
+<p>这是我拒绝使用智能手机做太多事情的另一个原因，因为它实在是太强大了，随时随地都可以完成任务，比起PC来也毫不逊色。但是我的时间不再是整块的了。上一分钟可以在收发邮件，下一分钟就刷起了朋友圈。这种对于边界的消融让我感到害怕，因此我极简掉了许多的工具型的APP。我强迫自己使用专门的工具来做这些事情，给自己留出专注做事的时间。</p>
+<p>比如说我卸载了GuitarTuna，转而使用实体的节拍器和调音器来练习乐器；我卸载了OneDrive，这样我只能在PC上进行学习（我的学习材料都在这里面）；我也卸载掉了Documents和PDF experts，以及Microsoft的御三家，因为我不想在手机上查看，编辑，管理文件。卸载掉许多的APP，让我在时间上重新找回了边界感。简而言之，我不希望用智能手机做太多的事，哪怕它能做，而且也做得很好。如果能用一件工具完成某件事情，那我就不会保留多件相同用途的不同工具。</p>
+<h2 id="关于音乐">关于音乐</h2>
+<p>音乐是我生活中很重要的一部分，对大多数年轻的中国人来说，手机里必然会有一款音乐软件，甚至更多。我从15年开始使用网易云音乐，辅助使用QQ音乐，虾米音乐等其他软件。直到19年放弃它。最初我无比喜欢网易云的音乐+评论社区的设计，那会儿它也没有什么广告，我在上面建立了我整套的个人听歌体系。但后来，我发现它的曲库越来越少，越来越多的歌慢慢的灰了下去。有的时候甚至不给你提示，某首歌直接消失在你的歌单之中，直到你意识到你很久没有听到某一首歌了。软件里的广告和视频流多了起来，音乐页面被弱化成次要页面。更为过分的是，对于网易云没有的音乐，它会扫描识别出你手机中的对应的音乐，并且将它删掉，哪怕你是从其他的地方下载了这些音乐的文件。随后，网易云在某些歌上加入了经过aes加密的ncm格式，在从网易云下载音乐源文件时增加了一道不低的门槛。而我最终放弃网易云的导火索事件发生在19年的暑假，那会儿我在美国，惊诧的发现，由于地区版权保护，网易云中几乎所有的歌都变成了灰色。</p>
+<p>在那之后，我仔细思考了音乐流媒体服务对于用户的意义。从前的我是一个自诩保护版权的人，我同时拥有三个音乐软件的年度会员（网易云，QQ，虾米）。但随后我发现，作为支持正版的付费用户的我得到的听歌体验甚至不如十几年前的盗版用户，没有会员，不再给资本家交钱的我甚至失去了听歌权。</p>
+<p>我一直相信，互联网应该是自由的。互联网给了我不付钱自由听歌的权利。但是资本用所谓的版权意识教化人们放弃这种基本的权利。了解到版权之恶后，我才知道现行畸形的版权制度成了资本家敛财的工具，而没能真正的保护创作人，也没能给用户带来良好的体验。在这之后，我停用了所有的音乐服务，转向Apple Music 和 iTunes。Apple Music的曲库覆盖了我原有的音乐库。对于那些没法覆盖的歌曲，我会在国内软件中下载源文件（flac，ncm），然后将它转码成m4a导入iCloud资料库。至此，我才发现，每个月只用花5块钱就能带给我比同时使用三家音乐软件的会员更好的听歌体验。我的音乐完全属于我自己，我可以自己随意上传，修饰，描述它，不用担心它突然变灰或是被消失。而只保留一个音乐软件也符合极简主义的理念。同时，Apple Music中不存在censorship，我在iCloud中的某些歌不会像在网易云音乐云盘中被禁止收听。如果你想在多设备上同步音乐收听，同时也需要听一些利维坦不希望你听的歌（南京市民的歌，或是来自南方某座城市的一些歌，抑或《 Les Misérables 》中传唱度极高的主题曲），那么Apple Music和iCloud资料库应该是在中国最好的解决方案了。</p>
+<h2 id="关于im软件微信qq">关于IM软件，微信，QQ</h2>
+<p>如果你的手机中不存在微信，你在中国寸步难行。</p>
+<p>在中国，你没办法逃避企鹅公司，一个中国人从出生到死亡的每一天都会收到企鹅公司的影响（尽管它的已知寿命还没有那么长），正如韩国人永远避不开三星公司一般。</p>
+<p>在微信上，我取消关注了所有的公众号。其一出于我对其封闭内容生态的抗拒，其二出于我对这种“将信息送到我面前来”的信息推送方式的抗拒，其三出于我对内容本身的抗拒。第一点我在前面已经谈过许多了。企鹅至今没有完全开放过微信文章这个巨大的内容池的搜索接口，只为它的合作伙伴搜狗提供了一个搜索入口（和知乎如出一辙）。除此之外，你只能使用app内部的搜索入口，而这个搜索功能的体验如何自不比我多说。还可以谈谈微信的评论功能，作为一个内容发布平台，微信公众号在设计上就不存在让读者讨论的功能。文章底部的讨论最多只能做到个人留言以及作者本人的回复。我实在是无法理解这种功能残缺又封闭的平台如何就成为了中国最大的互联网内容池之一。</p>
+<p>关于其二，我厌恶这种将信息摆在我眼前强迫我过目的方式。当我需一些内容时，我希望由我自己去搜索和比较，而不是在我不需要内容的时候有人将它放在我眼前。</p>
+<p>我想这也是极简主义的一种体现：关注自己需要什么，而不是别人觉得我需要什么。</p>
+<p>而第三点，微信文章这一形式本身并不适合作为工具类信息的载体，它与我信奉的实用主义并不相符。当一篇文章作为微信文章发布时，它必然背负了涨粉，流量转化，增加用户粘度，或是直接盈利的功能。在这种功利性的内容载体的影响下，文章本身的内容必然会受到影响。有多少次我们可以看到关注公众号领取，关注公众号获取密码，阅读原文查看原内容。这种模式强制性的将本可以开放的工具性信息转为封闭，强迫和诱导你在它的平台上进行内容消费和获取。文章本身也被强力的限制在微信这一载体中传播。这些形式会潜在而强力的影响文章内容本身。</p>
+<p>我完全关闭了朋友圈功能，隐藏了所有的朋友圈，同时不再查看他人的朋友圈。当我意识到中国人群体性的社交模式的改变是一种社会学意义上的巨大变革时，已经是我开始使用朋友圈功能的五年后了。人们的社交思维和理念被一些代码改变，作为深刻影响人类的发明，朋友圈是成功的。你必须思考朋友圈礼仪，思考每个点赞带来的后果，思考评论的时机和意义，思考他的朋友圈所隐含的信息，思考每条朋友圈带来的潜在人际关系影响，思考朋友圈内容对个人形象的塑造作用。中国人头脑中的社交思维已经发生了剧烈的改变。</p>
+<p>想清楚这些事实之后，我便发现我完全没法接受它们。我不能忍受一个互联网公司在一个app中推出的一个二级页面，就成为了在中国社会除学识，修养，谈吐，智商这些禀赋之外的另一种评判人的维度。我不能忍受一个互联网公司把持我人际交往中的重要部分，它应该只是社交内容传达的载体和工具，而不应该反过来影响我的社交内容本身。我不能容忍所有人都在朋友圈中评判与被评判，就像《黑镜》中的某集，所有人一辈子都在评分和被评分。弄明白这些事情之后，我能够坚决果断的跳出这个圈子。</p>
+<p>我拒绝使用微信小程序以及微信支付。后者我也已经说明过，前者是站在作为开发者的我的角度思考而得出的结论。作为开发者，我非常讨厌微信的立志于做操作系统的态度。在对工具的使用上，我奉行Unix系统“小即是美”的哲学。一件工具应该专注于做好它本被赋予的任务，而不应该越俎代庖做操作系统或是其他软件该做的事情（这是国内的互联网公司的通病）。音乐软件只应该用来听歌，而不应该用来进行短视频流内容消费或是进行实体购物。同样的，IM软件应该只用来传递和交流信息，而不是应该去做支付软件或是小程序平台。</p>
+<p>我删除了所有的微信表情包。在已经切断了微信的这么多功能之后，做到这一点条轻而易举。表情包在改变人类的交流模式上也是成功的发明。但表情包将本可以严肃的内容交流娱乐化，降低了人们交流的严肃性，也在一定程度上阉割了人类的语言表达能力。我会轻微的抵触表情包。</p>
+<p>关于QQ，我的做法大致与微信相同，不再赘述。</p>
+<p>最终，我让我的微信和QQ成为了一个部分契合我理想的IM软件。在一定程度上我做到了极简，它们本就只应该用来交流和传递信息，而不是用来做其他不是它们分内的事情。我只用它们做本应该做的事情，仅此而已。</p>
+<h2 id="做同样的事情我们需要多少工具">做同样的事情，我们需要多少工具</h2>
+<p>智能手机是一件强大的工具，我们可以用它做很多事情。很多原本需要由不同工具来完成的任务现在都可以用手机来完成。你不再需要随身音乐播放器，车载导航系统，或是如我前文所述的调音器和节拍器。但是定下心来想想，手机太强大了，但是我们需要这么强大的它吗？我们真的需要手机厂商宣传的无缝工作功能，让我们可以在电脑和手机之间同步工作内容吗？我们真的需要每一台设备上都有Kindle的APP，PC上有Kindle的桌面软件，以及还拥有一部实体的Kindle吗？玩《集合啦！动物森友会》时我们一定要用手机APP来查看小动物们的状态或是和朋友聊天吗？电脑上登录了QQ，手机上也要一直登陆着吗？电脑上可以看bilibili，手机上也需要保留bilibili的APP吗？能用一件工具解决的问题，就不用两件工具解决，我想这也是极简主义的原则。极简主义会要求我只保留一个我最喜爱的杯子用来喝水，而不是同时有三四个好看而且都不忍割舍的杯子。现在这件事情只是转移到了小小的屏幕上，主体对象也不再是杯子，变成了互联网服务。</p>
+<p>这样，我们可以轻而易举的把对待实体物品的态度转移到对待虚拟物品上来。既然我只保留一个水杯或是一个台灯或一支笔，那我就没有必要保留多个Kindle的APP或是Word，Powerpoint和Excel。我可以用iPad和PC来查看学习笔记或者读论文，我就不会用手机去学习。Web端的淘宝也可以购物，我就没必要留下淘宝APP。公交卡可以乘车，为何我一定要下载APP呢？我们需要弱化手机的功能。那些用其他工具完成得更好的事情，就不要用手机来做。我只用手机做那些只有手机能做，或是手机做得比其他工具要好的事情。</p>
+]]></content>
+      <tags>
+        <tag>Minimalism</tag>
+        <tag>极简主义</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Visual Studio Code 手动升级(Windows系统)</title>
+    <url>//blog/2021/07/17/Visual-Studio-Code-%E6%89%8B%E5%8A%A8%E5%8D%87%E7%BA%A7/</url>
+    <content><![CDATA[<p><code>zip</code>版本的<code>Visual Studio Code</code>需要手动进行升级。</p>
+<h2 id="升级步骤">升级步骤</h2>
+<ol type="1">
+<li><p>根据升级提示，下载压缩包。例如<code>VSCode-win32-x64-1.58.2.zip</code>。</p></li>
+<li><p>解压安装包，找到原快捷方式指向位置，进行替换。</p></li>
+<li><p>修改快捷方式指向位置为新解压的软件包的<code>code.exe</code>的位置。</p></li>
+</ol>
+]]></content>
+      <tags>
+        <tag>Tools</tag>
+        <tag>Develop Software</tag>
+        <tag>Visual Studio Code</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Leetcode-11:Container With Most Water</title>
+    <url>//blog/2021/07/21/Leetcode-11-Container-With-Most-Water/</url>
+    <content><![CDATA[<h2 id="x00-problem">0x00 Problem</h2>
+<p><a href="https://leetcode.com/problems/container-with-most-water/description/">Problem link</a></p>
+<h3 id="description">Description</h3>
+<p>Given <span class="math inline">\(n\)</span> non-negative integers <span class="math inline">\(a_1, a_2, ..., a_n\)</span> , where each represents a point at coordinate <span class="math inline">\((i, a_i)\)</span>. <span class="math inline">\(n\)</span> vertical lines are drawn such that the two endpoints of the line <span class="math inline">\(i\)</span> is at <span class="math inline">\((i, a_i)\)</span> and <span class="math inline">\((i, 0)\)</span>. Find two lines, which, together with the x-axis forms a container, such that the container contains the most water.</p>
+<p>Notice that you may not slant(倾斜) the container. <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">Input: height = [1,8,6,2,5,4,8,3,7]</span><br><span class="line">Output: 49</span><br><span class="line">Explanation: The above vertical lines are represented by array [1,8,6,2,5,4,8,3,7]. In this case, the max area of water (blue section) the container can contain is 49.</span><br></pre></td></tr></table></figure></p>
+<h2 id="x01-answer">0x01 Answer</h2>
+<p>本题标准解法为双指针法，时间复杂度为<span class="math inline">\(O(n)\)</span>。</p>
+<h3 id="solution">Solution</h3>
+<p>设置两个指针<code>i</code>和<code>j</code>，分别指向输入数组的头部和尾部。即<code>i=0</code>,<code>j=len(arr)-1</code>。</p>
+<p>进行循环，每次循环过程将i往右移动或者将j往左移动，一轮循环只移动一个指针。当指针i与指针j相遇时，终止循环。</p>
+<p>每次循环时计算当前指针指向位置所能容纳的最大水量，并保存该最大水量值。</p>
+<p>移动<code>i</code>或者移动<code>j</code>由arr<code>[i]</code>和<code>arr[j]</code>的大小决定。若<code>arr[i] &lt; arr[j]，</code>则将<code>i</code>向右移动，反之，则将<code>j</code>向左移动。<code>i</code>只会由左向右移动，<code>j</code>只会由右向左移动。表现上即<code>i</code>和<code>j</code>都在互相靠近，直到相遇。每次循环移动的指针为指向的值较小的指针。</p>
+<h3 id="correctness">Correctness</h3>
+<p>该解法的正确性的定性论证如下。假设指针i对应的数组值为<span class="math inline">\(f(i)\)</span></p>
+<p>设对<span class="math inline">\(i,j\)</span>有<span class="math inline">\(S(i,j)\)</span>表示此时存储的水量。根据短板效应，此时的水量为<span class="math inline">\(S(i,j)=min(f(i),f(j)) * (j - i)\)</span></p>
+<p>假设 <span class="math inline">\(f(i) &lt; f(j)\)</span>。</p>
+<ol type="1">
+<li><p>若移动<span class="math inline">\(i\)</span>，则新的蓄水量<span class="math inline">\(S_1 = S(i+1,j) = min (f(i+1),f(j)) * (j-i-1)\)</span></p>
+<ul>
+<li>若<span class="math inline">\(f(i+1) &gt; f(j)\)</span>，宽度减少，高度增加到<span class="math inline">\(f(j)\)</span>，则有 <span class="math inline">\(S_1 &gt; S(i,j)\)</span> 或 <span class="math inline">\(S_1 &lt;= S(i,j)\)</span>。</li>
+<li><p>若<span class="math inline">\(f(i+1) &lt;= f(j)\)</span>，宽度减少，高度依然有可能增加（<span class="math inline">\(f(i+1)&gt;f(i)\)</span>的情况)，有 <span class="math inline">\(S_1 &lt; S(i,j)\)</span>或 <span class="math inline">\(S_1 &lt;= S(i,j)\)</span>。</p></li>
+<li>即移动<span class="math inline">\(i\)</span>后，新的蓄水量可能变大或者变小。</li>
+</ul></li>
+<li>若移动<span class="math inline">\(j\)</span>，则新的蓄水量<span class="math inline">\(S_2 = S(i,j - 1) = min (f(i),f(j - 1)) * (j-i-1)\)</span>
+<ul>
+<li>若<span class="math inline">\(f(i) &gt; f(j - 1)\)</span>，宽度减少，高度也减少。则有<span class="math inline">\(S_2 &lt;= S(i,j)\)</span>。</li>
+<li>若<span class="math inline">\(f(i) &lt;= f(j - 1)\)</span>，宽度减少，高度不变（根据短板效应，高度为<span class="math inline">\(f(i)\)</span>) 则有 <span class="math inline">\(S_2 &lt; S(i,j)\)</span>。</li>
+<li>无论如何，移动<span class="math inline">\(j\)</span>后，新的蓄水量一定变小。</li>
+</ul></li>
+</ol>
+<p>故我们只移动<code>i</code>和<code>j</code>中指向的值较小的那个。</p>
+]]></content>
+      <tags>
+        <tag>leetcode</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Git常用备忘录</title>
+    <url>//blog/2021/07/16/Git%E5%B8%B8%E7%94%A8%E5%A4%87%E5%BF%98%E5%BD%95/</url>
+    <content><![CDATA[<h2 id="使用ssh-key-连接到github仓库">使用ssh key 连接到GitHub仓库</h2>
+<ol type="1">
+<li><p>创建密钥</p>
+<p><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ssh-keygen -t rsa # 可以将ssh密钥对文件取名为GitHub</span><br></pre></td></tr></table></figure></p></li>
+<li><p>在<code>~/.ssh/config</code>中配置</p>
+<p><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">vim ~/.ssh/config</span><br></pre></td></tr></table></figure></p>
+<p>配置如下：</p>
+<p><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">host github.com</span><br><span class="line">    HostName github.com</span><br><span class="line">    IdentityFile /root/.ssh/github</span><br><span class="line">    User git</span><br><span class="line">    IdentitiesOnly yes </span><br><span class="line">    port 22</span><br></pre></td></tr></table></figure></p></li>
+</ol>
+<p>启用<code>IdentitiesOnly yes</code> 设置项，<code>ssh</code>不会尝试所有的<code>key</code>。只会尝试指定 <code>IdentifyFile</code>所指定的<code>key</code>。</p>
+<ol start="3" type="1">
+<li><p>在Github账户中添加账号</p>
+<p><a href="https://docs.github.com/cn/github/authenticating-to-github/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account">新增 SSH 密钥到 GitHub 帐户</a></p></li>
+<li><p>测试链接</p>
+<p><a href="https://docs.github.com/cn/github/authenticating-to-github/connecting-to-github-with-ssh/testing-your-ssh-connection">测试 SSH 连接</a></p>
+<p>如果测试有问题，可以添加<code>-v</code>选项来对<strong>ssh</strong>进行<strong>debug</strong>。</p></li>
+</ol>
+<p>注意：将仓库地址指定为<code>git@github.com</code>开头的地址，ssh在连接仓库时才会使用密钥进行连接。</p>
+<h2 id="git-author相关">Git Author相关</h2>
+<h3 id="切换-git-author">切换 Git Author</h3>
+<p>Git共有三个级别的config文件，分别是<strong>system</strong>、<strong>global</strong>和<strong>local</strong>。其中，<strong>local</strong>对应某个具体的仓库。默认执行使用顺序为 <strong>local</strong> &gt; <strong>global</strong> &gt; <strong>system</strong></p>
+<h4 id="设置repo级别local的author">设置repo级别（local）的Author</h4>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git config --local user.name yidaoxiangan</span><br><span class="line">git config --local user.email xxxxxxxx@mymail.com </span><br></pre></td></tr></table></figure>
+<h4 id="设置global级别的author">设置global级别的Author</h4>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git config --global user.name yidaoxiangan</span><br><span class="line">git config --global user.email xxxxxxxx@mymail.com </span><br></pre></td></tr></table></figure>
+<h3 id="查看当前仓库的author">查看当前仓库的Author</h3>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git config user.name</span><br><span class="line">git config user.email</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>在zsh的git插件中，使用 gcf 代替 （git config --list) 来查看当前配置。</p>
+</blockquote>
+<h2 id="git-分支操作">Git 分支操作</h2>
+<h3 id="从某一分支新建分支并切换到该新分支上">从某一分支新建分支并切换到该新分支上</h3>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">git checkout -b iss53</span><br></pre></td></tr></table></figure>
+<p>相当于</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">git branch iss53</span><br><span class="line">git checkout iss53</span><br></pre></td></tr></table></figure>
+<p>source <a href="https://git-scm.com/book/zh/v2/Git-%E5%88%86%E6%94%AF-%E5%88%86%E6%94%AF%E7%9A%84%E6%96%B0%E5%BB%BA%E4%B8%8E%E5%90%88%E5%B9%B6">here</a></p>
+]]></content>
+      <tags>
+        <tag>Git</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Vim常用备忘录</title>
+    <url>//blog/2021/07/16/Vim%E5%B8%B8%E7%94%A8%E5%A4%87%E5%BF%98%E5%BD%95/</url>
+    <content><![CDATA[<h2 id="macro">Macro</h2>
+<h3 id="recording-a-macro">Recording a macro</h3>
+<p>Each register of macro is identified by a letter from <code>z</code> to <code>a</code>.</p>
+<p>To enter a macro, type: <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">q&lt;letter&gt;&lt;commands&gt;q</span><br></pre></td></tr></table></figure></p>
+<p>To execute the macro <strong>&lt;number&gt;</strong> times (once by default), type:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;number&gt;@&lt;letter&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="vim-锁定屏幕和解锁">Vim 锁定屏幕和解锁</h2>
+<p>使用<code>ctrl-S</code>锁定vim，使用<code>ctrl-Q</code>解锁。</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>SHELL脚本知识点</title>
+    <url>//blog/2021/07/19/SHELL%E8%84%9A%E6%9C%AC%E7%9F%A5%E8%AF%86%E7%82%B9/</url>
+    <content><![CDATA[<h2 id="shebang">Shebang</h2>
+<p><a href="https://zh.wikipedia.org/wiki/Shebang">SheBang - Wikipedia</a></p>
+<blockquote>
+<p>在计算领域中，Shebang（也称为Hashbang）是一个由井号和叹号构成的字符序列#!，其出现在文本文件的第一行的前两个字符。 在文件中存在Shebang的情况下，类Unix操作系统的程序加载器会分析Shebang后的内容，将这些内容作为解释器指令，并调用该指令，并将载有Shebang的文件路径作为该解释器的参数。</p>
+</blockquote>
+<h3 id="binsh-和-usrbinenv-sh">/bin/sh 和 /usr/bin/env sh</h3>
+<p><code>/bin/bash</code>到指定目录中去找<code>sh</code>。</p>
+<p><code>/usr/bin/env sh</code> 在 <code>env | grep PATH</code> 中寻找<code>sh</code>。因此它的可移植性更好。</p>
+<h2 id="查看shell">查看shell</h2>
+<ul>
+<li>当前shell
+<ul>
+<li><code>echo $SHELL</code></li>
+</ul></li>
+<li>所有shell
+<ul>
+<li><code>cat /etc/shells</code></li>
+</ul></li>
+</ul>
+]]></content>
+  </entry>
+  <entry>
+    <title>Go语言笔记</title>
+    <url>//blog/2021/07/20/Go%E8%AF%AD%E8%A8%80%E7%AC%94%E8%AE%B0/</url>
+    <content><![CDATA[<h2 id="设置和指令">设置和指令</h2>
+<p>设置 <strong>go module</strong> 的启用与不启用。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">go env -w GO111MODULE=on</span><br></pre></td></tr></table></figure>
+]]></content>
+  </entry>
+</search>
