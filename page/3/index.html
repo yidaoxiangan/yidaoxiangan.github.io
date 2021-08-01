@@ -188,6 +188,491 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://yidaoxiangan.com/blog/2021/03/08/CS304-Software-Engine-Week4-Note/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="异道相安">
+      <meta itemprop="description" content="不觉茫茫道路长">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="异道相安的博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/blog/2021/03/08/CS304-Software-Engine-Week4-Note/" class="post-title-link" itemprop="url">CS304 Software Engineering Week4 Note</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-03-08 16:16:23" itemprop="dateCreated datePublished" datetime="2021-03-08T16:16:23+08:00">2021-03-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-07-17 00:19:29" itemprop="dateModified" datetime="2021-07-17T00:19:29+08:00">2021-07-17</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="week4_note">Week4_note</h1>
+<h2 id="xp-is-an-iterative-process">XP is an Iterative Process</h2>
+<ul>
+<li>Iteration = two week cycle (1 - 3 weeks)</li>
+<li><strong>Plan</strong> each iteration in an iteration meeting that is held at the start of the iteration</li>
+<li>Iteration is going to implement set of <strong>user stories</strong></li>
+<li>Divide work into tasks small enough to finish in a day</li>
+<li>Each day, programmers work in pairs to finish task</li>
+</ul>
+<h2 id="what-are-user-stories">What are user stories</h2>
+<ul>
+<li>A user story represents
+<ul>
+<li>A <strong>feature customers</strong> want in the software</li>
+</ul></li>
+<li>A user story is the smallest amount of information (a step) necessary to allow the customer to define (and steer) a path through the system</li>
+<li>Written by customers(through communication with developers), and not by developers</li>
+<li>Typically written on index cards</li>
+</ul>
+<h2 id="writing-user-stories">Writing user stories</h2>
+<ul>
+<li>Material
+<ul>
+<li>A stack of blank index cards</li>
+<li>Pens or pencils</li>
+<li>Rubber bands</li>
+</ul></li>
+<li>Start with a goal of the system
+<ul>
+<li>e.g. "Applicant submits a loan application"</li>
+<li>Think about the step that the user takes as he/she does the activity</li>
+<li>Write no more than one step on each card</li>
+</ul></li>
+</ul>
+<h2 id="format-of-a-user-story">Format of a user story</h2>
+<ul>
+<li>Title: 2-3 words</li>
+<li>Acceptance test(unique identifier)</li>
+<li>Priority 1-2-3(1 most important)</li>
+<li>Story points(can mean #days of ideal development, i.e., no distractions or working on other things)</li>
+</ul>
+<h2 id="concepts">Concepts</h2>
+<ul>
+<li>Story point: unit of measure for expressing the overall size of a user story, feature, or other piece of work. The raw value of a story point is unimportant. What matters are the relative values.
+<ul>
+<li>Related to how hard it is and how much of it there is</li>
+<li><strong>Not</strong> related to amount of time or the number of people</li>
+<li>Unitless, but numerically-meaningful</li>
+</ul></li>
+<li>Ideal time: the amount of time "something" takes when stripped of all peripheral activities</li>
+<li>Elapsed time: the amount of time that passes on the clock to do "something"</li>
+<li>Velocity: measure of a team's rate of progress</li>
+</ul>
+<h2 id="priority">Priority</h2>
+<ul>
+<li>High</li>
+<li>Medium</li>
+<li>Low</li>
+</ul>
+<h2 id="estimating-story-points">Estimating story points</h2>
+<ul>
+<li>Choose a medium-size story and assign it a "5"</li>
+<li>Estimate other stories relative to that
+<ul>
+<li>Twice as big</li>
+<li>Half as big</li>
+<li>Almost but not quite as big</li>
+<li>A little bit bigger</li>
+</ul></li>
+<li>Only values:
+<ul>
+<li>0,1,2,3,5,8,13,20,40,100</li>
+</ul></li>
+</ul>
+<h2 id="estimating-ideal-days">Estimating ideal days</h2>
+<ul>
+<li>Ideal days vs. elapsed time in software development
+<ul>
+<li>Supporting current release</li>
+<li>sick time</li>
+<li>meetings</li>
+<li>demonstrations</li>
+<li>personal issue</li>
+<li>Phone call</li>
+</ul></li>
+<li>When estimating ideal days, assume:
+<ul>
+<li>The story being estimated is the only thing you'll work on</li>
+<li>Everything you need will be on hand when you start</li>
+<li>There will be no interruptions</li>
+</ul></li>
+</ul>
+<h2 id="ideal-days-vs.-story-points">Ideal Days vs. Story Points</h2>
+<ul>
+<li>Favoring story points:
+<ul>
+<li>Help drive cross-functional behavior</li>
+<li>Do not decay(change based on experience)</li>
+<li>Are a pure measure of size(focus on feature, not person)</li>
+<li>Estimation is typically faster in the long run</li>
+<li>My ideal days are not your ideal days(focus on person and their speed)</li>
+</ul></li>
+<li>Favoring ideal days;
+<ul>
+<li>Easier to explain outside of team</li>
+<li>Estimation is typically faster at first</li>
+</ul></li>
+</ul>
+<h2 id="deriving-an-estimate-for-a-user-story">Deriving an estimate for a user story</h2>
+<ul>
+<li>Expert opinion
+<ul>
+<li>Rely on gut feel based on (extensive) experience</li>
+<li>disadvantage for agile: need to consider all aspects of developing the user story, so one expert will likely not be enough</li>
+</ul></li>
+<li>Analogy
+<ul>
+<li>Relative to (several) other user stories</li>
+<li>Triangulation: little bigger than that "3" and a little smaller than that"8"</li>
+</ul></li>
+<li>Disaggregation
+<ul>
+<li>Break up into smaller, easier-to-estimate pieces/tasks.</li>
+<li>Need to make sure you don't miss any tasks</li>
+<li>Sanity check: does the sum of all the parts make sense?</li>
+<li>Planning poker
+<ul>
+<li>Combines expert opinion, analogy, disaggregation</li>
+</ul></li>
+</ul></li>
+</ul>
+<h2 id="velocity">Velocity</h2>
+<ul>
+<li>Velocity is a measure of a team's rate of progress</li>
+<li>Velocity is calculated by summing the number of story points assigned to each user story that the tea completed during the operation</li>
+<li>We assume that the team will produce in future iterations at the rate of their past average velocity
+<ul>
+<li>"Yesterdays weather"</li>
+</ul></li>
+</ul>
+<h2 id="prioritization">Prioritization</h2>
+<ul>
+<li>Driven by customer, in conjunction with developer</li>
+<li>Choose features to fill up velocity of iteration, based on:
+<ul>
+<li>Desirability of feature to a broad base of customers/users</li>
+<li>Desirability f feature to a small number of important customers/users</li>
+<li>The cohesiveness of the story in relation to other stories
+<ul>
+<li>Example:
+<ul>
+<li>"Zoom in" a high priority feature</li>
+<li>"Zoom out" not a high priority feature
+<ul>
+<li>But it becomes one relative to "Zoom in"</li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+<h2 id="planning-game">Planning game</h2>
+<ul>
+<li>Customer writes user stories</li>
+<li>Programmers estimate time to do each story</li>
+<li>If story is too big, customer splits it</li>
+<li>Customer chooses stories to match project velocity</li>
+<li>Project velocity is amount of work done in the previous iteration(s)</li>
+</ul>
+<h2 id="planning">Planning</h2>
+<ul>
+<li>Programmers only worry about one iteration at a time</li>
+<li>Customer can plan as many iterations as desired, but can change future iterations</li>
+</ul>
+<h2 id="simplicity">Simplicity</h2>
+<ul>
+<li>Add one feature(user story) at a time</li>
+<li>Don't worry about future stories</li>
+<li>Make program as simple as possible</li>
+<li>The simplest thing that could possibly work</li>
+</ul>
+<h2 id="need-educated-customer">Need Educated customer</h2>
+<h2 id="xp-works-best-when">XP works best when</h2>
+<ul>
+<li>Educated customer on site</li>
+<li>Small team</li>
+<li>People who like to talk</li>
+<li>All in one room(including customer)
+<ul>
+<li>These days the room can also be virtual</li>
+</ul></li>
+<li>Changing requirements</li>
+</ul>
+<h2 id="unit-tests-and-refactoring">Unit tests and refactoring</h2>
+<ul>
+<li>Because code is as simple as it can be, adding a enw feature tends to make it less simple</li>
+<li>To recover simplicity, you must refactor the code</li>
+<li>To refactor safely, yous should have a rigorous set of unit test</li>
+</ul>
+<h2 id="working-software">Working software</h2>
+<ul>
+<li>All software has automated(unit) test</li>
+<li>All test pass, all the time
+<ul>
+<li>Never check in broken code</li>
+</ul></li>
+<li>How to work on a task
+<ul>
+<li>Get latest version of the code. All tests pass</li>
+<li>Write test first. If fails</li>
+<li>Write code to make test pass. Now all tests pass</li>
+<li>Refactor(clean up)</li>
+<li>Check in your code</li>
+</ul></li>
+</ul>
+<h2 id="one-key-practice">One key practice</h2>
+<ul>
+<li>Write tests first, then write code</li>
+<li>various name
+<ul>
+<li>Test-first programming</li>
+<li>Test-driven development</li>
+</ul></li>
+<li>Is it testing or designing?</li>
+<li>Degree to which yous tick to if for MP?</li>
+</ul>
+<h2 id="why-test">Why test?</h2>
+<ul>
+<li>Improve quality - find bugs</li>
+<li>Measure quality
+<ul>
+<li>Prove there are no bugs?</li>
+<li>Determine if software is ready to be released</li>
+<li>Determine what to work on</li>
+<li>See if you made a mistake</li>
+</ul></li>
+<li>Learn the software</li>
+<li>Grade MPs</li>
+</ul>
+<h2 id="what-is-a-test">What is a Test?</h2>
+<ul>
+<li>Run program with known input(test inputs/data), check results (with test oracles)
+<ul>
+<li>Test pass (green) or fail(red)</li>
+</ul></li>
+<li>Tests can document faults</li>
+<li>Tests can document code</li>
+<li>Important terminology to remember:
+<ul>
+<li>Mistake, fault(or defect, or bug), failure, error</li>
+<li>Oracle</li>
+</ul></li>
+</ul>
+<h2 id="terminology-mistake-faultbug-failure-error">Terminology: Mistake, Fault/Bug, Failure, Error</h2>
+<ul>
+<li>Programmer makes a mistake</li>
+<li>Fault(defect, bug) appears in the program</li>
+<li>Program failure occurs during execution(program behaves unexpectedly)</li>
+<li>Error: difference between computed, observed, or measured value or condition and true, specified, or theoretically correct value or condition.</li>
+</ul>
+<h2 id="test-input-vs.-test-oracle">Test input vs. test oracle</h2>
+<h2 id="advanced-topics-in-junit">Advanced topics in junit</h2>
+<ul>
+<li>Assertion patterns</li>
+<li>Parameterized JUnit tests</li>
+<li>Junit theories</li>
+</ul>
+<h2 id="test-driven-developmenttdd">Test Driven Development(TDD)</h2>
+<ul>
+<li>One of the practices in XP</li>
+</ul>
+<h2 id="kent-becks-rules">Kent Beck's rules</h2>
+<ul>
+<li>Becks concept of test-driven development centers on two basic rules:
+<ul>
+<li>Never write a single line of code unless you have a failing automated test</li>
+<li>Eliminate duplication.</li>
+</ul></li>
+</ul>
+<h3 id="informal-requirements">Informal Requirements</h3>
+<p>If the maintenance contract number provided by the customer is not valid, the item follows the procedure for items not covered by warranty.</p>
+<h2 id="steps-in-test-driven-developmenttdd">Steps in Test Driven Development(TDD)</h2>
+<p>The iterative process</p>
+<ul>
+<li>Quickly add a test</li>
+<li>Run all tests and see the new one fail.</li>
+<li>Make a little change to code.</li>
+<li>Run all tests and see them all succeed.</li>
+<li>Refactor to remove duplication.</li>
+</ul>
+<h2 id="test-first-scenario">Test First Scenario</h2>
+<ul>
+<li>Write test for the newly
+<ul>
+<li>These test cases will serve as a specification for your implementation</li>
+<li>These test cases should fail now because the corresponding methods are not implement</li>
+<li>Write minimal code to make the test pas</li>
+<li>Add more tests</li>
+</ul></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://yidaoxiangan.com/blog/2021/03/05/%E8%A5%BF%E6%96%B9%E5%93%B2%E5%AD%A6%E5%AF%BC%E8%AE%BA-week3-note/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="异道相安">
+      <meta itemprop="description" content="不觉茫茫道路长">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="异道相安的博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/blog/2021/03/05/%E8%A5%BF%E6%96%B9%E5%93%B2%E5%AD%A6%E5%AF%BC%E8%AE%BA-week3-note/" class="post-title-link" itemprop="url">西方哲学导论 Week3 Note</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-03-05 12:01:22" itemprop="dateCreated datePublished" datetime="2021-03-05T12:01:22+08:00">2021-03-05</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-07-17 00:19:29" itemprop="dateModified" datetime="2021-07-17T00:19:29+08:00">2021-07-17</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="week3_note">week3_Note</h1>
+<h3 id="前苏格拉底时代">前苏格拉底时代</h3>
+<h4 id="anaximander">Anaximander</h4>
+<ul>
+<li>万物的本原是“无定”</li>
+<li>万物的多样性，水的“湿性”不能解释一切</li>
+<li>万物的本原应是没有任何确定规定性 - 混沌</li>
+<li>不定形且与水有关的东西 为 无定</li>
+</ul>
+<h4 id="anaximenes-546-a.d.---545-a.d">Anaximenes 546 a.d. - 545 a.d</h4>
+<ul>
+<li>世界的本原是气（综合了水和“无定”的特征）</li>
+<li>与东方本体论相似</li>
+</ul>
+<h4 id="heraclitus-赫拉克利特-504-a.d.---501-a.d">Heraclitus 赫拉克利特 504 a.d. - 501 a.d</h4>
+<ul>
+<li>性格高傲，出身望族， 把王位让给兄弟</li>
+<li>“世界是客观的”</li>
+<li>“世界的本原是火” - “世界秩序不是任何人或任何人锁创造的，它过去，现在，未来永远是永恒的活火，在一定分寸上燃烧，在一定分寸上熄灭”
+<ul>
+<li>唯物主义 - 客观存在</li>
+<li>万事万物是变化的</li>
+</ul></li>
+<li>“万物皆变，无物常驻”
+<ul>
+<li>“一切都是通过斗争和必然性而产生的”</li>
+<li>“太阳每天都是新的”</li>
+<li>“人不能同时走进同一条河流”</li>
+<li>“我们存在又不存在”</li>
+</ul></li>
+<li>简单，直观，朴素的表达</li>
+</ul>
+<h4 id="本原内在不变的统一原则是逻各斯">本原内在不变的统一原则是“逻各斯”</h4>
+<p>原意为话语，指说出的道理，是火在燃烧中遵循的理性规则和原则。即“一定分寸”</p>
+<h4 id="我们看见特殊我们只能说出普遍">我们看见特殊，我们只能说出普遍</h4>
+<ul>
+<li>我们使用名词描述 - 名词 在 逻辑学上 为 概念</li>
+</ul>
+<h4 id="毕达哥拉斯学派">毕达哥拉斯学派</h4>
+<p><strong>毕达哥拉斯</strong> 建立了一个有伦理，宗教和政治目的的社团：大家庭式的集体生活。</p>
+<p><strong>基本观点</strong>：数是万物的本原</p>
+<ul>
+<li>第一，数先于事物存在，是构成万物的基础
+<ul>
+<li>" 万物的本原是一，从一产生二，而是从属于一的补丁的质料，一则是原因。.....”</li>
+</ul></li>
+<li>第二，一切事物的性质都可以被归结为数的规定性
+<ul>
+<li>比例关系：（决定事物结构的和谐）</li>
+<li>对立关系：（有限和无限，奇数和偶数）</li>
+<li>类比关系：（4代表正义，8代表爱情.......）</li>
+</ul></li>
+</ul>
+<h4 id="埃利亚学派">埃利亚学派</h4>
+<p>创始人：Xenophanes</p>
+<ul>
+<li>世界的本原是绝对不动的“神”</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="https://yidaoxiangan.com/blog/2021/01/20/CS302-Operating-System-Week2-Note/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -562,7 +1047,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">22</span>
+          <span class="site-state-item-count">24</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

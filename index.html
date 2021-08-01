@@ -213,7 +213,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2021-07-21 01:52:34 / Modified: 03:04:47" itemprop="dateCreated datePublished" datetime="2021-07-21T01:52:34+08:00">2021-07-21</time>
+              <time title="Created: 2021-07-21 01:52:34 / Modified: 03:05:11" itemprop="dateCreated datePublished" datetime="2021-07-21T01:52:34+08:00">2021-07-21</time>
             </span>
 
           
@@ -240,7 +240,7 @@
 <p>每次循环时计算当前指针指向位置所能容纳的最大水量，并保存该最大水量值。</p>
 <p>移动<code>i</code>或者移动<code>j</code>由arr<code>[i]</code>和<code>arr[j]</code>的大小决定。若<code>arr[i] &lt; arr[j]，</code>则将<code>i</code>向右移动，反之，则将<code>j</code>向左移动。<code>i</code>只会由左向右移动，<code>j</code>只会由右向左移动。表现上即<code>i</code>和<code>j</code>都在互相靠近，直到相遇。每次循环移动的指针为指向的值较小的指针。</p>
 <h3 id="correctness">Correctness</h3>
-<p>该解法的正确性的定性论证如下。假设指针i对应的数组值为<span class="math display">\[f(i)\]</span></p>
+<p>该解法的正确性的定性论证如下。假设指针i对应的数组值为<span class="math inline">\(f(i)\)</span></p>
 <p>设对<span class="math inline">\(i,j\)</span>有<span class="math inline">\(S(i,j)\)</span>表示此时存储的水量。根据短板效应，此时的水量为<span class="math inline">\(S(i,j)=min(f(i),f(j)) * (j - i)\)</span></p>
 <p>假设 <span class="math inline">\(f(i) &lt; f(j)\)</span>。</p>
 <ol type="1">
@@ -258,6 +258,156 @@
 </ul></li>
 </ol>
 <p>故我们只移动<code>i</code>和<code>j</code>中指向的值较小的那个。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://yidaoxiangan.com/blog/2021/07/20/Go%E8%AF%AD%E8%A8%80%E7%AC%94%E8%AE%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="异道相安">
+      <meta itemprop="description" content="不觉茫茫道路长">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="异道相安的博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/blog/2021/07/20/Go%E8%AF%AD%E8%A8%80%E7%AC%94%E8%AE%B0/" class="post-title-link" itemprop="url">Go语言笔记</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-07-20 15:29:27" itemprop="dateCreated datePublished" datetime="2021-07-20T15:29:27+08:00">2021-07-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-08-01 17:18:13" itemprop="dateModified" datetime="2021-08-01T17:18:13+08:00">2021-08-01</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="设置和指令">设置和指令</h2>
+<p>设置 <strong>go module</strong> 的启用与不启用。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go env -w GO111MODULE=on</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://yidaoxiangan.com/blog/2021/07/19/SHELL%E8%84%9A%E6%9C%AC%E7%9F%A5%E8%AF%86%E7%82%B9/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="异道相安">
+      <meta itemprop="description" content="不觉茫茫道路长">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="异道相安的博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/blog/2021/07/19/SHELL%E8%84%9A%E6%9C%AC%E7%9F%A5%E8%AF%86%E7%82%B9/" class="post-title-link" itemprop="url">SHELL脚本知识点</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-07-19 18:29:32" itemprop="dateCreated datePublished" datetime="2021-07-19T18:29:32+08:00">2021-07-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-08-01 17:18:13" itemprop="dateModified" datetime="2021-08-01T17:18:13+08:00">2021-08-01</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="shebang">Shebang</h2>
+<p><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/Shebang">SheBang - Wikipedia</a></p>
+<blockquote>
+<p>在计算领域中，Shebang（也称为Hashbang）是一个由井号和叹号构成的字符序列#!，其出现在文本文件的第一行的前两个字符。 在文件中存在Shebang的情况下，类Unix操作系统的程序加载器会分析Shebang后的内容，将这些内容作为解释器指令，并调用该指令，并将载有Shebang的文件路径作为该解释器的参数。</p>
+</blockquote>
+<h3 id="binsh-和-usrbinenv-sh">/bin/sh 和 /usr/bin/env sh</h3>
+<p><code>/bin/bash</code>到指定目录中去找<code>sh</code>。</p>
+<p><code>/usr/bin/env sh</code> 在 <code>env | grep PATH</code> 中寻找<code>sh</code>。因此它的可移植性更好。</p>
+<h2 id="查看shell">查看shell</h2>
+<ul>
+<li>当前shell
+<ul>
+<li><code>echo $SHELL</code></li>
+</ul></li>
+<li>所有shell
+<ul>
+<li><code>cat /etc/shells</code></li>
+</ul></li>
+</ul>
 
       
     </div>
@@ -373,7 +523,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-07-21 02:56:44" itemprop="dateModified" datetime="2021-07-21T02:56:44+08:00">2021-07-21</time>
+                <time title="Modified: 2021-08-01 17:18:13" itemprop="dateModified" datetime="2021-08-01T17:18:13+08:00">2021-08-01</time>
               </span>
 
           
@@ -393,6 +543,8 @@
 <p>To enter a macro, type: <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">q&lt;letter&gt;&lt;commands&gt;q</span><br></pre></td></tr></table></figure></p>
 <p>To execute the macro <strong>&lt;number&gt;</strong> times (once by default), type:</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;number&gt;@&lt;letter&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="vim-锁定屏幕和解锁">Vim 锁定屏幕和解锁</h2>
+<p>使用<code>ctrl-S</code>锁定vim，使用<code>ctrl-Q</code>解锁。</p>
 
       
     </div>
@@ -443,7 +595,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-07-21 02:56:44" itemprop="dateModified" datetime="2021-07-21T02:56:44+08:00">2021-07-21</time>
+                <time title="Modified: 2021-08-01 17:18:13" itemprop="dateModified" datetime="2021-08-01T17:18:13+08:00">2021-08-01</time>
               </span>
 
           
@@ -471,6 +623,7 @@
 <p><a target="_blank" rel="noopener" href="https://docs.github.com/cn/github/authenticating-to-github/connecting-to-github-with-ssh/testing-your-ssh-connection">测试 SSH 连接</a></p>
 <p>如果测试有问题，可以添加<code>-v</code>选项来对<strong>ssh</strong>进行<strong>debug</strong>。</p></li>
 </ol>
+<p>注意：将仓库地址指定为<code>git@github.com</code>开头的地址，ssh在连接仓库时才会使用密钥进行连接。</p>
 <h2 id="git-author相关">Git Author相关</h2>
 <h3 id="切换-git-author">切换 Git Author</h3>
 <p>Git共有三个级别的config文件，分别是<strong>system</strong>、<strong>global</strong>和<strong>local</strong>。其中，<strong>local</strong>对应某个具体的仓库。默认执行使用顺序为 <strong>local</strong> &gt; <strong>global</strong> &gt; <strong>system</strong></p>
@@ -483,6 +636,12 @@
 <blockquote>
 <p>在zsh的git插件中，使用 gcf 代替 （git config --list) 来查看当前配置。</p>
 </blockquote>
+<h2 id="git-分支操作">Git 分支操作</h2>
+<h3 id="从某一分支新建分支并切换到该新分支上">从某一分支新建分支并切换到该新分支上</h3>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout -b iss53</span><br></pre></td></tr></table></figure>
+<p>相当于</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git branch iss53</span><br><span class="line">git checkout iss53</span><br></pre></td></tr></table></figure>
+<p>source <a target="_blank" rel="noopener" href="https://git-scm.com/book/zh/v2/Git-%E5%88%86%E6%94%AF-%E5%88%86%E6%94%AF%E7%9A%84%E6%96%B0%E5%BB%BA%E4%B8%8E%E5%90%88%E5%B9%B6">here</a></p>
 
       
     </div>
@@ -2144,638 +2303,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://yidaoxiangan.com/blog/2021/03/23/%E8%85%BE%E8%AE%AF%E5%90%8E%E5%8F%B0%E5%BC%80%E5%8F%91%E6%9A%91%E6%9C%9F%E5%AE%9E%E4%B9%A0%E9%9D%A2%E7%BB%8F-3%E6%9C%8822%E6%97%A5-hr%E9%9D%A2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="异道相安">
-      <meta itemprop="description" content="不觉茫茫道路长">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="异道相安的博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/blog/2021/03/23/%E8%85%BE%E8%AE%AF%E5%90%8E%E5%8F%B0%E5%BC%80%E5%8F%91%E6%9A%91%E6%9C%9F%E5%AE%9E%E4%B9%A0%E9%9D%A2%E7%BB%8F-3%E6%9C%8822%E6%97%A5-hr%E9%9D%A2/" class="post-title-link" itemprop="url">2021-03-23-腾讯后台开发暑期实习面经-3月22日-hr面</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-03-23 18:37:24" itemprop="dateCreated datePublished" datetime="2021-03-23T18:37:24+08:00">2021-03-23</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-07-17 00:19:29" itemprop="dateModified" datetime="2021-07-17T00:19:29+08:00">2021-07-17</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="x00-前">0x00 前</h2>
-<p>早上hr打了两个电话过来。在睡觉，全部没接到，以为自己完蛋了。</p>
-<p>半个小时后又打过来，约当天下午四点面试。</p>
-<h2 id="x01-中">0x01 中</h2>
-<p>开始面试</p>
-<p>hr要求自我介绍。</p>
-<p>hr问哪里人。</p>
-<p>hr问学校信息。</p>
-<p>hr要求介绍一下项目经经历，谈一下项目的意义。</p>
-<p>hr问有打算读研吗？为什么做出这种选择。</p>
-<p>hr要求谈一下Java和c++的区别。</p>
-<p>hr问什么时候能入职。</p>
-<p>hr要求谈更多的项目细节。</p>
-<p>hr问是否还参加了其他公司的面试。如果收到offer去哪家。</p>
-<p>hr问有没有认识的亲属在腾讯。</p>
-<h2 id="x02-后">0x02 后</h2>
-<p>加了微信，做了云证。等offer审批中。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://yidaoxiangan.com/blog/2021/03/21/CS302-Operating-System-Week5-Note-0x01/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="异道相安">
-      <meta itemprop="description" content="不觉茫茫道路长">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="异道相安的博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/blog/2021/03/21/CS302-Operating-System-Week5-Note-0x01/" class="post-title-link" itemprop="url">CS302 Operating System Week5 Note 0x01</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-03-21 13:45:21" itemprop="dateCreated datePublished" datetime="2021-03-21T13:45:21+08:00">2021-03-21</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-07-17 00:19:29" itemprop="dateModified" datetime="2021-07-17T00:19:29+08:00">2021-07-17</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="lecture-5-job-schedule">Lecture 5: Job Schedule</h2>
-<h2 id="what-is-context-switching">What is context switching?</h2>
-<ul>
-<li><strong>Scheduling</strong> is the procedure that decides which process to run next.</li>
-<li><strong>Context switching</strong> is the actual switching procedure, from one process to another</li>
-</ul>
-<p><img src="https://i.loli.net/2021/03/21/aWyzdCbMBG68Evs.png" /></p>
-<p>Whenever a process goes to blocking / waiting state. E.g., <strong>wait()/sleep()</strong> is called</p>
-<ul>
-<li>A POSIX signal arrives (e.g., SIGCHLD)</li>
-<li>An interrupt arrives (e.g., keystroke(键击，按键))</li>
-<li>When the OS scheduler says “time’s up!” (e.g., round-robin)
-<ul>
-<li>Put it back to "ready"</li>
-</ul></li>
-<li>When the OS scheduler says “hey, I know you haven’t finished, but the PRESIDENT just arrives, please hold on” (e.g., preemptive(先发制人), round-robin with priority)
-<ul>
-<li>Put it back to "ready"</li>
-</ul></li>
-</ul>
-<p>Why?</p>
-<ul>
-<li>For multi-tasking</li>
-<li>For fully utilize the CPU</li>
-</ul>
-<h2 id="cpu-switch-from-process-a-to-process-b">CPU Switch From Process A to Process B</h2>
-<p><img src="https://i.loli.net/2021/03/21/n7Npi6VaJRPbLcW.png" /></p>
-<ul>
-<li>This is also called a “context switch”</li>
-<li>Code executed in kernel above is <strong>overhead</strong></li>
-</ul>
-<h2 id="context-switching">Context switching</h2>
-<p>Suppose this process gives up running on the CPU, e.g., calling sleep(). Then:</p>
-<ul>
-<li>Running --&gt; Interruptible Wait</li>
-</ul>
-<p>Now, it is time for the scheduler to choose the next process to run.</p>
-<p><img src="https://i.loli.net/2021/03/21/XFox2ZaIrgHtTS4.png" /></p>
-<p>But, before the scheduler can seize(抓住) the control of the CPU, a very important step has to be taken:</p>
-<ul>
-<li>Backup all current context of that process to the kernel-space’s PCB:
-<ul>
-<li>current register values</li>
-<li>program counter (which line of code the current program is at)</li>
-</ul></li>
-</ul>
-<p>Say, the scheduler decides to schedule another process in the ready queue. Then, the schedule has to <strong>load the context of that process from the main memory</strong> to the CPU.</p>
-<p>We call the entire operation: <strong>context switching</strong>.</p>
-<p><img src="https://i.loli.net/2021/03/21/yhSARJjOkWaYt3s.png" /></p>
-<h2 id="context-switch-is-expensive">Context switch is expensive</h2>
-<ul>
-<li>Direct costs in kernel:
-<ul>
-<li>Save and restore registers, etc.</li>
-<li>Switch address space (expensive instructions)</li>
-</ul></li>
-<li>Indirect costs: cache, buffer cache, &amp; TLB misses</li>
-</ul>
-<p><img src="https://i.loli.net/2021/03/21/8twrKcX2WEOlj3h.png" /></p>
-<h2 id="what-is-process-scheduling">What is process scheduling?</h2>
-<ul>
-<li>Scheduling is an important topic in the research of the operating system.
-<ul>
-<li>Related theoretical topics are covered in computer system performance evaluation.</li>
-</ul></li>
-<li>Scheduling is required because the number of computing resource – the CPU – is <strong>limited</strong>.</li>
-</ul>
-<table>
-<colgroup>
-<col style="width: 50%" />
-<col style="width: 50%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;">CPU-bound Process</th>
-<th style="text-align: left;">I/O-bound process</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">Spends most of its running time on the CPU, i.e., <strong>user-time &gt; sys-time</strong></td>
-<td style="text-align: left;">Spends most of its running time on I/O, i.e., <strong>sys-time &gt; user-time</strong></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Examples - AI course assignments</td>
-<td style="text-align: left;">Examples - <strong>/bin/ls</strong>, networking programs</td>
-</tr>
-</tbody>
-</table>
-<h2 id="classes-of-process-scheduling">Classes of process scheduling</h2>
-<p>Preemptive(先发制人) scheduling (Non-preemptive is out)</p>
-<ul>
-<li>What is it?
-<ul>
-<li>When a process is chosen by the scheduler, the process would have the CPU until...
-<ul>
-<li>the process voluntarily waits I/O, or</li>
-<li>the process voluntarily releases the CPU, e.g., <strong>exit()</strong></li>
-<li><strong>particular kinds of interrupts (e.g., periodic clock interrupt, a new process steps in) are detected.</strong></li>
-</ul></li>
-</ul></li>
-<li>History
-<ul>
-<li>In old days, it was called “time-sharing”</li>
-<li>Nowadays, all systems are time-sharing</li>
-</ul></li>
-<li>Pros
-<ul>
-<li>Good for systems that emphasize <strong>interactiveness</strong>.</li>
-<li>Because every task will receive attentions from the CPU</li>
-</ul></li>
-<li>Cons
-<ul>
-<li>Bad for systems that emphasize the time in finishing tasks</li>
-</ul></li>
-</ul>
-<h2 id="scheduling-algorithms">Scheduling algorithms</h2>
-<ul>
-<li>Inputs to the algorithms <img src="https://i.loli.net/2021/03/21/F7slOBkMJwWZqhT.png" /></li>
-</ul>
-<p>Online vs Offline</p>
-<p>An offline scheduling algorithm assumes that you know the sequence of processes that a scheduler will face</p>
-<ul>
-<li>Theoretical baseline</li>
-</ul>
-<p>An online scheduling algorithm does not have such an assumption.</p>
-<ul>
-<li>Practical use</li>
-</ul>
-<h2 id="algorithm-evaluation">Algorithm evaluation</h2>
-<ul>
-<li>Number of context switches</li>
-<li>Individual &amp; average <strong>turnaround time</strong></li>
-<li><p>Individual &amp; average <strong>waiting time</strong></p></li>
-<li>Turnaround time
-<ul>
-<li>The time between the arrival of the task and the termination of the task.</li>
-</ul></li>
-<li>Waiting time
-<ul>
-<li>The accumulated time that a task has waited for the CPU.</li>
-</ul></li>
-</ul>
-<h2 id="different-algorithms">Different algorithms</h2>
-<ul>
-<li>Algorithms
-<ul>
-<li>Shortest-job-first (SJF)</li>
-<li>Round-robin (RR)</li>
-<li>Priority scheduling with multiple queues.</li>
-<li>… (lab session)</li>
-</ul></li>
-</ul>
-<p>Assumption: context switch is free (in practice, it is expensive)</p>
-<h2 id="non-preemptive-sjf">Non-preemptive SJF</h2>
-<p><img src="https://i.loli.net/2021/03/21/xfnSV4osMLgOPZa.png" /></p>
-<p><img src="https://i.loli.net/2021/03/21/9MR4KfBxo7sDYhz.png" /></p>
-<p><img src="https://i.loli.net/2021/03/21/lB9zRy46YnLkTjr.png" /></p>
-<p><img src="https://i.loli.net/2021/03/21/wBD1MfZyPul7UW5.png" /></p>
-<p><img src="https://i.loli.net/2021/03/21/U2omBrqWPQGSfZv.png" /></p>
-<h2 id="sjf">SJF</h2>
-<p>Problem</p>
-<ul>
-<li>What if tasks arrive after P2 <strong>all have CPU requirement &lt; 3</strong>?</li>
-<li>Problem persists even for its preemptive version</li>
-</ul>
-<h2 id="preemptive-sjf">Preemptive SJF</h2>
-<p>-Whenever a new process arrives at the system, the scheduler steps in and selects the next task based on <strong>their remaining CPU requirements</strong>.</p>
-<p><img src="https://i.loli.net/2021/03/21/3lrxoLj7dniw5Ka.png" /></p>
-<p><img src="https://i.loli.net/2021/03/21/1ae9iMt8sRfDIjo.png" /></p>
-<p><img src="https://i.loli.net/2021/03/21/4f6Ux2JARFuaPoE.png" /></p>
-<p><img src="https://i.loli.net/2021/03/21/Z6as8k7mudDFfiM.png" /></p>
-<p><img src="https://i.loli.net/2021/03/21/FsBldWNebSG8w7c.png" /></p>
-<p><img src="https://i.loli.net/2021/03/21/lJrNDQ9vazxpgHC.png" /></p>
-<h2 id="sjf-preemptive-or-not">SJF: Preemptive or not?</h2>
-<p><img src="https://i.loli.net/2021/03/21/VuBWlwMxL7pcT64.png" /></p>
-<p>The waiting time and the turnaround time decrease at the expense of the <strong>increased number of context switches</strong>.</p>
-<p>Context switch is expensive. (That’s why we shall minimize the # of sys calls as well; on a syscall, the program switch from user-process to kernel-"process".)</p>
-<h2 id="round-robin">Round-robin</h2>
-<p>Round-Robin (RR) scheduling is preemptive.</p>
-<ul>
-<li>Every process is given a quantum, or the amount of time allowed to execute.</li>
-<li>Whenever the quantum of a process is used up (i.e., 0), the process releases the CPU and <strong>this is the preemption</strong>.</li>
-<li>Then, the scheduler steps in and it chooses <strong>the next process which has a non-zero quantum</strong> to run.</li>
-<li>If all processes in the system have used up the quantum, they will be re-charged to their initial values.</li>
-<li>Processes are therefore running one-by-one as a <strong>circular queue</strong>, for the basic version (i.e., no priority)
-<ul>
-<li>New processes are added to the tail of the ready queue</li>
-<li>New process arrives won’t trigger a new selection decision</li>
-</ul></li>
-</ul>
-<p><img src="https://i.loli.net/2021/03/21/RSJHhuLyW5ZPkDq.png" /></p>
-<p><img src="https://i.loli.net/2021/03/21/PySuCFQhDepj9gv.png" /></p>
-<p><img src="https://i.loli.net/2021/03/21/142FKhakDXcEjNB.png" /></p>
-<p><img src="https://i.loli.net/2021/03/21/A2kMB7UlGSZJvt6.png" /></p>
-<p><img src="https://i.loli.net/2021/03/21/th1KoP9UlYX2MLR.png" /></p>
-<p><img src="https://i.loli.net/2021/03/21/w5sMacbVl3YnAtU.png" /></p>
-<p><img src="https://i.loli.net/2021/03/21/oigfW1UG7lbIrC4.png" /></p>
-<p><img src="https://i.loli.net/2021/03/21/PJvspqBMNTcionh.png" /></p>
-<p><img src="https://i.loli.net/2021/03/21/ZQxCMDwrWbP24KA.png" /></p>
-<p><img src="https://i.loli.net/2021/03/21/79u3asq5nxIUOLX.png" /></p>
-<h2 id="rr-vs-sjf">RR VS SJF</h2>
-<p><img src="https://i.loli.net/2021/03/21/HdXVBU7jfAucJFh.png" /></p>
-<p>So, the RR algorithm gets all the bad! Why do we still need it?</p>
-<p>The <strong>responsiveness of the processes</strong> is great under the RR algorithm. E.g., you won’t feel a job is “frozen” because every job gets the CPU from time to time!</p>
-<h2 id="priority-scheduling">Priority Scheduling</h2>
-<ul>
-<li>A task is given a priority (and is usually an integer).</li>
-<li>A scheduler selects the next process based on the priority</li>
-<li>A higher priority process + RR = priority queue + new process arrival triggers a new selection</li>
-</ul>
-<p>Static priority</p>
-<ul>
-<li>Every task is given a fixed priority.</li>
-<li>The priority is <strong>fixed</strong> throughout the life of the task.</li>
-</ul>
-<p>Dynamic priority</p>
-<ul>
-<li>Every task is given an initial priority</li>
-<li>The priority is <strong>changing</strong> throughout the life of the task.</li>
-</ul>
-<h2 id="if-a-task-is-preempted-in-the-middle">If a task is preempted in the middle</h2>
-<p>Note:</p>
-<ul>
-<li>it has been dequeued</li>
-<li>Re-enqueue back to the queue</li>
-<li>Quantum preserved / recharge?
-<ul>
-<li>Depends
-<ul>
-<li>Preserved: need more book keeping</li>
-<li>Recharge: easy (assumed in this course)</li>
-</ul></li>
-</ul></li>
-</ul>
-<h2 id="static-priority-scheduling-an-example">Static priority scheduling – an example</h2>
-<p><strong>Properties</strong>: process is assigned a fix priority when they are submitted to the system.</p>
-<ul>
-<li>E.g., Linux kernel 2.6 has 100 priority classes, [0-99].</li>
-</ul>
-<p><img src="https://i.loli.net/2021/03/21/LErOoKeGtx1Mb5c.png" /></p>
-<ul>
-<li>The highest priority class will be selected.
-<ul>
-<li>The tasks are usually <strong>short-lived</strong>, but <strong>important</strong>;
-<ul>
-<li>To prevent high-priority tasks from running indefinitely</li>
-</ul></li>
-</ul></li>
-</ul>
-<p><img src="https://i.loli.net/2021/03/21/opFdfaKGsk9I4Cc.png" /></p>
-<p>Lower priority classes will be scheduled only when the upper priority classes has no tasks.</p>
-<p><img src="https://i.loli.net/2021/03/21/6WkCr5l4SEYA7pF.png" /></p>
-<h2 id="multiple-queue-priority-scheduling">Multiple queue priority scheduling</h2>
-<p>Definitions</p>
-<ul>
-<li>It is still a priority scheduler.</li>
-<li>But, at each priority class, different schedulers may be deployed.</li>
-<li>The priority can be a mix of static and dynamic.</li>
-</ul>
-<p><img src="https://i.loli.net/2021/03/21/4ur79GhJRp5DI3C.png" /></p>
-<p>Real example, the Linux Scheduler.</p>
-<ul>
-<li>A multiple queue, (kind of) static priority scheduler</li>
-</ul>
-<p><img src="https://i.loli.net/2021/03/21/NbPXLg94BctGJeE.png" /></p>
-<p><img src="https://i.loli.net/2021/03/21/TSKDFktNyqGfp81.png" /></p>
-<p><img src="https://i.loli.net/2021/03/21/UAJGqMZQ4d75Sh8.png" /></p>
-<p>Do you notice that real (Linux) scheduler does not rely on task’s CPU (remaining) requirement values?</p>
-<p>That is because in practice it’s very difficult to estimate how much CPU time a task needs – CPU is very complicated nowadays:</p>
-<ul>
-<li>Superscalar</li>
-<li>Out-of-order execution (OOE)</li>
-<li>Branch prediction</li>
-</ul>
-<h2 id="recall-four-fundamental-os-concepts">Recall: Four Fundamental OS Concepts</h2>
-<ul>
-<li>Thread
-<ul>
-<li>Single unique execution context: fully describes program state</li>
-<li>Program Counter, Registers, Execution Flags, Stack</li>
-</ul></li>
-<li>Address space (with translation)
-<ul>
-<li>Programs execute in an <strong>address space</strong> that is distinct from the memory space of the physical machine</li>
-</ul></li>
-<li>Process
-<ul>
-<li>An instance of an executing program is <strong>a process consisting of an address space and one or more threads of control</strong></li>
-</ul></li>
-<li>Dual mode operation / Protection
-<ul>
-<li>Only the "system" has the ability to access certain resources</li>
-<li>The OS and the hardware are protected from user programs and user programs are isolated from one another by <strong>controlling the translation</strong> from program virtual addresses to machine physical addresses.</li>
-</ul></li>
-</ul>
-<h2 id="recall-process-what-we-knew-so-far">Recall: Process (What we knew so far)</h2>
-<ul>
-<li>Process: An instance of an executing program
-<ul>
-<li>An address space,</li>
-<li>One or more threads of control</li>
-</ul></li>
-<li><p><strong>Heavyweight</strong> process: a process has a single thread of control</p></li>
-<li>Two properties of heavyweight process
-<ul>
-<li>Sequential program execution stream
-<ul>
-<li>Active part</li>
-</ul></li>
-<li>Protected resource
-<ul>
-<li>Passive part</li>
-</ul></li>
-</ul></li>
-</ul>
-<h2 id="modern-process-with-threads">Modern Process with Threads</h2>
-<ul>
-<li>Thread: a <em>sequential execution stream within process</em> (Sometimes called a <strong>"Lightweight process"</strong>)
-<ul>
-<li>Process still contains a single Address Space</li>
-<li>No protection between threads</li>
-</ul></li>
-<li>Multithreading: <strong>a single program made up of a number of different concurrent activities</strong>
-<ul>
-<li>Sometimes called multitasking, as in Ada …</li>
-</ul></li>
-<li>Why separate the concept of a thread from that of a process?
-<ul>
-<li>Discuss the “thread” part of a process (<strong>concurrency</strong>, <strong>parallelism</strong>)</li>
-<li>Separate from the “address space” (protection)</li>
-<li><em>Heavyweight Process  Process with one thread</em></li>
-</ul></li>
-</ul>
-<h2 id="single-and-multithreaded-processes">Single and Multithreaded Processes</h2>
-<p><img src="https://i.loli.net/2021/03/21/hw4nLtPEGrJSWFH.png" /></p>
-<ul>
-<li>Threads encapsulate concurrency: <strong>"Active"</strong> component</li>
-<li>Address spaces encapsulate protection: <strong>"Passive"</strong> part
-<ul>
-<li>Keeps buggy program from trashing the system</li>
-</ul></li>
-</ul>
-<h2 id="threads-in-a-process">Threads in a Process</h2>
-<ul>
-<li>Threads are useful at user-level: parallelism, hide I/O latency, interactivity</li>
-<li>Option A (early Java): user-level library, one multi-threaded process
-<ul>
-<li>Library does thread context switch</li>
-<li>Kernel time slices between processes, e.g., on system call I/O</li>
-</ul></li>
-<li>Option B (SunOS, Linux/Unix variants): many single-threaded processes</li>
-<li>Option C (Windows): scheduler activations
-<ul>
-<li>Kernel allocates processes to user-level library</li>
-<li>Thread library implements context switch</li>
-<li>System call I/O that blocks triggers up-call(向上调用)</li>
-</ul></li>
-<li>Option D (Linux, MacOS, Windows): use kernel thread
-<ul>
-<li>System calls for thread fork, join, exit (and lock, unlock,…)</li>
-<li>Kernel does context switching</li>
-<li>Simple, but a lot of transitions between user and kernel mode</li>
-</ul></li>
-</ul>
-<h2 id="thread-state">Thread State</h2>
-<ul>
-<li>State shared by all threads in process/address space
-<ul>
-<li>Content of memory (global variables, heap)</li>
-<li>I/O state (file descriptors, network connections, etc)</li>
-</ul></li>
-<li>State "private" to each thread
-<ul>
-<li>Kept in <strong>TCB = Thread Control Block</strong></li>
-<li>CPU registers (including, program counter)</li>
-<li>Execution stack – what is this?</li>
-</ul></li>
-<li>Execution Stack
-<ul>
-<li>Parameters, temporary variable</li>
-<li>Return PCs are kept while called procedures are executing</li>
-</ul></li>
-</ul>
-<h2 id="shared-vs.-per-thread-state">Shared vs. Per-Thread State</h2>
-<p><img src="https://i.loli.net/2021/03/21/CVwTcXiEUdlanz3.png" /></p>
-<h2 id="execution-stack-example">Execution Stack Example</h2>
-<p><img src="https://i.loli.net/2021/03/21/qCFatinEZPGmAgz.png" /></p>
-<h2 id="thread-lifecycle">Thread Lifecycle</h2>
-<p><img src="https://i.loli.net/2021/03/21/GUYc5SwleOmhyn3.png" /></p>
-<h2 id="multithreaded-processes">Multithreaded Processes</h2>
-<ul>
-<li>Multithreaded Processes</li>
-<li>Thread Control Blocks (TCBs):</li>
-</ul>
-<p><img src="https://i.loli.net/2021/03/21/L1oCDs4WH9A5vem.png" /></p>
-<ul>
-<li>Switching threads within a block is a simple thread switch</li>
-<li>Switching threads across blocks requires changes to memory and I/O address tables</li>
-</ul>
-<h2 id="putting-it-together-process">Putting it Together: Process</h2>
-<p><img src="https://i.loli.net/2021/03/21/flWQw84Xq3InPKa.png" /></p>
-<h2 id="putting-it-together-processes">Putting it Together: Processes</h2>
-<p><img src="https://i.loli.net/2021/03/21/FVRAfGEohTvJwn5.png" /></p>
-<ul>
-<li>Switch overhead: high
-<ul>
-<li>CPU state: low</li>
-<li>Memory/IO state: high</li>
-</ul></li>
-<li>Process creation: high</li>
-<li>Protection
-<ul>
-<li>CPU: yes</li>
-<li>Memory/IO: yes</li>
-</ul></li>
-<li>Sharing overhead: high (involves at least a context switch)</li>
-</ul>
-<h2 id="putting-it-together-threads">Putting it Together: Threads</h2>
-<p><img src="https://i.loli.net/2021/03/21/lS5TiQB3hy2wIac.png" /></p>
-<ul>
-<li>Switch overhead: low (as only CPU state)</li>
-<li>Thread creation: low</li>
-<li>Protection
-<ul>
-<li>CPU: yes</li>
-<li>Memory/IO: no</li>
-</ul></li>
-<li>Sharing overhead: low(thread switch overhead low)</li>
-</ul>
-<h2 id="putting-it-together-multi-cores">Putting it Together: Multi-Cores</h2>
-<p><img src="https://i.loli.net/2021/03/21/E7OACRQ82WxmDv4.png" /></p>
-<ul>
-<li>Switch overhead: low (only CPU state)</li>
-<li>Thread creation: low</li>
-<li>Protection
-<ul>
-<li>CPU: yes</li>
-<li>Memory/IO: No</li>
-</ul></li>
-<li>Sharing overhead:
-<ul>
-<li>low (thread switch overhead low, may not need to switch CPU at all!)</li>
-</ul></li>
-</ul>
-<h2 id="simultaneous-multithreadinghyperthreading">Simultaneous MultiThreading/Hyperthreading</h2>
-<ul>
-<li>Hardware technique
-<ul>
-<li>Superscalar processors can execute multiple instructions that are independent</li>
-<li>Hyperthreading duplicates register state to make a second “thread,” allowing more instructions to run</li>
-</ul></li>
-<li>Can schedule each thread as if were separate CPU
-<ul>
-<li>But, sub-linear speedup!</li>
-</ul></li>
-<li>Original called "Simultaneous Multithreading"
-<ul>
-<li><a target="_blank" rel="noopener" href="http://www.cs.washington.edu/research/smt/index.html">http://www.cs.washington.edu/research/smt/index.html</a></li>
-<li>Intel, SPARC, Power (IBM)</li>
-<li>A virtual core on AWS’ EC2 is basically a hyperthread</li>
-</ul></li>
-</ul>
-<h2 id="putting-it-together-hyper-threading">Putting it Together: Hyper-Threading</h2>
-<p><img src="https://i.loli.net/2021/03/21/RdVeTqyZ8E6J79G.png" /></p>
-<ul>
-<li>Switch overhead between
-<ul>
-<li>hardware-threads: very-low (done in hardware)</li>
-</ul></li>
-<li>Contention for ALUs/FPUs may hurt performance</li>
-</ul>
-<h2 id="multiprocessing-vs-multiprogramming">Multiprocessing vs Multiprogramming</h2>
-<ul>
-<li>Remember Definitions:
-<ul>
-<li>Multiprocessing <span class="math inline">\(\equiv\)</span> Multiple CPUs</li>
-<li>Multiprogramming <span class="math inline">\(\equiv\)</span> Multiple Jobs or Processes</li>
-<li>Multithreading <span class="math inline">\(\equiv\)</span> Multiple threads per Process</li>
-</ul></li>
-<li>What does it mean to run two threads “concurrently”?
-<ul>
-<li>Scheduler is free to run threads in any order and interleaving: FIFO, Random, …</li>
-<li>Dispatcher(调度器) can choose to run each thread to completion or time-slice in big chunks or small chunks</li>
-</ul></li>
-</ul>
-<p><img src="https://i.loli.net/2021/03/21/9EvxMH6kUKApa71.png" /></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -2845,7 +2372,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">22</span>
+          <span class="site-state-item-count">24</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
